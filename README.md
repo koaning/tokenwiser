@@ -1,2 +1,2 @@
 # tokenwiser
-Embeddings from a wise-guy. 
+Attempts of lightweight embeddings from a wise-guy. 
