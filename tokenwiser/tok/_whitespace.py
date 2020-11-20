@@ -6,4 +6,4 @@ class WhiteSpaceTokenizer(Tok):
         pass
 
     def encode_single(self, x):
-        return x.split(" ")
+        return [r for r in x.split(" ") if r != '']
