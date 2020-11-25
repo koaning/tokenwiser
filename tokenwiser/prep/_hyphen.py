@@ -1,8 +1,10 @@
 import pyphen
+from sklearn.base import BaseEstimator
+
 from tokenwiser.prep._prep import Prep
 
 
-class HyphenPrep(Prep):
+class HyphenPrep(Prep, BaseEstimator):
     def __init__(self, lang="en_GB"):
         self.dic = pyphen.Pyphen(lang=lang)
 

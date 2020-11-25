@@ -1,7 +1,9 @@
+from sklearn.base import BaseEstimator
+
 from tokenwiser.prep._prep import Prep
 
 
-class Cleaner(Prep):
+class Cleaner(Prep, BaseEstimator):
     def __init__(self):
         pass
 

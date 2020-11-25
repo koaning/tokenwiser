@@ -1,3 +1,5 @@
+<img src="token.png" width=125 height=125 align="right">
+
 # tokenwiser
 
 Attempts of lightweight embeddings from a wise-guy. 
