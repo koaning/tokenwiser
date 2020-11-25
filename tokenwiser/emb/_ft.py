@@ -1,22 +1,20 @@
 import numpy as np
-from gensim.models import Word2Vec
-
+from gensim.models import FastText
 from tokenwiser.emb._emb import Emb
 
 
 class Gensim(Emb):
-    def __init__(self, dim=100, window=5, min_count=1, workers=4, epochs=10, learning_rate=0.01):
+    def __init__(self, dim=100, window=5, min_count=1, workers=4, epochs=10, min_n=3, max_n=6):
         self.dim = dim
         self.window = window
         self.min_count = min_count
         self.workers = workers
         self.epochs = epochs
-        self.learning_rate = learning_rate
 
     def fit(self, X, y=None):
-        self.model = Word2Vec(size=self.dim, window=self.window, min_count=self.min_count, workers=self.workers, alpha=self.learning_rate)
+        self.model = FastText(size=self.dim, window=self.window, min_count=self.min_count, workers=self.workers, min_n=3, max_n=6)
         self.model.build_vocab(X)
-        self.model.train(X, total_examples=self.model.corpus_count, epochs=self.epochs)
+        self.model.train(X, total_examples=self.model.corpus_count, epochs=10)
         return self
 
     def fit_partial(self, X):
