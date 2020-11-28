@@ -11,8 +11,5 @@ class BytePair(Emb):
     def from_file(cls):
         pass
 
-    def transform(self, tokens, y=None):
-        return [self.encode_single(t) for t in tokens]
-
-    def encode_single(self, token):
-        return Embedding(name=token, vec=self.model.embed(token))
+    def encode_single(self, tokens):
+        return [Embedding(name=t, vec=self.model.embed(t)) for t in tokens]
