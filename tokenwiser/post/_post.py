@@ -1,12 +1,12 @@
 from abc import ABC, abstractmethod
 
 
-class Emb(ABC):
+class Post(ABC):
     def fit(self, X, y=None):
-        raise NotImplementedError("not implemented")
+        return self
 
     def fit_partial(self, X):
-        raise NotImplementedError("not implemented")
+        return self
 
     @abstractmethod
     def encode_single(self, x):
@@ -19,8 +19,5 @@ class Emb(ABC):
     def transform(self, X, y=None):
         return [self.encode_single(x) for x in X]
 
-
-class Embedding:
-    def __init__(self, name, vec):
-        self.name = name
-        self.vec = vec
+    def save(self, folder):
+        pass
