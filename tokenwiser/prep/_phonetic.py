@@ -11,10 +11,13 @@ class PhoneticPrep(Prep, BaseEstimator):
     Arguments:
         kind: type of encoding, either `"soundex"`, "`metaphone`" or `"nysiis"`
     """
+
     def __init__(self, kind="soundex"):
-        methods = {"soundex": jellyfish.soundex,
-                   "metaphone": jellyfish.metaphone,
-                   "nysiis": jellyfish.nysiis}
+        methods = {
+            "soundex": jellyfish.soundex,
+            "metaphone": jellyfish.metaphone,
+            "nysiis": jellyfish.nysiis,
+        }
         self.method = methods[kind]
 
     def encode_single(self, x):
