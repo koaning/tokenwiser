@@ -18,24 +18,13 @@ def test_can_no_emb_pipeline():
 def test_can_train_pipeline():
     input_text = pathlib.Path("tests/data/nlp.txt").read_text().split("\n")
     pipe = Pipeline(
-        Cleaner(),
-        WhiteSpaceTokenizer(),
-        Gensim(dim=25, epochs=1),
-        Pooling()
+        Cleaner(), WhiteSpaceTokenizer(), Gensim(dim=25, epochs=1), Pooling()
     )
     assert pipe.fit(input_text).transform(input_text).shape == (len(input_text), 25)
 
 
 def test_can_train_split_pipeline():
     input_text = pathlib.Path("tests/data/nlp.txt").read_text().split("\n")
-    prep_pipe = Pipeline(
-        Cleaner(),
-        HyphenPrep(),
-        WhiteSpaceTokenizer()
-    )
-    pipe = Pipeline(
-        prep_pipe,
-        Gensim(dim=25, epochs=1),
-        Pooling()
-    )
+    prep_pipe = Pipeline(Cleaner(), HyphenPrep(), WhiteSpaceTokenizer())
+    pipe = Pipeline(prep_pipe, Gensim(dim=25, epochs=1), Pooling())
     assert pipe.fit(input_text).transform(input_text).shape == (len(input_text), 25)
