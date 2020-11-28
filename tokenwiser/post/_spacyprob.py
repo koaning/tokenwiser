@@ -16,6 +16,11 @@ class SpacyProb(Post):
         self.alpha = alpha
 
     def encode_single(self, embs):
-        weights = [(1-self.alpha) + self.alpha / np.exp(self.model.vocab[e.name].prob) for e in embs]
-        weights = np.array(weights) / sum(weights)
+        weights = [
+            (1 - self.alpha) + self.alpha / np.exp(self.model.vocab[e.name].prob)
+            for e in embs
+        ]
+        weights = self.alpha * np.array(weights) / sum(weights) + (
+            1 - self.alpha
+        ) * np.ones(len(weights))
         return [Embedding(name=e.name, vec=e.vec * w) for w, e in zip(weights, embs)]
