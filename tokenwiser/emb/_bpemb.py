@@ -1,3 +1,4 @@
+import numpy as np
 from tokenwiser.emb._emb import Emb, Embedding
 from bpemb import BPEmb
 
@@ -12,4 +13,6 @@ class BytePair(Emb):
         pass
 
     def encode_single(self, tokens):
+        if len(tokens) == 0:
+            return [Embedding("", vec=np.zeros(self.dim))]
         return [Embedding(name=t, vec=self.model.embed(t)) for t in tokens]
