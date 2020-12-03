@@ -41,7 +41,7 @@ class PointSplitProjection(BaseEstimator, TransformerMixin):
         i1, i2 = self.indices_[i]
         v1, v2 = self.X_[i1, :], self.X_[i2, :]
         m = np.array([v1, v2]).mean(axis=0)
-        return new_X @ (proj_away(v2 - v1, mv)) > mv.dot(proj_away(v2 - v1, mv))
+        return new_X @ (proj_away(v2 - v1, m)) > m.dot(proj_away(v2 - v1, m))
 
     def transform(self, X, y=None):
         result = np.zeros((X.shape[0], self.n_components))
