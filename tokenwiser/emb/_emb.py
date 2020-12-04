@@ -12,7 +12,7 @@ class Emb(ABC):
     def encode_single(self, x):
         pass
 
-    def pipe(self, X):
+    def pipe(self, X, y=None):
         for x in X:
             yield self.encode_single(x)
 
