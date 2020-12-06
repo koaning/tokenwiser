@@ -14,7 +14,7 @@ A playful tool to explore text embedding hacks.
 
 ## Signatures 
 
-```
+```python
 prep:       str -> str
 tok:        str -> List[str]
 emb:  List[str] -> List[emb]
