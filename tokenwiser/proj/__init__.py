@@ -1,5 +1,7 @@
 import numpy as np
 from sklearn.base import TransformerMixin, BaseEstimator
+from sklearn.utils import check_array
+from sklearn.utils.validation import check_is_fitted
 
 
 class BinaryRandomProjection(BaseEstimator, TransformerMixin):
@@ -9,11 +11,13 @@ class BinaryRandomProjection(BaseEstimator, TransformerMixin):
         self.threshold = threshold
 
     def fit(self, X, y=None):
+        X = check_array(X)
         np.random.seed(self.random_seed)
         self.proj_ = np.random.normal(0, 1, (X.shape[1], self.n_components))
         return self
 
     def transform(self, X, y=None):
+        check_is_fitted(self, ["proj_"])
         return (X @ self.proj_ > self.threshold).astype(np.int8)
 
 
@@ -33,6 +37,7 @@ class PointSplitProjection(BaseEstimator, TransformerMixin):
         self.random_seed = random_seed
 
     def fit(self, X, y=None):
+        X = check_array(X)
         self.X_ = X
         self.indices_ = [tuple(np.random.randint(0, X.shape[0], 2)) for t in range(self.n_components)]
         return self
@@ -44,6 +49,9 @@ class PointSplitProjection(BaseEstimator, TransformerMixin):
         return new_X @ (proj_away(v2 - v1, m)) > m.dot(proj_away(v2 - v1, m))
 
     def transform(self, X, y=None):
+        check_is_fitted(self, ["X_", "indices_"])
+        if X.shape[1] != self.X_.shape[1]:
+            raise ValueError(f"shapes train/transform do not match. {X.shape[1]} vs {self.X_.shape[1]}")
         result = np.zeros((X.shape[0], self.n_components))
         for col in range(self.n_components):
             result[:, col] = self.generate_feature_(X, col)

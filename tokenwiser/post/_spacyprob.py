@@ -6,6 +6,10 @@ from tokenwiser.emb._emb import Embedding
 
 
 class SpacyProb(Post):
+    """
+    Applies a weighting factor to all vectors based on token likelihood.
+    If a token is likely to appear, it's vector is weighted less.
+    """
     def __init__(self, spacy_mod, alpha=1.0):
         if isinstance(spacy_mod, str):
             self.model = spacy.load(spacy_mod)

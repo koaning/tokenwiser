@@ -4,6 +4,9 @@ from tokenwiser.prep._prep import Prep
 
 
 class Cleaner(Prep, BaseEstimator):
+    """
+    Applies a lowercase and removes non-alphanum.
+    """
     def __init__(self):
         pass
 
