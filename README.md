@@ -20,5 +20,11 @@ tok:        str -> List[str]
 emb:  List[str] -> List[emb]
 post: List[emb] -> List[emb]
 pool: List[emb] -> np.array
+```
+
+We also have some extra utilities.
+
+```
+lang        str -> np.array
 proj   np.array -> np.array
 ```
