@@ -2,7 +2,7 @@
 
 # tokenwiser
 
-A playful tool to explore text embedding hacks. 
+Bag of, not words, but tricks!
 
 ## SubModules
 
