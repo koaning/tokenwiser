@@ -2,11 +2,15 @@
 
 # tokenwiser
 
-Bag of, not words, but tricks!
+> Bag of, not words, but tricks!
+
+This project contains a couple of scikit-learn compatible "tricks" that I've used in
+NLP experiments. This library is mainly meant to suit my own needs, but anyone is free
+to copy the code here. 
 
 ## SubModules
 
-1. `.prep`: Contains string preprocessing tools. Takes a string in and pushes a string out. Trainable. 
+1. `.prep`: Contains string pre-processing tools. Takes a string in and pushes a string out. Trainable. 
 2. `.tok`: Contains things that take stings and output iterables. Trainable.
 3. `.emb`: Accepts tokens and trains to be able to embed. Trainable.
 4. `.post`: Is able to apply postprocessing. Trainable
@@ -24,7 +28,7 @@ pool: List[emb] -> np.array
 
 We also have some extra utilities.
 
-```
+```python
 lang        str -> np.array
 proj   np.array -> np.array
 ```
