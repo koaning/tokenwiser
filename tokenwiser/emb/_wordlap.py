@@ -7,9 +7,8 @@ from tokenwiser.common import flatten
 from nltk.corpus import wordnet
 
 
-class Wordlap(Emb, BaseEstimator):
+class Wordlap(BaseEstimator, Emb):
     def __init__(self, wordnet_depth=5):
-        print("start")
         self.corpus = {}
         self.wordnet_depth = wordnet_depth
 

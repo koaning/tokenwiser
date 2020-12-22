@@ -8,6 +8,7 @@ base_packages = [
     "scikit-learn>=0.23.2",
     "PyYAML>=5.3.1",
     "typer==0.3.2",
+    "spacy-nightly"
 ]
 dev_packages = [
     "flake8>=3.6.0",

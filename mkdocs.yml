@@ -1,8 +1,8 @@
-site_name: Memo Docs
+site_name: tokenwiser
 extra_css: [style.css]
 repo_url: https://github.com/koaning/memo
 site_url: https://koaning.github.io/memo/
-site_description: Makes things a whole log simpler.
+site_description: Bag of, not words, but tricks!
 site_author: Vincent D. Warmerdam
 use_directory_urls: false
 nav:
