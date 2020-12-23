@@ -10,8 +10,8 @@ nav:
   - Guides:
       - Snippets: snippets.md
   - API:
-      - Grab: api.md
-      - Utility: util.md
+      - tok: tok.md
+      - prep: prep.md
 plugins:
   - mkdocstrings:
       watch:

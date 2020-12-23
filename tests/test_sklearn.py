@@ -2,7 +2,7 @@ import pytest
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import CountVectorizer
 
-from tokenwiser.prep import Cleaner, HyphenPrep, PhoneticPrep, SpacyTextPrep, SpacyMorphPrep
+from tokenwiser.prep import Cleaner, HyphenPrep, PhoneticPrep, SpacyLemmaPrep, SpacyMorphPrep
 from tokenwiser.pool import Pooling
 from tokenwiser.tok import WhiteSpaceTokenizer
 from tokenwiser.emb import Gensim
@@ -17,7 +17,7 @@ prep_list = [
     PhoneticPrep(kind="soundex"),
     PhoneticPrep(kind="metaphone"),
     PhoneticPrep(kind="nysiis"),
-    SpacyTextPrep(nlp),
+    SpacyLemmaPrep(nlp),
     SpacyMorphPrep(nlp),
 ]
 
