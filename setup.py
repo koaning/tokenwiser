@@ -11,7 +11,8 @@ base_packages = [
     "spacy>=3.0",
     "yake-github>=0.4.0",
     "rich>=9.2.0",
-    "mktestdocs>=0.1.0"
+    "mktestdocs>=0.1.0",
+    "bpemb>=0.3.2"
 ]
 
 dev_packages = [
