@@ -1,17 +1,20 @@
-# Welcome to MkDocs
+<img src="token.png" width=125 height=125 align="right">
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+# tokenwiser
 
-## Commands
+> Bag of, not words, but tricks!
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+This project contains a couple of scikit-learn compatible "tricks" that I've used in
+NLP experiments. It's a collection of tricks for sparse data.
 
-## Project layout
+## SubModules
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+1. `.prep`: Contains string pre-processing tools. Takes a string in and pushes a string out.  
+2. `.tok`: Contains things that take stings and output iterables. 
+
+We also have some extra utilities.
+
+## Featurizer 
+
+- Make a simple featurizer that will check if a word appears.
+- Make a simple featurizer that will check if a regex appears.

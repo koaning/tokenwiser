@@ -18,6 +18,3 @@ class Prep(ABC):
 
     def transform(self, X, y=None):
         return [self.encode_single(x) for x in X]
-
-    def save(self, folder):
-        pass
