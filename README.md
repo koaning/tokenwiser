@@ -2,7 +2,7 @@
 
 # tokenwiser
 
-> Bag of, not words, but tricks!
+> Bag of, not just words, but tricks!
 
 This project contains a couple of scikit-learn compatible "tricks" that I've used in
 NLP experiments. This library is mainly meant to suit my own needs, but anyone is free
