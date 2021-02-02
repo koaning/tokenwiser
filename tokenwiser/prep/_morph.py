@@ -4,11 +4,13 @@ from tokenwiser.prep._prep import Prep
 
 
 class SpacyMorphPrep(Prep, BaseEstimator):
-    """Adds morphologic information to tokens in text.
+    """
+    Adds morphologic information to tokens in text.
 
     Usage:
 
     ```python
+    import spacy
     from tokenwiser.prep import SpacyMorphPrep
 
     nlp = spacy.load("en_core_web_sm")
@@ -19,21 +21,27 @@ class SpacyMorphPrep(Prep, BaseEstimator):
     assert example2 == "hey| look|VerbForm=Inf a|Definite=Ind|PronType=Art duck|Number=Sing"
     ```
     """
-    def __init__(self, model):
+    def __init__(self, model, lemma=False):
         self.model = model
+        self.lemma = lemma
 
     def encode_single(self, text):
-        return " ".join([f"{t.text}|{t.morph}" for t in self.model(text)])
+        return " ".join([f"{t.text if not self.lemma else t.lemma_}|{t.morph}" for t in self.model(text)])
 
 
 class SpacyPosPrep(Prep, BaseEstimator):
     """
     Adds part of speech information per token using spaCy.
 
+    Arguments:
+        model: the spaCy model to use
+        lemma: also lemmatize the text
+
     Usage:
 
     ```python
-    from tokenwiser.prep import SpacyMorphPrep
+    import spacy
+    from tokenwiser.prep import SpacyPosPrep
 
     nlp = spacy.load("en_core_web_sm")
     example1 = SpacyPosPrep(nlp).encode_single("we need to duck")
@@ -43,11 +51,13 @@ class SpacyPosPrep(Prep, BaseEstimator):
     assert example2 == "hey|INTJ look|VERB a|DET duck|NOUN"
     ```
     """
-    def __init__(self, model):
+    def __init__(self, model, lemma=False, fine_grained=False):
         self.model = model
+        self.lemma = lemma
+        self.fine_grained = fine_grained
 
     def encode_single(self, text):
-        return " ".join([f"{t.text}|{str(t.pos_)}" for t in self.model(text)])
+        return " ".join([f"{t.text if not self.lemma else t.lemma_}|{t.tag_ if self.fine_grained else t.pos_}" for t in self.model(text)])
 
 
 class SpacyLemmaPrep(Prep, BaseEstimator):
@@ -57,7 +67,8 @@ class SpacyLemmaPrep(Prep, BaseEstimator):
     Usage:
 
     ```python
-    from tokenwiser.prep import SpacyMorphPrep
+    import spacy
+    from tokenwiser.prep import SpacyLemmaPrep
 
     nlp = spacy.load("en_core_web_sm")
     example1 = SpacyLemmaPrep(nlp).encode_single("we are running")

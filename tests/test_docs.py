@@ -1,11 +1,11 @@
 from tokenwiser.tok import SpacyTokenizer, WhiteSpaceTokenizer
-from tokenwiser.prep import Cleaner, HyphenPrep, SpacyMorphPrep, SpacyPosPrep, SpacyLemmaPrep
+from tokenwiser.prep import Cleaner, HyphenPrep, SpacyMorphPrep, SpacyPosPrep, SpacyLemmaPrep, YakePrep
 
 import pytest
 from mktestdocs import check_docstring
 
 components = [
-    SpacyTokenizer, WhiteSpaceTokenizer, Cleaner, HyphenPrep, SpacyMorphPrep, SpacyPosPrep, SpacyLemmaPrep
+    SpacyTokenizer, WhiteSpaceTokenizer, Cleaner, HyphenPrep, SpacyMorphPrep, SpacyPosPrep, SpacyLemmaPrep, YakePrep
 ]
 
 

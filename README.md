@@ -16,6 +16,12 @@ to copy the code here.
 4. `.post`: Is able to apply postprocessing. Trainable
 5. `.pool`: If there are multiple tokens, pool them into a single vector. Trainable. 
 
+We've also got some bonus tools. 
+
+6. `.lang`: Pretrained languages
+7. `.feat`: Featurizers
+8. `.proj`: Projection Utilities
+
 ## Signatures 
 
 ```python
@@ -30,5 +36,14 @@ We also have some extra utilities.
 
 ```python
 lang        str -> np.array
+feat        str -> np.array
 proj   np.array -> np.array
 ```
+
+# TODO 
+
+## Featurizer 
+
+- Make a simple featurizer that will check if a word appears.
+- Make a simple featurizer that will check if a regex appears.
+- Make a simple feature that will remove stopwords.
