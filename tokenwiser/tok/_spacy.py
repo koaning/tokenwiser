@@ -22,10 +22,8 @@ class SpacyTokenizer(Tok, BaseEstimator):
     nlp = spacy.load("en_core_web_sm")
     tok = SpacyTokenizer(model=nlp)
 
-    single = tok.encode_single("hello world")
+    single = tok("hello world")
     assert single == ["hello", "world"]
-    multi = tok.transform(["hello world", "it is me"])
-    assert multi == [['hello', 'world'], ['it', 'is', 'me']]
     ```
     """
     def __init__(self, model, lemma=False, stop=False):
@@ -33,7 +31,7 @@ class SpacyTokenizer(Tok, BaseEstimator):
         self.lemma = lemma
         self.stop = stop
 
-    def encode_single(self, text):
+    def __call__(self, text):
         if self.stop:
             return [t.lemma_ if self.lemma else t.text for t in self.model(text) if not t.is_stop]
         return [t.lemma_ if self.lemma else t.text for t in self.model(text)]

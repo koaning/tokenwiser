@@ -12,14 +12,13 @@ class WhiteSpaceTokenizer(Tok, BaseEstimator):
     ```python
     from tokenwiser.tok import WhiteSpaceTokenizer
 
-    single = WhiteSpaceTokenizer().encode_single("hello world")
+    tok = WhiteSpaceTokenizer()
+    single = tok("hello world")
     assert single == ["hello", "world"]
-    multi = WhiteSpaceTokenizer().transform(["hello world", "it is me"])
-    assert multi == [['hello', 'world'], ['it', 'is', 'me']]
     ```
     """
     def __init__(self):
         pass
 
-    def encode_single(self, x):
-        return [r for r in x.split(" ") if r != ""]
+    def __call__(self, text):
+        return [r for r in text.split(" ") if r != ""]
