@@ -10,7 +10,7 @@ from tests.conftest import nonmeta_checks, general_checks, transformer_checks, s
     "test_fn",
     select_tests(
         flatten([nonmeta_checks, transformer_checks, general_checks]),
-        exclude=["check_transformer_data_not_an_array", "check_estimators_nan_inf", "check_fit2d_predict1d"],
+        exclude=["check_transformer_data_not_an_array", "check_estimators_nan_inf", "check_fit2d_predict1d", "check_sample_weights_invariance"],
     ),
 )
 def test_estimator_checks_binary(test_fn):
@@ -22,7 +22,7 @@ def test_estimator_checks_binary(test_fn):
     "test_fn",
     select_tests(
         flatten([nonmeta_checks, transformer_checks, general_checks]),
-        exclude=["check_transformer_data_not_an_array", "check_estimators_nan_inf", "check_fit2d_predict1d", "check_transformer_general", "check_pipeline_consistency"],
+        exclude=["check_transformer_data_not_an_array", "check_sample_weights_invariance", "check_estimators_nan_inf", "check_fit2d_predict1d", "check_transformer_general", "check_pipeline_consistency"],
     ),
 )
 def test_estimator_checks_split(test_fn):
