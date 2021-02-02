@@ -9,6 +9,7 @@ base_packages = [
     "PyYAML>=5.3.1",
     "typer==0.3.2",
     "spacy>=3.0",
+    "yake-github>=0.4.0"
 ]
 
 dev_packages = [
