@@ -4,8 +4,8 @@
 
 > Bag of, not just words, but tricks!
 
-This project contains a couple of scikit-learn compatible "tricks" that I've used in
-NLP experiments. It's a collection of tricks for sparse data.
+This project contains a couple of scikit-learn/vowpal wabbit/spacy compatible "tricks" that I've used in
+NLP experiments. It's meant as a celebration of tricks using sparse techniques.
 
 ## SubModules
 
