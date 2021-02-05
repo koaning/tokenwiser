@@ -9,7 +9,6 @@ base_packages = [
     "spacy>=3.0",
     "yake-github>=0.4.0",
     "rich>=9.2.0",
-    "mktestdocs>=0.1.0",
 ]
 
 dev_packages = [
@@ -17,6 +16,13 @@ dev_packages = [
     "pytest>=4.0.2",
     "jupyter>=1.0.0",
     "jupyterlab>=0.35.4",
+    "mktestdocs>=0.1.0",
+]
+
+docs_packages = [
+    "mkdocs==1.1.2",
+    "mkdocs-material==6.2.8",
+    "mkdocstrings==0.14.0"
 ]
 
 
