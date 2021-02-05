@@ -9,5 +9,5 @@ NLP experiments. It's a collection of tricks for sparse data.
 
 ## SubModules
 
-1. `.prep`: Contains string pre-processing tools. Takes a string in and pushes a string out.  
-2. `.tok`: Contains things that take stings and output iterables. 
+1. `.prep`: Contains string pre-processing tools for scikit-learn. Meant as a preprocessing step before a countvectorizer.  
+ 
