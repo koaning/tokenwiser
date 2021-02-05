@@ -31,3 +31,13 @@ Tokenisers are pipeline components that take a string and output a list of strin
     rendering:
         show_root_full_path: false
         show_root_heading: true
+
+::: tokenwiser.prep.TextConcat
+    rendering:
+        show_root_full_path: false
+        show_root_heading: true
+
+::: tokenwiser.prep.make_concat
+    rendering:
+        show_root_full_path: false
+        show_root_heading: true

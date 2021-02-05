@@ -33,6 +33,7 @@ class PhoneticPrep(Prep, BaseEstimator):
             "metaphone": jellyfish.metaphone,
             "nysiis": jellyfish.nysiis,
         }
+        self.kind = kind
         self.method = methods[kind]
 
     def encode_single(self, x):

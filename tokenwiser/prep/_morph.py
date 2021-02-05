@@ -36,6 +36,7 @@ class SpacyPosPrep(Prep, BaseEstimator):
     Arguments:
         model: the spaCy model to use
         lemma: also lemmatize the text
+        fine_grained: use fine grained parts of speech
 
     Usage:
 
@@ -58,6 +59,9 @@ class SpacyPosPrep(Prep, BaseEstimator):
 
     def encode_single(self, text):
         return " ".join([f"{t.text if not self.lemma else t.lemma_}|{t.tag_ if self.fine_grained else t.pos_}" for t in self.model(text)])
+
+    def transform(self, X, y=None):
+        return [" ".join([f"{t.text if not self.lemma else t.lemma_}|{t.tag_ if self.fine_grained else t.pos_}" for t in self.model.pipe(X)])]
 
 
 class SpacyLemmaPrep(Prep, BaseEstimator):
@@ -86,3 +90,6 @@ class SpacyLemmaPrep(Prep, BaseEstimator):
         if self.stop:
             return " ".join([t.lemma_ for t in self.model(text) if not t.is_stop])
         return " ".join([t.lemma_ for t in self.model(text)])
+
+    def transform(self, X, y=None):
+        return [" ".join([t.lemma_ for t in d]) for d in self.model.pipe(X)]

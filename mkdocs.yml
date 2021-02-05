@@ -8,9 +8,9 @@ use_directory_urls: false
 nav:
   - Home: index.md
   - Guides:
+      - Goal: goal.md
       - Snippets: snippets.md
   - API:
-      - tok: tok.md
       - prep: prep.md
 plugins:
   - mkdocstrings:
@@ -38,5 +38,6 @@ markdown_extensions:
   - pymdownx.tabbed
   - pymdownx.highlight:
       use_pygments: true
+      guess_lang: true
   - toc:
       permalink: true
