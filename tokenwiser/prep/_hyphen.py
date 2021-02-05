@@ -20,6 +20,7 @@ class HyphenPrep(Prep, BaseEstimator):
     ```
     """
     def __init__(self, lang="en_GB"):
+        self.lang = lang
         self.dic = pyphen.Pyphen(lang=lang)
 
     def encode_single(self, x):

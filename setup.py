@@ -2,18 +2,14 @@ from tokenwiser import __version__
 from setuptools import setup, find_packages
 
 base_packages = [
-    "gensim>=3.8.3",
     "jellyfish>=0.8.2",
     "Pyphen>=0.10.0",
     "scikit-learn>=0.24.0",
     "PyYAML>=5.3.1",
-    "typer==0.3.2",
     "spacy>=3.0",
     "yake-github>=0.4.0",
     "rich>=9.2.0",
     "mktestdocs>=0.1.0",
-    "bpemb>=0.3.2",
-    "fasttext>=0.9.2"
 ]
 
 dev_packages = [
