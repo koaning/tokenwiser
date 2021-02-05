@@ -32,5 +32,5 @@ setup(
     packages=find_packages(exclude=["notebooks"]),
     install_requires=base_packages,
     dependency_links=["https://github.com/LIAAD/yake/archive/v0.4.3.tar.gz"],
-    extras_require={"dev": dev_packages},
+    extras_require={"dev": dev_packages + docs_packages, "docs": docs_packages},
 )
