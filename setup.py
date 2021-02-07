@@ -20,9 +20,9 @@ dev_packages = [
 ]
 
 docs_packages = [
-    "mkdocs==1.1.2",
-    "mkdocs-material==6.2.8",
-    "mkdocstrings==0.14.0"
+    "mkdocs>=1.1.2",
+    "mkdocs-material>=6.2.8",
+    "mkdocstrings>=0.14.0"
 ]
 
 

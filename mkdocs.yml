@@ -11,8 +11,9 @@ nav:
       - Goal: goal.md
       - Snippets: snippets.md
   - API:
-      - textprep: textprep.md
-      - pipeline: pipeline.md
+      - textprep: api/textprep.md
+      - pipeline: api/pipeline.md
+      - feature_extraction: api/feature_extraction.md
 plugins:
   - mkdocstrings:
       watch:
@@ -29,7 +30,7 @@ theme:
   feature:
     tabs: true
   palette:
-    primary: Black
+    primary: teal
     accent: teal
 markdown_extensions:
   - admonition

@@ -1,5 +1,9 @@
 # `pipeline`
 
+```python
+from tokenwiser.pipeline import * 
+```
+
 In the `pipeline` submodule you can find scikit-learn compatbile
 pipelines that extend the standard behavior. 
 

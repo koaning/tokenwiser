@@ -23,6 +23,11 @@ is that this may be combined in interesting ways in CountVectorizers.
         show_root_full_path: false
         show_root_heading: true
 
+::: tokenwiser.textprep.YakeTextPrep
+    rendering:
+        show_root_full_path: false
+        show_root_heading: true
+
 ::: tokenwiser.textprep.SpacyMorphTextPrep
     rendering:
         show_root_full_path: false
@@ -34,12 +39,6 @@ is that this may be combined in interesting ways in CountVectorizers.
         show_root_heading: true
 
 ::: tokenwiser.textprep.SpacyLemmaTextPrep
-    rendering:
-        show_root_full_path: false
-        show_root_heading: true
-
-
-::: tokenwiser.textprep.YakeTextPrep
     rendering:
         show_root_full_path: false
         show_root_heading: true
