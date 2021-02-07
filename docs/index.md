@@ -30,4 +30,5 @@ The following submodules contain features that might be useful.
 
 ### SpaCy Tools 
  
-- `.component`: Contains spaCy compatible components that might be added as a pipeline step. 
+- `.component`: Contains spaCy compatible components that might be added as a pipeline step.
+- `.extension`: Contains spaCy compatible extensions that might be added manually. 
