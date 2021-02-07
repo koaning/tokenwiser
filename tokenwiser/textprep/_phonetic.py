@@ -14,12 +14,13 @@ class PhoneticTextPrep(TextPrep, BaseEstimator):
     Usage:
 
     ```python
-    from tokenwiser.prep import PhoneticPrep
+    import spacy
+    from tokenwiser.textprep import PhoneticTextPrep
 
     nlp = spacy.load("en_core_web_sm")
-    example1 = PhoneticPrep(kind="soundex").encode_single("dinosaurus book")
-    example2 = PhoneticPrep(kind="metaphone").encode_single("dinosaurus book")
-    example3 = PhoneticPrep(kind="nysiis").encode_single("dinosaurus book")
+    example1 = PhoneticTextPrep(kind="soundex").encode_single("dinosaurus book")
+    example2 = PhoneticTextPrep(kind="metaphone").encode_single("dinosaurus book")
+    example3 = PhoneticTextPrep(kind="nysiis").encode_single("dinosaurus book")
 
     assert example1 == 'D526 B200'
     assert example2 == 'TNSRS BK'

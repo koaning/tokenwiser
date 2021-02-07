@@ -9,23 +9,24 @@ class PartialPipeline(Pipeline):
         steps: a collection of text-transformers
 
     ```python
-    from tokenwiser.pipe import make_partial_pipeline
+    from tokenwiser.pipeline import PartialPipeline
+    from tokenwiser.textprep import HyphenTextPrep, Cleaner
 
-    tc = make_partial_pipeline(HyphenPrep(), Cleaner())
+    tc = PartialPipeline([('clean', Cleaner()), ('hyp', HyphenTextPrep())])
     data = ["dinosaurhead", "another$$ sentence$$"]
     results = tc.fit_partial(data).transform(data)
-    expected = ['di no saur head dinosaurhead', 'an other $$ sen tence$$ another sentence']
+    expected = ['di no saur head', 'an other  sen tence']
 
     assert results == expected
     ```
     """
     def __init__(self, steps):
-        for name, step in steps:
+        super().__init__(steps=steps)
+
+    def fit_partial(self, X, y=None):
+        for name, step in self.steps:
             if not hasattr(step, "fit_partial"):
                 raise ValueError(f"Step {name} is a {step} which does not have `.fit_partial` implemented.")
-        super(Pipeline).__init__(steps=steps)
-
-    def fit_partial(self, X, y):
         for name, step in self.steps:
             step.fit_partial(X, y)
         return self
@@ -39,12 +40,13 @@ def make_partial_pipeline(*steps):
         steps: a collection of text-transformers
 
     ```python
-    from tokenwiser.pipe import make_partial_pipeline
+    from tokenwiser.pipeline import make_partial_pipeline
+    from tokenwiser.textprep import HyphenTextPrep, Cleaner
 
-    tc = make_partial_pipeline(HyphenPrep(), Cleaner())
+    tc = make_partial_pipeline(Cleaner(), HyphenTextPrep())
     data = ["dinosaurhead", "another$$ sentence$$"]
     results = tc.fit_partial(data).transform(data)
-    expected = ['di no saur head dinosaurhead', 'an other $$ sen tence$$ another sentence']
+    expected = ['di no saur head', 'an other  sen tence']
 
     assert results == expected
     ```

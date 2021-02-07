@@ -12,9 +12,10 @@ class TextConcat(BaseEstimator):
     Example:
 
     ```python
-    from tokenwiser.prep import HyphenPrep, Cleaner, TextConcat
+    from tokenwiser.textprep import HyphenTextPrep, Cleaner
+    from tokenwiser.pipeline import TextConcat
 
-    tc = TextConcat([("hyp", HyphenPrep()), ("clean", Cleaner())])
+    tc = TextConcat([("hyp", HyphenTextPrep()), ("clean", Cleaner())])
     results = tc.fit_transform(["dinosaurhead", "another$$ sentence$$"])
     expected = ['di no saur head dinosaurhead', 'an other $$ sen tence$$ another sentence']
 
@@ -85,9 +86,10 @@ def make_concat(*steps):
         steps: a collection of text-transformers
 
     ```python
-    from tokenwiser.prep import HyphenPrep, Cleaner, make_concat
+    from tokenwiser.textprep import HyphenTextPrep, Cleaner
+    from tokenwiser.pipeline import make_concat
 
-    tc = make_concat(HyphenPrep(), Cleaner())
+    tc = make_concat(HyphenTextPrep(), Cleaner())
     results = tc.fit_transform(["dinosaurhead", "another$$ sentence$$"])
     expected = ['di no saur head dinosaurhead', 'an other $$ sen tence$$ another sentence']
 

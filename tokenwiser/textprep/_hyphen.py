@@ -11,11 +11,11 @@ class HyphenTextPrep(TextPrep, BaseEstimator):
     Usage:
 
     ```python
-    from tokenwiser.prep import HyphenPrep
+    from tokenwiser.textprep import HyphenTextPrep
 
-    single = HyphenPrep().encode_single("dinosaurhead")
+    single = HyphenTextPrep().encode_single("dinosaurhead")
     assert single == "di no saur head"
-    multi = HyphenPrep().transform(["geology", "astrology"])
+    multi = HyphenTextPrep().transform(["geology", "astrology"])
     assert multi == ['geo logy', 'as tro logy']
     ```
     """

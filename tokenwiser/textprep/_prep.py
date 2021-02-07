@@ -5,7 +5,7 @@ class TextPrep(ABC):
     def fit(self, X, y=None):
         return self
 
-    def fit_partial(self, X):
+    def fit_partial(self, X, y=None):
         return self
 
     @abstractmethod

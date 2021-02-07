@@ -1,16 +1,16 @@
 from sklearn.base import BaseEstimator
 
-from tokenwiser.prep._prep import Prep
+from ._prep import TextPrep
 
 
-class Cleaner(Prep, BaseEstimator):
+class Cleaner(TextPrep, BaseEstimator):
     """
     Applies a lowercase and removes non-alphanum.
 
     Usage:
 
     ```python
-    from tokenwiser.prep import Cleaner
+    from tokenwiser.textprep import Cleaner
 
     single = Cleaner().encode_single("$$$5 dollars")
     assert single == "5 dollars"

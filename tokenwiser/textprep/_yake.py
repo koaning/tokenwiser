@@ -13,12 +13,12 @@ class YakeTextPrep(TextPrep, BaseEstimator):
     Usage:
 
     ```python
-    from tokenwiser.prep import YakePrep
+    from tokenwiser.textprep import YakeTextPrep
 
     text = "Sources tell us that Google is acquiring Kaggle, a platform that hosts data science and machine learning"
-    example1 = YakePrep(top=3, unique=False).encode_single(text)
-    example2 = YakePrep(top=3, unique=True).encode_single(text)
-    example3 = YakePrep(top=5, unique=True).encode_single(text)
+    example1 = YakeTextPrep(top=3, unique=False).encode_single(text)
+    example2 = YakeTextPrep(top=3, unique=True).encode_single(text)
+    example3 = YakeTextPrep(top=5, unique=True).encode_single(text)
     ```
     """
     def __init__(self, top=5, unique=False):

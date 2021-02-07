@@ -11,11 +11,11 @@ class SpacyMorphTextPrep(TextPrep, BaseEstimator):
 
     ```python
     import spacy
-    from tokenwiser.prep import SpacyMorphPrep
+    from tokenwiser.textprep import SpacyMorphTextPrep
 
     nlp = spacy.load("en_core_web_sm")
-    example1 = SpacyMorphPrep(nlp).encode_single("quick! duck!")
-    example2 = SpacyMorphPrep(nlp).encode_single("hey look a duck")
+    example1 = SpacyMorphTextPrep(nlp).encode_single("quick! duck!")
+    example2 = SpacyMorphTextPrep(nlp).encode_single("hey look a duck")
 
     assert example1 == "quick|Degree=Pos !|PunctType=Peri duck|Number=Sing !|PunctType=Peri"
     assert example2 == "hey| look|VerbForm=Inf a|Definite=Ind|PronType=Art duck|Number=Sing"
@@ -42,11 +42,11 @@ class SpacyPosTextPrep(TextPrep, BaseEstimator):
 
     ```python
     import spacy
-    from tokenwiser.prep import SpacyPosPrep
+    from tokenwiser.textprep import SpacyPosTextPrep
 
     nlp = spacy.load("en_core_web_sm")
-    example1 = SpacyPosPrep(nlp).encode_single("we need to duck")
-    example2 = SpacyPosPrep(nlp).encode_single("hey look a duck")
+    example1 = SpacyPosTextPrep(nlp).encode_single("we need to duck")
+    example2 = SpacyPosTextPrep(nlp).encode_single("hey look a duck")
 
     assert example1 == "we|PRON need|VERB to|PART duck|VERB"
     assert example2 == "hey|INTJ look|VERB a|DET duck|NOUN"
@@ -60,9 +60,6 @@ class SpacyPosTextPrep(TextPrep, BaseEstimator):
     def encode_single(self, text):
         return " ".join([f"{t.text if not self.lemma else t.lemma_}|{t.tag_ if self.fine_grained else t.pos_}" for t in self.model(text)])
 
-    def transform(self, X, y=None):
-        return [" ".join([f"{t.text if not self.lemma else t.lemma_}|{t.tag_ if self.fine_grained else t.pos_}" for t in self.model.pipe(X)])]
-
 
 class SpacyLemmaTextPrep(TextPrep, BaseEstimator):
     """
@@ -72,11 +69,11 @@ class SpacyLemmaTextPrep(TextPrep, BaseEstimator):
 
     ```python
     import spacy
-    from tokenwiser.prep import SpacyLemmaPrep
+    from tokenwiser.textprep import SpacyLemmaTextPrep
 
     nlp = spacy.load("en_core_web_sm")
-    example1 = SpacyLemmaPrep(nlp).encode_single("we are running")
-    example2 = SpacyLemmaPrep(nlp).encode_single("these are dogs")
+    example1 = SpacyLemmaTextPrep(nlp).encode_single("we are running")
+    example2 = SpacyLemmaTextPrep(nlp).encode_single("these are dogs")
 
     assert example1 == 'we be run'
     assert example2 == 'these be dog'
