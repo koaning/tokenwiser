@@ -9,7 +9,7 @@ from tokenwiser.textprep import (
     SpacyPosTextPrep,
     SpacyLemmaTextPrep,
     YakeTextPrep,
-    PhoneticTextPrep
+    PhoneticTextPrep,
 )
 import spacy
 
@@ -25,7 +25,7 @@ prep_list = [
     YakeTextPrep(),
     SpacyLemmaTextPrep(nlp),
     SpacyMorphTextPrep(nlp),
-    SpacyPosTextPrep(nlp)
+    SpacyPosTextPrep(nlp),
 ]
 
 

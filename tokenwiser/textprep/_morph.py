@@ -22,7 +22,7 @@ class SpacyMorphTextPrep(TextPrep, BaseEstimator):
     ```
     """
 
-    def __init__(self, model, lemma: bool =False):
+    def __init__(self, model, lemma: bool = False):
         self.model = model
         self.lemma = lemma
 

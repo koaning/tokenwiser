@@ -13,7 +13,8 @@ nav:
   - API:
       - textprep: api/textprep.md
       - pipeline: api/pipeline.md
-      - feature_extraction: api/feature_extraction.md
+      - extension: api/extension.md
+      - component: api/component.md
 plugins:
   - mkdocstrings:
       handlers:

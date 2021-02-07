@@ -5,7 +5,7 @@ from tokenwiser.textprep import (
     SpacyPosTextPrep,
     SpacyLemmaTextPrep,
     YakeTextPrep,
-    PhoneticTextPrep
+    PhoneticTextPrep,
 )
 from tokenwiser.pipeline import (
     TextConcat,
@@ -13,6 +13,8 @@ from tokenwiser.pipeline import (
     make_partial_pipeline,
     make_concat,
 )
+from tokenwiser.extension import attach_hyphen_extension, attach_sklearn_extension, sklearn_method
+from tokenwiser.component import attach_sklearn_categoriser
 
 import pytest
 from mktestdocs import check_docstring
@@ -29,6 +31,10 @@ components = [
     PartialPipeline,
     make_partial_pipeline,
     make_concat,
+    attach_hyphen_extension,
+    attach_sklearn_extension,
+    sklearn_method,
+    attach_sklearn_categoriser,
 ]
 
 
