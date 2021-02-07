@@ -1,10 +1,10 @@
 import pyphen
 from sklearn.base import BaseEstimator
 
-from tokenwiser.prep._prep import Prep
+from ._prep import TextPrep
 
 
-class HyphenPrep(Prep, BaseEstimator):
+class HyphenTextPrep(TextPrep, BaseEstimator):
     """
     Hyphenate the text going in.
 

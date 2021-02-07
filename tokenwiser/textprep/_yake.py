@@ -1,10 +1,10 @@
 from sklearn.base import BaseEstimator
 import yake
 
-from tokenwiser.prep._prep import Prep
+from ._prep import TextPrep
 
 
-class YakePrep(Prep, BaseEstimator):
+class YakeTextPrep(TextPrep, BaseEstimator):
     """
     Remove all text except meaningful keywords.
 

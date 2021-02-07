@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class Prep(ABC):
+class TextPrep(ABC):
     def fit(self, X, y=None):
         return self
 

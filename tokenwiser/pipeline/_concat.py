@@ -37,6 +37,19 @@ class TextConcat(BaseEstimator):
             raise ValueError(f"Make sure that the names of each step are unique.")
         return self
 
+    def fit_partial(self, X, y=None):
+        """
+        Fits the components.
+
+        Arguments:
+            X: list of text, to be transformer
+            y: a label, will be handled by the `Pipeline`-API
+        """
+        names = [n for n, t in self.transformer_list]
+        if len(names) != len(set(names)):
+            raise ValueError(f"Make sure that the names of each step are unique.")
+        return self
+
     def transform(self, X, y=None):
         """
         Transformers the text.

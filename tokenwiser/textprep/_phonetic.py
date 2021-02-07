@@ -1,10 +1,10 @@
 import jellyfish
 from sklearn.base import BaseEstimator
 
-from tokenwiser.prep._prep import Prep
+from ._prep import TextPrep
 
 
-class PhoneticPrep(Prep, BaseEstimator):
+class PhoneticTextPrep(TextPrep, BaseEstimator):
     """
     The ProneticPrep object prepares strings by encoding them phonetically.
 

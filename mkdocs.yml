@@ -11,7 +11,8 @@ nav:
       - Goal: goal.md
       - Snippets: snippets.md
   - API:
-      - prep: prep.md
+      - textprep: textprep.md
+      - pipeline: pipeline.md
 plugins:
   - mkdocstrings:
       watch:

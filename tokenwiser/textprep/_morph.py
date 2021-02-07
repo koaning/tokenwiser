@@ -1,9 +1,9 @@
 from sklearn.base import BaseEstimator
 
-from tokenwiser.prep._prep import Prep
+from ._prep import TextPrep
 
 
-class SpacyMorphPrep(Prep, BaseEstimator):
+class SpacyMorphTextPrep(TextPrep, BaseEstimator):
     """
     Adds morphologic information to tokens in text.
 
@@ -29,7 +29,7 @@ class SpacyMorphPrep(Prep, BaseEstimator):
         return " ".join([f"{t.text if not self.lemma else t.lemma_}|{t.morph}" for t in self.model(text)])
 
 
-class SpacyPosPrep(Prep, BaseEstimator):
+class SpacyPosTextPrep(TextPrep, BaseEstimator):
     """
     Adds part of speech information per token using spaCy.
 
@@ -64,7 +64,7 @@ class SpacyPosPrep(Prep, BaseEstimator):
         return [" ".join([f"{t.text if not self.lemma else t.lemma_}|{t.tag_ if self.fine_grained else t.pos_}" for t in self.model.pipe(X)])]
 
 
-class SpacyLemmaPrep(Prep, BaseEstimator):
+class SpacyLemmaTextPrep(TextPrep, BaseEstimator):
     """
     Turns each token into a lemmatizer version using spaCy.
 
