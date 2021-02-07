@@ -17,6 +17,7 @@ class HyphenTextPrep(TextPrep, BaseEstimator):
     assert multi == ['geo logy', 'as tro logy']
     ```
     """
+
     def __init__(self, lang="en_GB"):
         self.lang = lang
         self.dic = pyphen.Pyphen(lang=lang)

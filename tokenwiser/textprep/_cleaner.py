@@ -18,6 +18,7 @@ class Cleaner(TextPrep, BaseEstimator):
     assert multi == ["5 dollars", "hashtag"]
     ```
     """
+
     def __init__(self):
         pass
 

@@ -18,14 +18,13 @@ class YakeTextPrep(TextPrep, BaseEstimator):
     from tokenwiser.textprep import YakeTextPrep
 
     text = ["Sources tell us that Google is acquiring Kaggle, a platform that hosts data science and machine learning"]
-    example1 = YakeTextPrep(top_n=3, unique=False).transform(text)
-    example2 = YakeTextPrep(top_n=1, unique=True).transform(text)
+    example = YakeTextPrep(top_n=3, unique=False).transform(text)
 
-    assert example1[0] == 'hosts data science acquiring kaggle google is acquiring'
-    assert example2[0] == 'data hosts science'
+    assert example[0] == 'hosts data science acquiring kaggle google is acquiring'
     ```
     """
-    def __init__(self, top_n: int = 5, unique: bool=False):
+
+    def __init__(self, top_n: int = 5, unique: bool = False):
         self.top_n = top_n
         self.unique = unique
         self.extractor = yake.KeywordExtractor(top=self.top_n)

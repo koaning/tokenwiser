@@ -22,6 +22,7 @@ class TextConcat(BaseEstimator):
     assert results == expected
     ```
     """
+
     def __init__(self, transformer_list):
         self.transformer_list = transformer_list
 

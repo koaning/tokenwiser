@@ -17,6 +17,7 @@ class WhiteSpaceTokenizer(Tok, BaseEstimator):
     assert single == ["hello", "world"]
     ```
     """
+
     def __init__(self):
         pass
 

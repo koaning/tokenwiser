@@ -21,12 +21,18 @@ class SpacyMorphTextPrep(TextPrep, BaseEstimator):
     assert example2 == "hey| look|VerbForm=Inf a|Definite=Ind|PronType=Art duck|Number=Sing"
     ```
     """
-    def __init__(self, model, lemma=False):
+
+    def __init__(self, model, lemma: bool =False):
         self.model = model
         self.lemma = lemma
 
     def encode_single(self, text):
-        return " ".join([f"{t.text if not self.lemma else t.lemma_}|{t.morph}" for t in self.model(text)])
+        return " ".join(
+            [
+                f"{t.text if not self.lemma else t.lemma_}|{t.morph}"
+                for t in self.model(text)
+            ]
+        )
 
 
 class SpacyPosTextPrep(TextPrep, BaseEstimator):
@@ -52,13 +58,19 @@ class SpacyPosTextPrep(TextPrep, BaseEstimator):
     assert example2 == "hey|INTJ look|VERB a|DET duck|NOUN"
     ```
     """
-    def __init__(self, model, lemma=False, fine_grained=False):
+
+    def __init__(self, model, lemma: bool = False, fine_grained: bool = False):
         self.model = model
         self.lemma = lemma
         self.fine_grained = fine_grained
 
     def encode_single(self, text):
-        return " ".join([f"{t.text if not self.lemma else t.lemma_}|{t.tag_ if self.fine_grained else t.pos_}" for t in self.model(text)])
+        return " ".join(
+            [
+                f"{t.text if not self.lemma else t.lemma_}|{t.tag_ if self.fine_grained else t.pos_}"
+                for t in self.model(text)
+            ]
+        )
 
 
 class SpacyLemmaTextPrep(TextPrep, BaseEstimator):
@@ -79,6 +91,7 @@ class SpacyLemmaTextPrep(TextPrep, BaseEstimator):
     assert example2 == 'these be dog'
     ```
     """
+
     def __init__(self, model, stop=False):
         self.stop = stop
         self.model = model

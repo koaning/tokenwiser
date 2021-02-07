@@ -11,7 +11,7 @@ from vowpalwabbit.sklearn_vw import VWClassifier
 
 class VowpalWabbitShim(Shim):
     """
-    Interface between a Vowpal Wabbit model and a Thinc Model. 
+    Interface between a Vowpal Wabbit model and a Thinc Model.
 
     This container is *not* a Thinc Model subclass itself.
     """
@@ -30,7 +30,7 @@ class VowpalWabbitShim(Shim):
         Make a prediction using VowpalWabbit
         """
         print(inputs)
-        return self.vw.predict(inputs['X'])
+        return self.vw.predict(inputs["X"])
 
     def begin_update(self, inputs: ArgsKwargs):
         print(inputs)

@@ -20,6 +20,7 @@ class PartialPipeline(Pipeline):
     assert results == expected
     ```
     """
+
     def __init__(self, steps):
         super().__init__(steps=steps)
 
@@ -29,7 +30,9 @@ class PartialPipeline(Pipeline):
         """
         for name, step in self.steps:
             if not hasattr(step, "fit_partial"):
-                raise ValueError(f"Step {name} is a {step} which does not have `.fit_partial` implemented.")
+                raise ValueError(
+                    f"Step {name} is a {step} which does not have `.fit_partial` implemented."
+                )
         for name, step in self.steps:
             step.fit_partial(X, y)
         return self

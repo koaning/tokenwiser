@@ -39,7 +39,9 @@ def sklearn_method(estimator):
     doc._.sillysent_prop # {0: 0.4446964938410244, 1: 0.5553035061589756}
     ```
     """
+
     def method(doc):
         proba = estimator.predict_proba([doc.text])[0]
         return {c: p for c, p in zip(estimator.classes_, proba)}
+
     return method
