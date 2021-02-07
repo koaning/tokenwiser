@@ -16,6 +16,10 @@ nav:
       - feature_extraction: api/feature_extraction.md
 plugins:
   - mkdocstrings:
+      handlers:
+        python:
+          setup_commands:
+            - import tokenwiser
       watch:
         - tokenwiser
   - search
@@ -38,6 +42,7 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.details
   - pymdownx.tabbed
+  - pymdownx.superfences
   - pymdownx.highlight:
       use_pygments: true
       guess_lang: true
