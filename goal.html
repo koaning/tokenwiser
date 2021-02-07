@@ -31,7 +31,7 @@
         
           
           
-          <meta name="theme-color" content="#000000">
+          <meta name="theme-color" content="#009485">
         
       
     
@@ -60,7 +60,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="black" data-md-color-accent="teal">
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="teal" data-md-color-accent="teal">
       
   
     
@@ -304,8 +304,44 @@
   
   
     <li class="md-nav__item">
-      <a href="prep.html" class="md-nav__link">
-        prep
+      <a href="api/textprep.html" class="md-nav__link">
+        textprep
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/pipeline.html" class="md-nav__link">
+        pipeline
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/extension.html" class="md-nav__link">
+        extension
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/component.html" class="md-nav__link">
+        component
       </a>
     </li>
   
@@ -344,10 +380,9 @@ that will help you do lightweight benchmarks using three packages: </p>
 <li>spaCy</li>
 <li>vowpal wabbit </li>
 </ul>
-<p>The idea is that maybe we don't need language models for basic tasks. Maybe we just need
-to add some features from spaCy in scikit-learn. Conversely, maybe we can add some simple 
-benchmark models to spaCy by leveraging scikit-learn and vowpal wabbit. </p>
-<p>This is what we hope to explore in this package.</p>
+<p>The idea is that maybe we don't need heavy language models for basic tasks. Maybe we just need
+to apply some simple tricks on our tokens. </p>
+<p>The goal of this package is to contribute tricks to keep your NLP pipelines simple.</p>
 <p>ps. If you're looking for a tool that can add language models to scikit-learn pipelines as 
 a benchmark you'll want to explore another tool: <a href="https://rasahq.github.io/whatlies/tutorial/scikit-learn/">whatlies</a>.</p>
                 

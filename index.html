@@ -31,7 +31,7 @@
         
           
           
-          <meta name="theme-color" content="#000000">
+          <meta name="theme-color" content="#009485">
         
       
     
@@ -60,7 +60,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="black" data-md-color-accent="teal">
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="teal" data-md-color-accent="teal">
       
   
     
@@ -216,45 +216,9 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Home
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="index.html" class="md-nav__link md-nav__link--active">
         Home
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#submodules" class="md-nav__link">
-    SubModules
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#featurizer" class="md-nav__link">
-    Featurizer
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -345,8 +309,44 @@
   
   
     <li class="md-nav__item">
-      <a href="prep.html" class="md-nav__link">
-        prep
+      <a href="api/textprep.html" class="md-nav__link">
+        textprep
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/pipeline.html" class="md-nav__link">
+        pipeline
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/extension.html" class="md-nav__link">
+        extension
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/component.html" class="md-nav__link">
+        component
       </a>
     </li>
   
@@ -376,28 +376,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#submodules" class="md-nav__link">
-    SubModules
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#featurizer" class="md-nav__link">
-    Featurizer
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -418,18 +396,29 @@
 <blockquote>
 <p>Bag of, not words, but tricks!</p>
 </blockquote>
-<p>This project contains a couple of scikit-learn compatible "tricks" that I've used in
-NLP experiments. It's a collection of tricks for sparse data.</p>
-<h2 id="submodules">SubModules<a class="headerlink" href="#submodules" title="Permanent link">&para;</a></h2>
-<ol>
-<li><code class="highlight"><span class="na">.prep</span></code>: Contains string pre-processing tools. Takes a string in and pushes a string out.  </li>
-<li><code class="highlight"><span class="na">.tok</span></code>: Contains things that take stings and output iterables. </li>
-</ol>
-<p>We also have some extra utilities.</p>
-<h2 id="featurizer">Featurizer<a class="headerlink" href="#featurizer" title="Permanent link">&para;</a></h2>
+<p>This project contains a couple of useful "tricks" on tokens. It's a collection 
+of tricks for sparse data that might be trained on a stream of data.</p>
+<h1 id="goal">Goal<a class="headerlink" href="#goal" title="Permanent link">&para;</a></h1>
+<p>We noticed that a lot of benchmarks relied on heavy-weight tools while they did not 
+check if something more lightweight would also work. Maybe if we just apply some simple 
+tricks on our tokens we won't need massive language models. </p>
+<p>The goal of this package is to contribute tricks to keep your NLP pipelines simple but
+also some general tools that are useful in scikit-learn and spaCy. </p>
+<blockquote>
+<p>If you're looking for a tool that can add language models to scikit-learn pipelines as 
+a benchmark you'll want to explore another tool: <a href="https://rasahq.github.io/whatlies/tutorial/scikit-learn/">whatlies</a>.</p>
+</blockquote>
+<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<h3 id="scikit-learn-tools">Scikit-Learn Tools<a class="headerlink" href="#scikit-learn-tools" title="Permanent link">&para;</a></h3>
+<p>The following submodules contain features that might be useful. </p>
 <ul>
-<li>Make a simple featurizer that will check if a word appears.</li>
-<li>Make a simple featurizer that will check if a regex appears.</li>
+<li><code class="highlight"><span class="na">.textprep</span></code>: Contains string pre-processing tools for scikit-learn. Takes a string in and pushes a string out.  </li>
+<li><code class="highlight"><span class="na">.pipeline</span></code>: Contains extra pipeline components for scikit-learn to make it easier to work with strings and partial models.</li>
+</ul>
+<h3 id="spacy-tools">SpaCy Tools<a class="headerlink" href="#spacy-tools" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code class="highlight"><span class="na">.component</span></code>: Contains spaCy compatible components that might be added as a pipeline step.</li>
+<li><code class="highlight"><span class="na">.extension</span></code>: Contains spaCy compatible extensions that might be added manually. </li>
 </ul>
                 
               
