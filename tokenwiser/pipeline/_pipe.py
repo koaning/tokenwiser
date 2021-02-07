@@ -24,6 +24,9 @@ class PartialPipeline(Pipeline):
         super().__init__(steps=steps)
 
     def fit_partial(self, X, y=None):
+        """
+        Fits the components, but allow for batches.
+        """
         for name, step in self.steps:
             if not hasattr(step, "fit_partial"):
                 raise ValueError(f"Step {name} is a {step} which does not have `.fit_partial` implemented.")

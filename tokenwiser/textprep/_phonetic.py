@@ -18,13 +18,13 @@ class PhoneticTextPrep(TextPrep, BaseEstimator):
     from tokenwiser.textprep import PhoneticTextPrep
 
     nlp = spacy.load("en_core_web_sm")
-    example1 = PhoneticTextPrep(kind="soundex").encode_single("dinosaurus book")
-    example2 = PhoneticTextPrep(kind="metaphone").encode_single("dinosaurus book")
-    example3 = PhoneticTextPrep(kind="nysiis").encode_single("dinosaurus book")
+    example1 = PhoneticTextPrep(kind="soundex").transform(["dinosaurus book"])
+    example2 = PhoneticTextPrep(kind="metaphone").transform(["dinosaurus book"])
+    example3 = PhoneticTextPrep(kind="nysiis").transform(["dinosaurus book"])
 
-    assert example1 == 'D526 B200'
-    assert example2 == 'TNSRS BK'
-    assert example3 == 'DANASAR BAC'
+    assert example1[0] == 'D526 B200'
+    assert example2[0] == 'TNSRS BK'
+    assert example3[0] == 'DANASAR BAC'
     ```
     """
 

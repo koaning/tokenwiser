@@ -27,11 +27,7 @@ class TextConcat(BaseEstimator):
 
     def fit(self, X, y=None):
         """
-        Fits the components.
-
-        Arguments:
-            X: list of text, to be transformer
-            y: a label, will be handled by the `Pipeline`-API
+        Fits the components in a single batch.
         """
         names = [n for n, t in self.transformer_list]
         if len(names) != len(set(names)):
@@ -40,11 +36,7 @@ class TextConcat(BaseEstimator):
 
     def fit_partial(self, X, y=None):
         """
-        Fits the components.
-
-        Arguments:
-            X: list of text, to be transformer
-            y: a label, will be handled by the `Pipeline`-API
+        Fits the components, but allow for batches.
         """
         names = [n for n, t in self.transformer_list]
         if len(names) != len(set(names)):
@@ -54,10 +46,6 @@ class TextConcat(BaseEstimator):
     def transform(self, X, y=None):
         """
         Transformers the text.
-
-        Arguments:
-            X: list of text, to be transformer
-            y: a label, will be handled by the `Pipeline`-API
         """
         names = [n for n, t in self.transformer_list]
         if len(names) != len(set(names)):
@@ -70,10 +58,6 @@ class TextConcat(BaseEstimator):
     def fit_transform(self, X, y=None):
         """
         Fits the components and transforms the text in one step.
-
-        Arguments:
-            X: list of text, to be transformer
-            y: a label, will be handled by the `Pipeline`-API
         """
         return self.fit(X, y).transform(X, y)
 

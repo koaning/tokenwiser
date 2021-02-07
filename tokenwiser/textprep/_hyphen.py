@@ -13,8 +13,6 @@ class HyphenTextPrep(TextPrep, BaseEstimator):
     ```python
     from tokenwiser.textprep import HyphenTextPrep
 
-    single = HyphenTextPrep().encode_single("dinosaurhead")
-    assert single == "di no saur head"
     multi = HyphenTextPrep().transform(["geology", "astrology"])
     assert multi == ['geo logy', 'as tro logy']
     ```
