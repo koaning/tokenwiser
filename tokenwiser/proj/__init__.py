@@ -39,7 +39,9 @@ class PointSplitProjection(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         X = check_array(X)
         self.X_ = X
-        self.indices_ = [tuple(np.random.randint(0, X.shape[0], 2)) for t in range(self.n_components)]
+        self.indices_ = [
+            tuple(np.random.randint(0, X.shape[0], 2)) for t in range(self.n_components)
+        ]
         return self
 
     def generate_feature_(self, new_X, i):
@@ -51,7 +53,9 @@ class PointSplitProjection(BaseEstimator, TransformerMixin):
     def transform(self, X, y=None):
         check_is_fitted(self, ["X_", "indices_"])
         if X.shape[1] != self.X_.shape[1]:
-            raise ValueError(f"shapes train/transform do not match. {X.shape[1]} vs {self.X_.shape[1]}")
+            raise ValueError(
+                f"shapes train/transform do not match. {X.shape[1]} vs {self.X_.shape[1]}"
+            )
         result = np.zeros((X.shape[0], self.n_components))
         for col in range(self.n_components):
             result[:, col] = self.generate_feature_(X, col)

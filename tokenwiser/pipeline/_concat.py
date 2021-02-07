@@ -12,25 +12,32 @@ class TextConcat(BaseEstimator):
     Example:
 
     ```python
-    from tokenwiser.prep import HyphenPrep, Cleaner, TextConcat
+    from tokenwiser.textprep import HyphenTextPrep, Cleaner
+    from tokenwiser.pipeline import TextConcat
 
-    tc = TextConcat([("hyp", HyphenPrep()), ("clean", Cleaner())])
+    tc = TextConcat([("hyp", HyphenTextPrep()), ("clean", Cleaner())])
     results = tc.fit_transform(["dinosaurhead", "another$$ sentence$$"])
     expected = ['di no saur head dinosaurhead', 'an other $$ sen tence$$ another sentence']
 
     assert results == expected
     ```
     """
+
     def __init__(self, transformer_list):
         self.transformer_list = transformer_list
 
     def fit(self, X, y=None):
         """
-        Fits the components.
+        Fits the components in a single batch.
+        """
+        names = [n for n, t in self.transformer_list]
+        if len(names) != len(set(names)):
+            raise ValueError(f"Make sure that the names of each step are unique.")
+        return self
 
-        Arguments:
-            X: list of text, to be transformer
-            y: a label, will be handled by the `Pipeline`-API
+    def fit_partial(self, X, y=None):
+        """
+        Fits the components, but allow for batches.
         """
         names = [n for n, t in self.transformer_list]
         if len(names) != len(set(names)):
@@ -40,10 +47,6 @@ class TextConcat(BaseEstimator):
     def transform(self, X, y=None):
         """
         Transformers the text.
-
-        Arguments:
-            X: list of text, to be transformer
-            y: a label, will be handled by the `Pipeline`-API
         """
         names = [n for n, t in self.transformer_list]
         if len(names) != len(set(names)):
@@ -56,10 +59,6 @@ class TextConcat(BaseEstimator):
     def fit_transform(self, X, y=None):
         """
         Fits the components and transforms the text in one step.
-
-        Arguments:
-            X: list of text, to be transformer
-            y: a label, will be handled by the `Pipeline`-API
         """
         return self.fit(X, y).transform(X, y)
 
@@ -72,9 +71,10 @@ def make_concat(*steps):
         steps: a collection of text-transformers
 
     ```python
-    from tokenwiser.prep import HyphenPrep, Cleaner, make_concat
+    from tokenwiser.textprep import HyphenTextPrep, Cleaner
+    from tokenwiser.pipeline import make_concat
 
-    tc = make_concat(HyphenPrep(), Cleaner())
+    tc = make_concat(HyphenTextPrep(), Cleaner())
     results = tc.fit_transform(["dinosaurhead", "another$$ sentence$$"])
     expected = ['di no saur head dinosaurhead', 'an other $$ sen tence$$ another sentence']
 

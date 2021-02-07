@@ -1,11 +1,40 @@
-from tokenwiser.tok import SpacyTokenizer, WhiteSpaceTokenizer
-from tokenwiser.prep import Cleaner, HyphenPrep, SpacyMorphPrep, SpacyPosPrep, SpacyLemmaPrep, YakePrep, TextConcat, make_concat
+from tokenwiser.textprep import (
+    Cleaner,
+    HyphenTextPrep,
+    SpacyMorphTextPrep,
+    SpacyPosTextPrep,
+    SpacyLemmaTextPrep,
+    YakeTextPrep,
+    PhoneticTextPrep,
+)
+from tokenwiser.pipeline import (
+    TextConcat,
+    PartialPipeline,
+    make_partial_pipeline,
+    make_concat,
+)
+from tokenwiser.extension import attach_hyphen_extension, attach_sklearn_extension, sklearn_method
+from tokenwiser.component import attach_sklearn_categoriser
 
 import pytest
 from mktestdocs import check_docstring
 
 components = [
-    SpacyTokenizer, WhiteSpaceTokenizer, Cleaner, HyphenPrep, SpacyMorphPrep, SpacyPosPrep, SpacyLemmaPrep, YakePrep, TextConcat, make_concat
+    Cleaner,
+    HyphenTextPrep,
+    SpacyMorphTextPrep,
+    SpacyPosTextPrep,
+    SpacyLemmaTextPrep,
+    PhoneticTextPrep,
+    YakeTextPrep,
+    TextConcat,
+    PartialPipeline,
+    make_partial_pipeline,
+    make_concat,
+    attach_hyphen_extension,
+    attach_sklearn_extension,
+    sklearn_method,
+    attach_sklearn_categoriser,
 ]
 
 

@@ -1,9 +1,9 @@
 from sklearn.base import BaseEstimator
 
-from tokenwiser.prep._prep import Prep
+from ._prep import TextPrep
 
 
-class SpacyMorphPrep(Prep, BaseEstimator):
+class SpacyMorphTextPrep(TextPrep, BaseEstimator):
     """
     Adds morphologic information to tokens in text.
 
@@ -11,25 +11,31 @@ class SpacyMorphPrep(Prep, BaseEstimator):
 
     ```python
     import spacy
-    from tokenwiser.prep import SpacyMorphPrep
+    from tokenwiser.textprep import SpacyMorphTextPrep
 
     nlp = spacy.load("en_core_web_sm")
-    example1 = SpacyMorphPrep(nlp).encode_single("quick! duck!")
-    example2 = SpacyMorphPrep(nlp).encode_single("hey look a duck")
+    example1 = SpacyMorphTextPrep(nlp).encode_single("quick! duck!")
+    example2 = SpacyMorphTextPrep(nlp).encode_single("hey look a duck")
 
     assert example1 == "quick|Degree=Pos !|PunctType=Peri duck|Number=Sing !|PunctType=Peri"
     assert example2 == "hey| look|VerbForm=Inf a|Definite=Ind|PronType=Art duck|Number=Sing"
     ```
     """
-    def __init__(self, model, lemma=False):
+
+    def __init__(self, model, lemma: bool = False):
         self.model = model
         self.lemma = lemma
 
     def encode_single(self, text):
-        return " ".join([f"{t.text if not self.lemma else t.lemma_}|{t.morph}" for t in self.model(text)])
+        return " ".join(
+            [
+                f"{t.text if not self.lemma else t.lemma_}|{t.morph}"
+                for t in self.model(text)
+            ]
+        )
 
 
-class SpacyPosPrep(Prep, BaseEstimator):
+class SpacyPosTextPrep(TextPrep, BaseEstimator):
     """
     Adds part of speech information per token using spaCy.
 
@@ -42,29 +48,32 @@ class SpacyPosPrep(Prep, BaseEstimator):
 
     ```python
     import spacy
-    from tokenwiser.prep import SpacyPosPrep
+    from tokenwiser.textprep import SpacyPosTextPrep
 
     nlp = spacy.load("en_core_web_sm")
-    example1 = SpacyPosPrep(nlp).encode_single("we need to duck")
-    example2 = SpacyPosPrep(nlp).encode_single("hey look a duck")
+    example1 = SpacyPosTextPrep(nlp).encode_single("we need to duck")
+    example2 = SpacyPosTextPrep(nlp).encode_single("hey look a duck")
 
     assert example1 == "we|PRON need|VERB to|PART duck|VERB"
     assert example2 == "hey|INTJ look|VERB a|DET duck|NOUN"
     ```
     """
-    def __init__(self, model, lemma=False, fine_grained=False):
+
+    def __init__(self, model, lemma: bool = False, fine_grained: bool = False):
         self.model = model
         self.lemma = lemma
         self.fine_grained = fine_grained
 
     def encode_single(self, text):
-        return " ".join([f"{t.text if not self.lemma else t.lemma_}|{t.tag_ if self.fine_grained else t.pos_}" for t in self.model(text)])
+        return " ".join(
+            [
+                f"{t.text if not self.lemma else t.lemma_}|{t.tag_ if self.fine_grained else t.pos_}"
+                for t in self.model(text)
+            ]
+        )
 
-    def transform(self, X, y=None):
-        return [" ".join([f"{t.text if not self.lemma else t.lemma_}|{t.tag_ if self.fine_grained else t.pos_}" for t in self.model.pipe(X)])]
 
-
-class SpacyLemmaPrep(Prep, BaseEstimator):
+class SpacyLemmaTextPrep(TextPrep, BaseEstimator):
     """
     Turns each token into a lemmatizer version using spaCy.
 
@@ -72,16 +81,17 @@ class SpacyLemmaPrep(Prep, BaseEstimator):
 
     ```python
     import spacy
-    from tokenwiser.prep import SpacyLemmaPrep
+    from tokenwiser.textprep import SpacyLemmaTextPrep
 
     nlp = spacy.load("en_core_web_sm")
-    example1 = SpacyLemmaPrep(nlp).encode_single("we are running")
-    example2 = SpacyLemmaPrep(nlp).encode_single("these are dogs")
+    example1 = SpacyLemmaTextPrep(nlp).encode_single("we are running")
+    example2 = SpacyLemmaTextPrep(nlp).encode_single("these are dogs")
 
     assert example1 == 'we be run'
     assert example2 == 'these be dog'
     ```
     """
+
     def __init__(self, model, stop=False):
         self.stop = stop
         self.model = model

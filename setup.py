@@ -20,9 +20,9 @@ dev_packages = [
 ]
 
 docs_packages = [
-    "mkdocs==1.1.2",
-    "mkdocs-material==6.2.8",
-    "mkdocstrings==0.14.0"
+    "mkdocs>=1.1.2",
+    "mkdocs-material>=6.2.8",
+    "mkdocstrings>=0.14.0"
 ]
 
 
@@ -31,6 +31,5 @@ setup(
     version=__version__,
     packages=find_packages(exclude=["notebooks"]),
     install_requires=base_packages,
-    dependency_links=["https://github.com/LIAAD/yake/archive/v0.4.3.tar.gz"],
     extras_require={"dev": dev_packages + docs_packages, "docs": docs_packages},
 )

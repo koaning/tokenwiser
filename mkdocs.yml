@@ -11,9 +11,16 @@ nav:
       - Goal: goal.md
       - Snippets: snippets.md
   - API:
-      - prep: prep.md
+      - textprep: api/textprep.md
+      - pipeline: api/pipeline.md
+      - extension: api/extension.md
+      - component: api/component.md
 plugins:
   - mkdocstrings:
+      handlers:
+        python:
+          setup_commands:
+            - import tokenwiser
       watch:
         - tokenwiser
   - search
@@ -28,7 +35,7 @@ theme:
   feature:
     tabs: true
   palette:
-    primary: Black
+    primary: teal
     accent: teal
 markdown_extensions:
   - admonition
@@ -36,6 +43,7 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.details
   - pymdownx.tabbed
+  - pymdownx.superfences
   - pymdownx.highlight:
       use_pygments: true
       guess_lang: true

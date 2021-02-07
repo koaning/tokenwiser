@@ -2,7 +2,15 @@ import pytest
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import CountVectorizer
 
-from tokenwiser.prep import Cleaner, HyphenPrep, PhoneticPrep, SpacyLemmaPrep, SpacyMorphPrep
+from tokenwiser.textprep import (
+    Cleaner,
+    HyphenTextPrep,
+    SpacyMorphTextPrep,
+    SpacyPosTextPrep,
+    SpacyLemmaTextPrep,
+    YakeTextPrep,
+    PhoneticTextPrep,
+)
 import spacy
 
 nlp = spacy.load("en_core_web_sm")
@@ -10,23 +18,25 @@ nlp = spacy.load("en_core_web_sm")
 
 prep_list = [
     Cleaner(),
-    HyphenPrep(),
-    PhoneticPrep(kind="soundex"),
-    PhoneticPrep(kind="metaphone"),
-    PhoneticPrep(kind="nysiis"),
-    SpacyLemmaPrep(nlp),
-    SpacyMorphPrep(nlp),
+    HyphenTextPrep(),
+    PhoneticTextPrep(kind="soundex"),
+    PhoneticTextPrep(kind="metaphone"),
+    PhoneticTextPrep(kind="nysiis"),
+    YakeTextPrep(),
+    SpacyLemmaTextPrep(nlp),
+    SpacyMorphTextPrep(nlp),
+    SpacyPosTextPrep(nlp),
 ]
 
 
-@pytest.mark.parametrize("prep", prep_list)
+@pytest.mark.parametrize("prep", prep_list, ids=[str(d) for d in prep_list])
 def test_pipeline_single(prep):
     X = ["hello world", "this is dog", "it should work"]
     pipe = Pipeline([("prep", prep), ("cv", CountVectorizer())])
     assert pipe.fit_transform(X).shape[0] == 3
 
 
-@pytest.mark.parametrize("prep", prep_list)
+@pytest.mark.parametrize("prep", prep_list, ids=[str(d) for d in prep_list])
 def test_pipeline_single_clean_first(prep):
     X = ["hello world", "this is dog", "it should work"]
     pipe = Pipeline([("clean", Cleaner()), ("prep", prep), ("cv", CountVectorizer())])
