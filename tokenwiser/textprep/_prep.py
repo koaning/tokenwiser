@@ -6,7 +6,7 @@ class TextPrep(ABC):
         """Fits the `TextPrep` step. Considered a no-op."""
         return self
 
-    def fit_partial(self, X, y=None):
+    def partial_fit(self, X, y=None):
         """Partially fits the `TextPrep` step. Considered a no-op."""
         return self
 
