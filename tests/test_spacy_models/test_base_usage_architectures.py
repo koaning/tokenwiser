@@ -1,15 +1,7 @@
 import pytest
 import spacy
-from spacy import registry
 from spacy.training import Example
-from spacy.language import Language
-from sklearn.feature_extraction.text import HashingVectorizer
-from sklearn.linear_model import SGDClassifier
-from sklearn.naive_bayes import MultinomialNB
-
 from tokenwiser.model.sklearnmod import SklearnCat
-from tokenwiser.pipeline import PartialPipeline
-from tokenwiser.textprep import HyphenTextPrep
 
 
 @pytest.mark.parametrize("model", ["@sklearn_model_basic_sgd.v1", "@sklearn_model_basic_naive_bayes.v1"])

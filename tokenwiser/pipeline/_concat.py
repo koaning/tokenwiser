@@ -35,7 +35,7 @@ class TextConcat(BaseEstimator):
             raise ValueError(f"Make sure that the names of each step are unique.")
         return self
 
-    def fit_partial(self, X, y=None):
+    def partial_fit(self, X, y=None):
         """
         Fits the components, but allow for batches.
         """

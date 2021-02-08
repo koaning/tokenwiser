@@ -14,7 +14,7 @@ class PartialPipeline(Pipeline):
 
     tc = PartialPipeline([('clean', Cleaner()), ('hyp', HyphenTextPrep())])
     data = ["dinosaurhead", "another$$ sentence$$"]
-    results = tc.fit_partial(data).transform(data)
+    results = tc.partial_fit(data).transform(data)
     expected = ['di no saur head', 'an other  sen tence']
 
     assert results == expected
@@ -56,7 +56,7 @@ def make_partial_pipeline(*steps):
 
     tc = make_partial_pipeline(Cleaner(), HyphenTextPrep())
     data = ["dinosaurhead", "another$$ sentence$$"]
-    results = tc.fit_partial(data).transform(data)
+    results = tc.partial_fit(data).transform(data)
     expected = ['di no saur head', 'an other  sen tence']
 
     assert results == expected
