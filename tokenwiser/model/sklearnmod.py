@@ -1,4 +1,5 @@
 import random
+import pathlib
 from typing import Iterable
 
 import spacy
@@ -7,8 +8,9 @@ from spacy.tokens import Doc
 from spacy.training import Example
 from spacy.language import Language
 from sklearn.feature_extraction.text import HashingVectorizer
-from sklearn.linear_model import SGDClassifier
+from sklearn.linear_model import SGDClassifier, PassiveAggressiveClassifier
 from sklearn.naive_bayes import MultinomialNB
+from joblib import dump, load
 
 from tokenwiser.pipeline import PartialPipeline
 
@@ -44,10 +46,10 @@ class SklearnCat:
         return random.random()
 
     def to_disk(self, path):
-        pass
+        dump(self.sklearn_model, str(pathlib.Path(path)/'filename.joblib'))
 
     def from_disk(self, path):
-        pass
+        self.sklearn_model = load(str(pathlib.Path(path)/'filename.joblib'))
 
 
 @Language.factory("sklearn-cat")
@@ -62,4 +64,9 @@ def make_sklearn_cat_basic_sgd():
 
 @registry.architectures("sklearn_model_basic_naive_bayes.v1")
 def make_sklearn_cat_basic_naive_bayes():
-    return PartialPipeline([("hash", HashingVectorizer(binary=True)), ("lr", MultinomialNB())])
+    return PartialPipeline([("hash", HashingVectorizer(binary=True)), ("nb", MultinomialNB())])
+
+
+@registry.architectures("sklearn_model_basic_pa.v1")
+def make_sklearn_cat_basic_naive_bayes():
+    return PartialPipeline([("hash", HashingVectorizer(binary=True)), ("pa", PassiveAggressiveClassifier())])
