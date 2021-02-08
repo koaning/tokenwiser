@@ -45,11 +45,13 @@ class SklearnCat:
     def score(self):
         return random.random()
 
-    def to_disk(self, path):
+    def to_disk(self, path, exclude=None):
+        pathlib.Path(path).mkdir(parents=True, exist_ok=True)
         dump(self.sklearn_model, str(pathlib.Path(path)/'filename.joblib'))
 
-    def from_disk(self, path):
+    def from_disk(self, path, exclude=None):
         self.sklearn_model = load(str(pathlib.Path(path)/'filename.joblib'))
+        return self
 
 
 @Language.factory("sklearn-cat")
