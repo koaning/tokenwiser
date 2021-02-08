@@ -2,19 +2,15 @@ import random
 from typing import Iterable
 
 import spacy
+from spacy import registry
 from spacy.tokens import Doc
 from spacy.training import Example
 from spacy.language import Language
 from sklearn.feature_extraction.text import HashingVectorizer
 from sklearn.linear_model import SGDClassifier
 from sklearn.naive_bayes import MultinomialNB
-from joblib import dump, load
 
 from tokenwiser.pipeline import PartialPipeline
-
-@Language.factory("sklearn-cat")
-def make_sklearn_cat(nlp, name, sklearn_model, label, classes):
-    return SklearnCat(nlp, name, sklearn_model, label, classes)
 
 
 class SklearnCat:
@@ -54,6 +50,16 @@ class SklearnCat:
         pass
 
 
-@spacy.registry.architectures("sklearn_model_basic.v1")
-def make_sklearn_cat_basic():
+@Language.factory("sklearn-cat")
+def make_sklearn_cat(nlp, name, sklearn_model, label, classes):
+    return SklearnCat(nlp, name, sklearn_model, label, classes)
+
+
+@registry.architectures("sklearn_model_basic_sgd.v1")
+def make_sklearn_cat_basic_sgd():
     return PartialPipeline([("hash", HashingVectorizer()), ("lr", SGDClassifier(loss="log"))])
+
+
+@registry.architectures("sklearn_model_basic_naive_bayes.v1")
+def make_sklearn_cat_basic_naive_bayes():
+    return PartialPipeline([("hash", HashingVectorizer(binary=True)), ("lr", MultinomialNB())])
