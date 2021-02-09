@@ -79,8 +79,3 @@ def make_sklearn_cat_basic_sgd():
 @registry.architectures("sklearn_model_basic_naive_bayes.v1")
 def make_sklearn_cat_basic_naive_bayes():
     return PartialPipeline([("hash", HashingVectorizer(binary=True)), ("nb", MultinomialNB())])
-
-
-@registry.architectures("sklearn_model_basic_pa.v1")
-def make_sklearn_cat_basic_naive_bayes():
-    return PartialPipeline([("hash", HashingVectorizer(binary=True)), ("pa", PassiveAggressiveClassifier())])
