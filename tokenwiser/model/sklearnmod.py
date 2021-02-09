@@ -19,9 +19,14 @@ class SklearnCat:
     """
     This is a spaCy pipeline component object that can train specific scikit-learn pipelines.
 
-    This allows you to run a simple benchmark via spaCy on simple token-based models. One
-    should not expect these models to have state of the art accuracy. But they should have
-    "pretty good" accuracy while being "pretty fast" to train.
+    This allows you to run a simple benchmark via spaCy on simple text-based scikit-learn models.
+    One should not expect these models to have state of the art accuracy. But they should have
+    "pretty good" accuracy while being substantially faster to train than most deep-learning
+    based models.
+
+    The intended use-case for these models is to offer a base benchmark. If these models perform well
+    one your task, it's an indication that you're in luck and that you've got a simple task that
+    doesn't require state of the art models.
     """
     def __init__(self, nlp, name, sklearn_model, label, classes):
         self.nlp = nlp
