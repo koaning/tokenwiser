@@ -69,6 +69,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#why-cant-i-use-normal-pipeline-objects-with-the-spacy-api" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -420,9 +425,36 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          FAQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="faq.html" class="md-nav__link md-nav__link--active">
         FAQ
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-cant-i-use-normal-pipeline-objects-with-the-spacy-api" class="md-nav__link">
+    Why can't I use normal Pipeline objects with the spaCy API?
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -434,6 +466,35 @@
                 </div>
               </div>
             
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-cant-i-use-normal-pipeline-objects-with-the-spacy-api" class="md-nav__link">
+    Why can't I use normal Pipeline objects with the spaCy API?
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
             
           
           <div class="md-content">
@@ -447,7 +508,19 @@
                 
                   <h1>FAQ</h1>
                 
-                
+                <h2 id="why-cant-i-use-normal-pipeline-objects-with-the-spacy-api">Why can't I use normal <code class="highlight"><span class="err">Pipeline</span></code> objects with the spaCy API?<a class="headerlink" href="#why-cant-i-use-normal-pipeline-objects-with-the-spacy-api" title="Permanent link">&para;</a></h2>
+<p>Scikit-Learn assumes that data is trained via <code class="highlight"><span class="na">.fit</span><span class="p">(</span><span class="no">X</span><span class="p">,</span> <span class="no">y</span><span class="p">).</span><span class="no">predict</span><span class="p">(</span><span class="no">X</span><span class="p">)</span></code>. This is great
+when you've got a dataset fully in memory but it's not so great when your dataset is 
+too big to fit in memory in one go. This is a main reason why spaCy has an <code class="highlight"><span class="na">.update</span><span class="p">()</span></code>
+API for their trainable pipeline components. It's similar to <code class="highlight"><span class="na">.partial_fit</span><span class="p">(</span><span class="no">X</span><span class="p">)</span></code> in 
+scikit-learn. You can train batch by batch this way. </p>
+<p>A big downside of the <code class="highlight"><span class="err">Pipeline</span></code> API is that it cannot use <code class="highlight"><span class="na">.partial_fit</span><span class="p">(</span><span class="no">X</span><span class="p">)</span></code> on it 
+even if all the components on the inside are compatible. That is why this library 
+offers a <code class="highlight"><span class="err">PartialPipeline</span></code>. It only allows for components that have <code class="highlight"><span class="na">.partial_fit</span></code> 
+implemented and it's these pipelines that can also comply with spaCy's <code class="highlight"><span class="na">.update</span><span class="p">()</span></code>
+API.</p>
+<p>Note that all scikit-learn components offered by this library are compatible with
+the <code class="highlight"><span class="err">PartialPipeline</span></code>.</p>
                 
               
               
