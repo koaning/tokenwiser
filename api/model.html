@@ -13,14 +13,14 @@
         <meta name="author" content="Vincent D. Warmerdam">
       
       
-        <link rel="canonical" href="https://koaning.github.io/tokenwiser/api/component.html">
+        <link rel="canonical" href="https://koaning.github.io/tokenwiser/api/model.html">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
     
     
       
-        <title>component - tokenwiser</title>
+        <title>model - tokenwiser</title>
       
     
     
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#component" class="md-skip">
+        <a href="#model" class="md-skip">
           Skip to content
         </a>
       
@@ -101,7 +101,7 @@
         <div class="md-header-nav__topic">
           <span class="md-ellipsis">
             
-              component
+              model
             
           </span>
         </div>
@@ -386,6 +386,18 @@
             
   
   
+  
+    <li class="md-nav__item">
+      <a href="component.html" class="md-nav__link">
+        component
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
     
   
   
@@ -397,12 +409,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          component
+          model
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="component.html" class="md-nav__link md-nav__link--active">
-        component
+      <a href="model.html" class="md-nav__link md-nav__link--active">
+        model
       </a>
       
         
@@ -419,8 +431,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#tokenwiser.component._sklearn.attach_sklearn_categoriser" class="md-nav__link">
-    attach_sklearn_categoriser()
+  <a href="#tokenwiser.model.sklearnmod.SklearnCat" class="md-nav__link">
+    SklearnCat
   </a>
   
 </li>
@@ -429,18 +441,6 @@
   
 </nav>
       
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="model.html" class="md-nav__link">
-        model
-      </a>
     </li>
   
 
@@ -491,8 +491,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#tokenwiser.component._sklearn.attach_sklearn_categoriser" class="md-nav__link">
-    attach_sklearn_categoriser()
+  <a href="#tokenwiser.model.sklearnmod.SklearnCat" class="md-nav__link">
+    SklearnCat
   </a>
   
 </li>
@@ -509,119 +509,55 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/koaning/tokenwiser/edit/master/docs/api/component.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/koaning/tokenwiser/edit/master/docs/api/model.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="component"><code class="highlight"><span class="err">component</span></code><a class="headerlink" href="#component" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">tokenwiser.component</span> <span class="kn">import</span> <span class="o">*</span>
+                <h1 id="model"><code class="highlight"><span class="err">model</span></code><a class="headerlink" href="#model" title="Permanent link">&para;</a></h1>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">tokenwiser.model</span> <span class="kn">import</span> <span class="o">*</span>
 </code></pre></div>
-<p>In the <code class="highlight"><span class="err">component</span></code> submodule you can find spaCy compatible components.</p>
-<div class="doc doc-object doc-function">
-<h2 class="doc doc-heading" id="tokenwiser.component._sklearn.attach_sklearn_categoriser">
+<p>In the <code class="highlight"><span class="err">model</span></code> submodule you can find scikit-learn pipelines that are trainable via spaCy. 
+These pipelines apply the <code class="highlight"><span class="na">.partial_fit</span><span class="p">().</span><span class="no">predict</span><span class="p">()</span></code>-design which makes them compliant with
+the <code class="highlight"><span class="err">spacy train</span></code> command.</p>
+<div class="doc doc-object doc-class">
+<h2 class="doc doc-heading" id="tokenwiser.model.sklearnmod.SklearnCat">
 
-<code class="highlight language-python"><span class="n">attach_sklearn_categoriser</span><span class="p">(</span><span class="n">nlp</span><span class="p">,</span> <span class="n">pipe_name</span><span class="p">,</span> <span class="n">estimator</span><span class="p">)</span></code>
+        <code>SklearnCat</code>
 
 
-      <a class="headerlink" href="#tokenwiser.component._sklearn.attach_sklearn_categoriser" title="Permanent link">&para;</a></h2>
+
+      <a class="headerlink" href="#tokenwiser.model.sklearnmod.SklearnCat" title="Permanent link">&para;</a></h2>
 <div class="doc doc-contents first">
-<p>This function will attach a scikit-learn compatible estimator to
-the pipeline which will feed predictions to the <code class="highlight"><span class="na">.cats</span></code> property.</p>
-<p>This is useful if you're interesting in added a pre-trained sklearn
-model to the pipeline. This is <strong>not</strong> useful if you're interested
-in training a new model via spaCy, check out the <code class="highlight"><span class="err">tokenwiser.model</span></code>
-submodule for that.</p>
-<p>Usage:</p>
-<div class="highlight">
-<pre><span></span><code><span class="kn">import</span> <span class="nn">spacy</span>
+<p>This is a spaCy pipeline component object that can train specific scikit-learn pipelines.</p>
+<p>This allows you to run a simple benchmark via spaCy on simple text-based scikit-learn models.
+One should not expect these models to have state of the art accuracy. But they should have
+"pretty good" accuracy while being substantially faster to train than most deep-learning
+based models.</p>
+<p>The intended use-case for these models is to offer a base benchmark. If these models perform well
+one your task, it's an indication that you're in luck and that you've got a simple task that
+doesn't require state of the art models.</p>
+<div class="doc doc-children">
 
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
 
-<span class="kn">from</span> <span class="nn">tokenwiser.component</span> <span class="kn">import</span> <span class="n">attach_sklearn_categoriser</span>
 
-<span class="n">X</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"i really like this post"</span><span class="p">,</span>
-    <span class="s2">"thanks for that comment"</span><span class="p">,</span>
-    <span class="s2">"i enjoy this friendly forum"</span><span class="p">,</span>
-    <span class="s2">"this is a bad post"</span><span class="p">,</span>
-    <span class="s2">"i dislike this article"</span><span class="p">,</span>
-    <span class="s2">"this is not well written"</span>
-<span class="p">]</span>
 
-<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"pos"</span><span class="p">,</span> <span class="s2">"pos"</span><span class="p">,</span> <span class="s2">"pos"</span><span class="p">,</span> <span class="s2">"neg"</span><span class="p">,</span> <span class="s2">"neg"</span><span class="p">,</span> <span class="s2">"neg"</span><span class="p">]</span>
 
-<span class="c1"># Note that we're training a pipeline here via a single-batch `.fit()` method</span>
-<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">CountVectorizer</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
-<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"en_core_web_sm"</span><span class="p">)</span>
-<span class="c1"># This is where we attach our pre-trained model as a pipeline step.</span>
-<span class="n">attach_sklearn_categoriser</span><span class="p">(</span><span class="n">nlp</span><span class="p">,</span> <span class="n">pipe_name</span><span class="o">=</span><span class="s2">"silly_sentiment"</span><span class="p">,</span> <span class="n">estimator</span><span class="o">=</span><span class="n">pipe</span><span class="p">)</span>
 
-<span class="k">assert</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe_names</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"silly_sentiment"</span>
-<span class="k">assert</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">"this post i really like"</span><span class="p">)</span><span class="o">.</span><span class="n">cats</span><span class="p">[</span><span class="s2">"pos"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span>
-</code></pre>
-</div>
-<details class="quote">
-          <summary>Source code in <code>tokenwiser/component/_sklearn.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">attach_sklearn_categoriser</span><span class="p">(</span><span class="n">nlp</span><span class="p">,</span> <span class="n">pipe_name</span><span class="p">,</span> <span class="n">estimator</span><span class="p">):</span>
-    <span class="sd">"""</span>
-<span class="sd">    This function will attach a scikit-learn compatible estimator to</span>
-<span class="sd">    the pipeline which will feed predictions to the `.cats` property.</span>
 
-<span class="sd">    This is useful if you're interesting in added a pre-trained sklearn</span>
-<span class="sd">    model to the pipeline. This is **not** useful if you're interested</span>
-<span class="sd">    in training a new model via spaCy, check out the `tokenwiser.model`</span>
-<span class="sd">    submodule for that.</span>
 
-<span class="sd">    Usage:</span>
 
-<span class="sd">    ```python</span>
-<span class="sd">    import spacy</span>
 
-<span class="sd">    from sklearn.pipeline import make_pipeline</span>
-<span class="sd">    from sklearn.feature_extraction.text import CountVectorizer</span>
-<span class="sd">    from sklearn.linear_model import LogisticRegression</span>
 
-<span class="sd">    from tokenwiser.component import attach_sklearn_categoriser</span>
 
-<span class="sd">    X = [</span>
-<span class="sd">        "i really like this post",</span>
-<span class="sd">        "thanks for that comment",</span>
-<span class="sd">        "i enjoy this friendly forum",</span>
-<span class="sd">        "this is a bad post",</span>
-<span class="sd">        "i dislike this article",</span>
-<span class="sd">        "this is not well written"</span>
-<span class="sd">    ]</span>
 
-<span class="sd">    y = ["pos", "pos", "pos", "neg", "neg", "neg"]</span>
 
-<span class="sd">    # Note that we're training a pipeline here via a single-batch `.fit()` method</span>
-<span class="sd">    pipe = make_pipeline(CountVectorizer(), LogisticRegression()).fit(X, y)</span>
 
-<span class="sd">    nlp = spacy.load("en_core_web_sm")</span>
-<span class="sd">    # This is where we attach our pre-trained model as a pipeline step.</span>
-<span class="sd">    attach_sklearn_categoriser(nlp, pipe_name="silly_sentiment", estimator=pipe)</span>
 
-<span class="sd">    assert nlp.pipe_names[-1] == "silly_sentiment"</span>
-<span class="sd">    assert nlp("this post i really like").cats["pos"] &gt; 0.5</span>
-<span class="sd">    ```</span>
-<span class="sd">    """</span>
 
-    <span class="nd">@Language</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">pipe_name</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">my_component</span><span class="p">(</span><span class="n">doc</span><span class="p">):</span>
-        <span class="n">pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">doc</span><span class="o">.</span><span class="n">text</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">proba</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">([</span><span class="n">doc</span><span class="o">.</span><span class="n">text</span><span class="p">])</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-        <span class="n">doc</span><span class="o">.</span><span class="n">cats</span><span class="p">[</span><span class="n">pred</span><span class="p">]</span> <span class="o">=</span> <span class="n">proba</span>
-        <span class="k">return</span> <span class="n">doc</span>
 
-    <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="n">pipe_name</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
+  </div>
 </div>
 </div>
                 
@@ -642,7 +578,7 @@ submodule for that.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="extension.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="component.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -651,19 +587,19 @@ submodule for that.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                extension
+                component
               </div>
             </div>
           </a>
         
         
-          <a href="model.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../faq.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                model
+                FAQ
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
