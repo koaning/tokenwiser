@@ -6,6 +6,11 @@ def attach_sklearn_categoriser(nlp, pipe_name, estimator):
     This function will attach a scikit-learn compatible estimator to
     the pipeline which will feed predictions to the `.cats` property.
 
+    This is useful if you're interesting in added a pre-trained sklearn
+    model to the pipeline. This is **not** useful if you're interested
+    in training a new model via spaCy, check out the `tokenwiser.model`
+    submodule for that.
+
     Usage:
 
     ```python
@@ -28,9 +33,11 @@ def attach_sklearn_categoriser(nlp, pipe_name, estimator):
 
     y = ["pos", "pos", "pos", "neg", "neg", "neg"]
 
+    # Note that we're training a pipeline here via a single-batch `.fit()` method
     pipe = make_pipeline(CountVectorizer(), LogisticRegression()).fit(X, y)
 
     nlp = spacy.load("en_core_web_sm")
+    # This is where we attach our pre-trained model as a pipeline step.
     attach_sklearn_categoriser(nlp, pipe_name="silly_sentiment", estimator=pipe)
 
     assert nlp.pipe_names[-1] == "silly_sentiment"

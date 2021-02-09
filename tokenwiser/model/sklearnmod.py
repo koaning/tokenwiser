@@ -16,6 +16,13 @@ from tokenwiser.pipeline import PartialPipeline
 
 
 class SklearnCat:
+    """
+    This is a spaCy pipeline component object that can train specific scikit-learn pipelines.
+
+    This allows you to run a simple benchmark via spaCy on simple token-based models. One
+    should not expect these models to have state of the art accuracy. But they should have
+    "pretty good" accuracy while being "pretty fast" to train.
+    """
     def __init__(self, nlp, name, sklearn_model, label, classes):
         self.nlp = nlp
         self.name = name
