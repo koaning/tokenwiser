@@ -21,7 +21,8 @@ plugins:
       handlers:
         python:
           setup_commands:
-            - import tokenwiser
+            - from tokenwiser.textprep import *
+            - from tokenwiser.pipeline import *
       watch:
         - tokenwiser
   - search

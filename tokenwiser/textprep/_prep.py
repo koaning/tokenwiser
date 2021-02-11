@@ -19,5 +19,4 @@ class TextPrep(ABC):
             yield self.encode_single(x)
 
     def transform(self, X, y=None):
-        """Transforms a batch of data."""
         return [self.encode_single(x) for x in X]
