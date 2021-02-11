@@ -4,7 +4,7 @@
 
 > Bag of, not words, but tricks!
 
-## Goal 
+## Goal
 
 We noticed that a lot of benchmarks relied on heavy-weight tools while they did not 
 check if something more lightweight would also work. Maybe if we just apply some simple 
@@ -27,5 +27,4 @@ The following submodules contain features that might be useful.
 ### SpaCy Tools 
  
 - `.component`: Contains spaCy compatible components that might be added as a pipeline step.
-- `.extension`: Contains spaCy compatible extensions that might be added manually.
-- `.model`: Contains spaCy compatible/configurable models from Scikit-Learn for fast benchmarks. 
+- `.extension`: Contains spaCy compatible extensions that might be added manually. 

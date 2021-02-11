@@ -65,3 +65,24 @@ All of these tools are part of the `textprep` submodule and are documented in de
 
 Pipeline components are certainly nice, but can we maybe come up with a better pipeline for text?
 
+### Concatenate Text
+
+In scikit-learn, it is assumed that transformers output arrays that need to be concatenated. This 
+can be a bit awkward if you're using text preprocessors so this library comes with a special union
+component: `TextConcat`. 
+
+```python
+from sklearn.pipeline import make_pipeline 
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LogisticRegression
+from tokenwiser.pipeline import make_concat
+
+from tokenwiser.textprep import Cleaner, Identity, HyphenTextPrep
+
+pipe = make_pipeline(
+    Cleaner(),
+    make_concat(Identity(), HyphenTextPrep)
+    CountVectorizer(), 
+    LogisticRegression()
+)
+```
