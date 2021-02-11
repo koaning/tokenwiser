@@ -14,7 +14,7 @@ class PartialPipeline(Pipeline):
 
     tc = PartialPipeline([('clean', Cleaner()), ('hyp', HyphenTextPrep())])
     data = ["dinosaurhead", "another$$ sentence$$"]
-    results = tc.fit_partial(data).transform(data)
+    results = tc.partial_fit(data).transform(data)
     expected = ['di no saur head', 'an other  sen tence']
 
     assert results == expected
@@ -24,17 +24,22 @@ class PartialPipeline(Pipeline):
     def __init__(self, steps):
         super().__init__(steps=steps)
 
-    def fit_partial(self, X, y=None):
+    def partial_fit(self, X, y=None, classes=None, **kwargs):
         """
         Fits the components, but allow for batches.
         """
         for name, step in self.steps:
-            if not hasattr(step, "fit_partial"):
+            if not hasattr(step, "partial_fit"):
                 raise ValueError(
-                    f"Step {name} is a {step} which does not have `.fit_partial` implemented."
+                    f"Step {name} is a {step} which does not have `.partial_fit` implemented."
                 )
         for name, step in self.steps:
-            step.fit_partial(X, y)
+            if hasattr(step, 'predict'):
+                step.partial_fit(X, y, classes=classes, **kwargs)
+            else:
+                step.partial_fit(X, y)
+            if hasattr(step, 'transform'):
+                X = step.transform(X)
         return self
 
 
@@ -51,7 +56,7 @@ def make_partial_pipeline(*steps):
 
     tc = make_partial_pipeline(Cleaner(), HyphenTextPrep())
     data = ["dinosaurhead", "another$$ sentence$$"]
-    results = tc.fit_partial(data).transform(data)
+    results = tc.partial_fit(data).transform(data)
     expected = ['di no saur head', 'an other  sen tence']
 
     assert results == expected

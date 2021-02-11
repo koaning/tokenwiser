@@ -10,6 +10,7 @@ from tokenwiser.textprep import (
     SpacyLemmaTextPrep,
     YakeTextPrep,
     PhoneticTextPrep,
+    Identity
 )
 import spacy
 
@@ -26,6 +27,7 @@ prep_list = [
     SpacyLemmaTextPrep(nlp),
     SpacyMorphTextPrep(nlp),
     SpacyPosTextPrep(nlp),
+    Identity()
 ]
 
 

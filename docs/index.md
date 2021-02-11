@@ -1,23 +1,19 @@
 <img src="token.png" width=125 height=125 align="right">
 
-# tokenwiser
+<h1 style="font-weight: bold; color: black;">tokenwiser</h1>
 
 > Bag of, not words, but tricks!
 
-This project contains a couple of useful "tricks" on tokens. It's a collection 
-of tricks for sparse data that might be trained on a stream of data.
-
-# Goal 
+## Goal
 
 We noticed that a lot of benchmarks relied on heavy-weight tools while they did not 
 check if something more lightweight would also work. Maybe if we just apply some simple 
-tricks on our tokens we won't need massive language models. 
+tricks on our tokens we won't need massive language models. The goal of this package is 
+to contribute tricks to keep your NLP pipelines simple. These tricks are made available
+for spaCy, scikit-learn and vowpal wabbit. 
 
-The goal of this package is to contribute tricks to keep your NLP pipelines simple but
-also some general tools that are useful in scikit-learn and spaCy. 
-
-> If you're looking for a tool that can add language models to scikit-learn pipelines as 
-a benchmark you'll want to explore another tool: [whatlies](https://rasahq.github.io/whatlies/tutorial/scikit-learn/).
+> If you're looking for a tool that can add pretrained language models to scikit-learn 
+pipelines as a benchmark you'll want to explore another tool: [whatlies](https://rasahq.github.io/whatlies/tutorial/scikit-learn/).
 
 ## Features
 
