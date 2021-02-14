@@ -1,4 +1,4 @@
-<img src="token.png" width=125 height=125 align="right">
+<img src="logo.png" width=125 height=125 align="right">
 
 <h1 style="font-weight: bold; color: black;">tokenwiser</h1>
 
