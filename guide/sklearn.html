@@ -69,6 +69,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#text-preparation-tools" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -299,9 +304,90 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Scikit-Learn
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="sklearn.html" class="md-nav__link md-nav__link--active">
         Scikit-Learn
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#text-preparation-tools" class="md-nav__link">
+    Text Preparation Tools
+  </a>
+  
+    <nav class="md-nav" aria-label="Text Preparation Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-pipeline" class="md-nav__link">
+    Base Pipeline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spelling-errors" class="md-nav__link">
+    Spelling Errors
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#long-texts" class="md-nav__link">
+    Long Texts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bag-of-tricks" class="md-nav__link">
+    Bag of Tricks!
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-tools" class="md-nav__link">
+    Pipeline Tools
+  </a>
+  
+    <nav class="md-nav" aria-label="Pipeline Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concatenate-text" class="md-nav__link">
+    Concatenate Text
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -395,18 +481,6 @@
   
 
           
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../api/model.html" class="md-nav__link">
-        model
-      </a>
-    </li>
-  
-
-          
         </ul>
       </nav>
     </li>
@@ -435,6 +509,89 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#text-preparation-tools" class="md-nav__link">
+    Text Preparation Tools
+  </a>
+  
+    <nav class="md-nav" aria-label="Text Preparation Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-pipeline" class="md-nav__link">
+    Base Pipeline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spelling-errors" class="md-nav__link">
+    Spelling Errors
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#long-texts" class="md-nav__link">
+    Long Texts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bag-of-tricks" class="md-nav__link">
+    Bag of Tricks!
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-tools" class="md-nav__link">
+    Pipeline Tools
+  </a>
+  
+    <nav class="md-nav" aria-label="Pipeline Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concatenate-text" class="md-nav__link">
+    Concatenate Text
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
@@ -457,6 +614,62 @@ at our disposal that are specialized towards text to make this object more effec
 </ul>
 <p>Part of what this library does is give more tools that extend scikit-learn for simple
 text classification problems. In this document we will showcase some of the main features.</p>
+<h2 id="text-preparation-tools">Text Preparation Tools<a class="headerlink" href="#text-preparation-tools" title="Permanent link">&para;</a></h2>
+<p>Let's first discuss a basic pipeline for text inside of scikit-learn. </p>
+<h3 id="base-pipeline">Base Pipeline<a class="headerlink" href="#base-pipeline" title="Permanent link">&para;</a></h3>
+<p>This simplest text classification pipeline in scikit-learn looks like this; </p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span> 
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">CountVectorizer</span><span class="p">(),</span> 
+    <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>This pipeline will encode words as sparse features before passing them on to the logistic regression.</p>
+<p><img of types in the pipeline></p>
+<h3 id="spelling-errors">Spelling Errors<a class="headerlink" href="#spelling-errors" title="Permanent link">&para;</a></h3>
+<p>For a lot of texts this might work fine, but what do you do with very long texts? When you are classifying online texts you are often confronted with spelling errors. To 
+deal with this you'd typically use a <a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">CountVectorizer</a> 
+with a character-level analyzer such that you also encode subwords. </p>
+<p>The downside of this approach is that you might wonder if we really <em>need</em> all these subwords. So how about this, 
+we add a new kind of component to the pipeline that will transform our text such that it can be more easily encoded.  </p>
+<h3 id="long-texts">Long Texts<a class="headerlink" href="#long-texts" title="Permanent link">&para;</a></h3>
+<p>There are some other tricks that you might want to apply for longer texts. Maybe you want to summarise a text before
+vectorizing it. So maybe it'd be nice to use a transformer that keeps only the most important subwords. </p>
+<p>A neat heuristic toolkit for this is <a href="https://github.com/LIAAD/yake">yake</a> (you can find a demo 
+<a href="http://yake.inesctec.pt/demo/sample/">here</a>). This package also features a scikit-learn compatible component for it. </p>
+<h3 id="bag-of-tricks">Bag of Tricks!<a class="headerlink" href="#bag-of-tricks" title="Permanent link">&para;</a></h3>
+<p>The goal of this library is to host a few meaningful tricks that might be helpful. Here's some more; </p>
+<ul>
+<li><code class="highlight"><span class="err">Cleaner</span></code> lowercase text remove all non alphanumeric characters.</li>
+<li><code class="highlight"><span class="err">PhoneticTextPrep</span></code> translate text into a phonetic encoding. </li>
+<li><code class="highlight"><span class="err">SpacyPosTextPrep</span></code> add part of speech infomation to the text using spaCy.</li>
+<li><code class="highlight"><span class="err">SpacyLemmaTextPrep</span></code> lemmatize the text using spaCy.</li>
+</ul>
+<p>All of these tools are part of the <code class="highlight"><span class="err">textprep</span></code> submodule and are documented in detail 
+<a href="https://koaning.github.io/tokenwiser/api/textprep.html">here</a>.</p>
+<h2 id="pipeline-tools">Pipeline Tools<a class="headerlink" href="#pipeline-tools" title="Permanent link">&para;</a></h2>
+<p>Pipeline components are certainly nice, but can we maybe come up with a better pipeline for text?</p>
+<h3 id="concatenate-text">Concatenate Text<a class="headerlink" href="#concatenate-text" title="Permanent link">&para;</a></h3>
+<p>In scikit-learn, it is assumed that transformers output arrays that need to be concatenated. This 
+can be a bit awkward if you're using text preprocessors so this library comes with a special union
+component: <code class="highlight"><span class="err">TextConcat</span></code>. </p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span> 
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">make_concat</span>
+
+<span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">Cleaner</span><span class="p">,</span> <span class="n">Identity</span><span class="p">,</span> <span class="n">HyphenTextPrep</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">Cleaner</span><span class="p">(),</span>
+    <span class="n">make_concat</span><span class="p">(</span><span class="n">Identity</span><span class="p">(),</span> <span class="n">HyphenTextPrep</span><span class="p">)</span>
+    <span class="n">CountVectorizer</span><span class="p">(),</span> 
+    <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div>
                 
               
               

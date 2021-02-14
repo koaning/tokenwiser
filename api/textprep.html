@@ -429,19 +429,6 @@
     SpacyLemmaTextPrep
   </a>
   
-    <nav class="md-nav" aria-label="SpacyLemmaTextPrep">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#tokenwiser.textprep._morph.SpacyLemmaTextPrep.transform" class="md-nav__link">
-    transform()
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -483,18 +470,6 @@
     <li class="md-nav__item">
       <a href="component.html" class="md-nav__link">
         component
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="model.html" class="md-nav__link">
-        model
       </a>
     </li>
   
@@ -591,19 +566,6 @@
   <a href="#tokenwiser.textprep._morph.SpacyLemmaTextPrep" class="md-nav__link">
     SpacyLemmaTextPrep
   </a>
-  
-    <nav class="md-nav" aria-label="SpacyLemmaTextPrep">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#tokenwiser.textprep._morph.SpacyLemmaTextPrep.transform" class="md-nav__link">
-    transform()
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -957,26 +919,21 @@ is that this may be combined in interesting ways in CountVectorizers.</p>
 </code></pre>
 </div>
 <div class="doc doc-children">
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="tokenwiser.textprep._morph.SpacyLemmaTextPrep.transform">
-
-<code class="highlight language-python"><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#tokenwiser.textprep._morph.SpacyLemmaTextPrep.transform" title="Permanent link">&para;</a></h3>
-<div class="doc doc-contents ">
-<p>Transforms a batch of data.</p>
-<details class="quote">
-          <summary>Source code in <code>tokenwiser/textprep/_morph.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">[</span><span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">lemma_</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">d</span><span class="p">])</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">X</span><span class="p">)]</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
 </div>
 </div>
                 
