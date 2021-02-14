@@ -1,4 +1,4 @@
-<img src="token.png" width=125 height=125 align="right">
+<img src="docs/logo-tokw.png" width=125 height=125 align="right">
 
 # tokenwiser
 
