@@ -380,6 +380,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#partial-fit" class="md-nav__link">
+    Partial Fit
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -580,6 +587,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#partial-fit" class="md-nav__link">
+    Partial Fit
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -618,32 +632,62 @@ text classification problems. In this document we will showcase some of the main
 <p>Let's first discuss a basic pipeline for text inside of scikit-learn. </p>
 <h3 id="base-pipeline">Base Pipeline<a class="headerlink" href="#base-pipeline" title="Permanent link">&para;</a></h3>
 <p>This simplest text classification pipeline in scikit-learn looks like this; </p>
+<p><img alt="" src="../images/minipipe.png" /></p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span> 
 <span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
 
 <span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
     <span class="n">CountVectorizer</span><span class="p">(),</span> 
-    <span class="n">LogisticRegression</span><span class="p">()</span>
+    <span class="n">SGDClassifier</span><span class="p">()</span>
 <span class="p">)</span>
 </code></pre></div>
-<p>This pipeline will encode words as sparse features before passing them on to the logistic regression.</p>
-<p><img of types in the pipeline></p>
+<p>This pipeline will encode words as sparse features before passing them on to the logistic regression model. 
+This pattern is very common and has proven to work well enough for many English text classification tasks.</p>
+<p><img alt="" src="../images/how-it-works.png" /></p>
+<p>The nice thing about using a <code class="highlight"><span class="err">SGDClassifier</span></code> is that we're able to learn from our data even if the dataset
+does not fit in memory. We can call <code class="highlight"><span class="na">.partial_fit</span></code> instead of <code class="highlight"><span class="na">.fit</span></code> and learn in a more "online" setting. </p>
+<p>That said, there are things we can do even to this pipeline to make it better.</p>
 <h3 id="spelling-errors">Spelling Errors<a class="headerlink" href="#spelling-errors" title="Permanent link">&para;</a></h3>
-<p>For a lot of texts this might work fine, but what do you do with very long texts? When you are classifying online texts you are often confronted with spelling errors. To 
+<p>When you are classifying online texts you are often confronted with spelling errors. To 
 deal with this you'd typically use a <a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">CountVectorizer</a> 
 with a character-level analyzer such that you also encode subwords. </p>
-<p>The downside of this approach is that you might wonder if we really <em>need</em> all these subwords. So how about this, 
-we add a new kind of component to the pipeline that will transform our text such that it can be more easily encoded.  </p>
+<p><img alt="" src="../images/huge_sparse_array.png" /></p>
+<p>With all of these subwords around, we'll be more robust against spelling errors.<br />
+The downside of this approach is that you might wonder if we really <em>need</em> all these subwords. So how about this, 
+let's add a step that will turn our text into subwords by splitting up hyphens. </p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">HyphenTextPrep</span>
+
+<span class="n">multi</span> <span class="o">=</span> <span class="n">HyphenTextPrep</span><span class="p">()</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span><span class="s2">&quot;geology&quot;</span><span class="p">,</span> <span class="s2">&quot;astrology&quot;</span><span class="p">])</span>
+<span class="k">assert</span> <span class="n">multi</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;geo logy&#39;</span><span class="p">,</span> <span class="s1">&#39;as tro logy&#39;</span><span class="p">]</span>
+</code></pre></div>
+<p>The <code class="highlight"><span class="err">HyphenTextPrep</span></code> preprocessor is a <code class="highlight"><span class="err">TextPrep</span></code>-object. For all intents and purposes these are 
+scikit-learn compatible preprocessing components but they all output strings instead of arrays. What's
+nice about these though is that you can "retokenize" the original text. This allows you to use the 
+subtokens as if they were tokens which might help keep your pipelines lightweight while still keeping
+them robust against certain spelling errors. </p>
 <h3 id="long-texts">Long Texts<a class="headerlink" href="#long-texts" title="Permanent link">&para;</a></h3>
 <p>There are some other tricks that you might want to apply for longer texts. Maybe you want to summarise a text before
-vectorizing it. So maybe it'd be nice to use a transformer that keeps only the most important subwords. </p>
+vectorizing it. So maybe it'd be nice to use a transformer that keeps only the most important tokens. </p>
 <p>A neat heuristic toolkit for this is <a href="https://github.com/LIAAD/yake">yake</a> (you can find a demo 
-<a href="http://yake.inesctec.pt/demo/sample/">here</a>). This package also features a scikit-learn compatible component for it. </p>
+<a href="http://yake.inesctec.pt/demo/sample/">here</a>). This package also features a scikit-learn compatible component for it.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">YakeTextPrep</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s2">&quot;Sources tell us that Google is acquiring Kaggle, </span><span class="se">\</span>
+<span class="s2">   a platform that hosts data science and machine learning&quot;</span>
+<span class="p">]</span>
+<span class="n">example</span> <span class="o">=</span> <span class="n">YakeTextPrep</span><span class="p">(</span><span class="n">top_n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">example</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;hosts data science acquiring kaggle google is acquiring&#39;</span>
+</code></pre></div>
+<p>The idea here is to reduce the text down to only the most important words. Again, this trick 
+might keep the algorithm lightweight and this trick will go a lot further than most "stopword"-lists.  </p>
 <h3 id="bag-of-tricks">Bag of Tricks!<a class="headerlink" href="#bag-of-tricks" title="Permanent link">&para;</a></h3>
 <p>The goal of this library is to host a few meaningful tricks that might be helpful. Here's some more; </p>
 <ul>
 <li><code class="highlight"><span class="err">Cleaner</span></code> lowercase text remove all non alphanumeric characters.</li>
+<li><code class="highlight"><span class="err">Identity</span></code> just keeps the text as is, useful when constructing elaborate pipelines.</li>
 <li><code class="highlight"><span class="err">PhoneticTextPrep</span></code> translate text into a phonetic encoding. </li>
 <li><code class="highlight"><span class="err">SpacyPosTextPrep</span></code> add part of speech infomation to the text using spaCy.</li>
 <li><code class="highlight"><span class="err">SpacyLemmaTextPrep</span></code> lemmatize the text using spaCy.</li>
@@ -651,11 +695,33 @@ vectorizing it. So maybe it'd be nice to use a transformer that keeps only the m
 <p>All of these tools are part of the <code class="highlight"><span class="err">textprep</span></code> submodule and are documented in detail 
 <a href="https://koaning.github.io/tokenwiser/api/textprep.html">here</a>.</p>
 <h2 id="pipeline-tools">Pipeline Tools<a class="headerlink" href="#pipeline-tools" title="Permanent link">&para;</a></h2>
-<p>Pipeline components are certainly nice, but can we maybe come up with a better pipeline for text?</p>
+<p>Pipeline components are certainly nice. But maybe we can go a step further for text. Maybe
+we can make better pipelines for text too!</p>
 <h3 id="concatenate-text">Concatenate Text<a class="headerlink" href="#concatenate-text" title="Permanent link">&para;</a></h3>
-<p>In scikit-learn, it is assumed that transformers output arrays that need to be concatenated. This 
-can be a bit awkward if you're using text preprocessors so this library comes with a special union
-component: <code class="highlight"><span class="err">TextConcat</span></code>. </p>
+<p>In scikit-learn you would use <code class="highlight"><span class="err">FeatureUnion</span></code> or <code class="highlight"><span class="err">make_union</span></code> to concatenate features in 
+a pipeline. Ut is assumed that transformers output arrays that need to be concatenated so the
+result of a concatenation is always a 2D array. This can be a bit awkward if you're using text preprocessors. </p>
+<p><img alt="" src="../images/make_concat.png" /></p>
+<p>The reason why we want to keep everything a string is so that the <code class="highlight"><span class="err">CountVectorizer</span></code> from scikit-learn
+can properly encode it. That is why this library comes with a special union
+component: <code class="highlight"><span class="err">TextConcat</span></code>. It concatenates the output of text-prep tools into a string instead of 
+an array. Note that we also pack a convenient <code class="highlight"><span class="err">make_concat</span></code> function too.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span> 
+<span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">make_concat</span>
+
+<span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">Cleaner</span><span class="p">,</span> <span class="n">Identity</span><span class="p">,</span> <span class="n">HyphenTextPrep</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">Cleaner</span><span class="p">(),</span>
+    <span class="n">make_concat</span><span class="p">(</span><span class="n">Identity</span><span class="p">(),</span> <span class="n">HyphenTextPrep</span><span class="p">()),</span>
+<span class="p">)</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="s2">&quot;hello astrology!!!!&quot;</span><span class="p">])</span>
+<span class="k">assert</span> <span class="n">output</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;hello astrology hel lo astro logy&#39;</span><span class="p">]</span>
+</code></pre></div>
+<p>Again, we see that we're taking a text input and that we're generating a text output. The <code class="highlight"><span class="err">make_concat</span></code>
+is making sure that we concatenate strings, not arrays! This is great when we want to follow up with 
+a `CountVectorizer!</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span> 
 <span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
@@ -665,11 +731,39 @@ component: <code class="highlight"><span class="err">TextConcat</span></code>. <
 
 <span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
     <span class="n">Cleaner</span><span class="p">(),</span>
-    <span class="n">make_concat</span><span class="p">(</span><span class="n">Identity</span><span class="p">(),</span> <span class="n">HyphenTextPrep</span><span class="p">)</span>
+    <span class="n">make_concat</span><span class="p">(</span><span class="n">Identity</span><span class="p">(),</span> <span class="n">HyphenTextPrep</span><span class="p">()),</span>
     <span class="n">CountVectorizer</span><span class="p">(),</span> 
     <span class="n">LogisticRegression</span><span class="p">()</span>
 <span class="p">)</span>
 </code></pre></div>
+<p>The mental picture for <code class="highlight"><span class="err">pipe</span></code>-pipeline looks like the diagram below. </p>
+<p><img alt="" src="../images/pipeline.png" /></p>
+<h3 id="partial-fit">Partial Fit<a class="headerlink" href="#partial-fit" title="Permanent link">&para;</a></h3>
+<p>We can go a step further though. The scikit-learn pipeline follows the <code class="highlight"><span class="err">fit/predict</span></code> API. That
+means that we cannot use <code class="highlight"><span class="na">.partial_fit</span><span class="p">()</span></code>. Even if all the components in the pipeline are compatible 
+with the <code class="highlight"><span class="err">partial_fit/predict</span></code> API. That is why this library also introduced components for mini-batch 
+learning: <code class="highlight"><span class="err">PartialPipeline</span></code> and <code class="highlight"><span class="err">make_partial_pipeline</span></code> </p>
+<p>In these scenarios you will need to swap out the <code class="highlight"><span class="err">CountVectorizer</span></code> with a <code class="highlight"><span class="err">HashVectorizer</span></code> in order to
+be able to learn from new data comming in. </p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">HashingVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">make_concat</span><span class="p">,</span> <span class="n">make_partial_pipeline</span>
+
+<span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">Cleaner</span><span class="p">,</span> <span class="n">Identity</span><span class="p">,</span> <span class="n">HyphenTextPrep</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_partial_pipeline</span><span class="p">(</span>
+    <span class="n">Cleaner</span><span class="p">(),</span>
+    <span class="n">make_concat</span><span class="p">(</span><span class="n">Identity</span><span class="p">(),</span> <span class="n">HyphenTextPrep</span><span class="p">()),</span>
+    <span class="n">HashingVectorizer</span><span class="p">(),</span> 
+    <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>This <code class="highlight"><span class="err">pipe</span></code>-Pipeline is scikit-learn compatible for all intents and purposes
+but it has the option of learning from batches of data via <code class="highlight"><span class="err">partal_fit</span></code>. This is great
+because it means that you're able to classify text even when it doesn't fit into memory!</p>
+<blockquote>
+<p>Note that all of the <code class="highlight"><span class="err">TextPrep</span></code>-components in this library allow for <code class="highlight"><span class="err">partial_fit</span></code>. </p>
+</blockquote>
                 
               
               

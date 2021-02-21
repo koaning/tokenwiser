@@ -440,6 +440,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#can-i-train-spacy-with-scikit-learn-from-jupyter" class="md-nav__link">
+    Can I train spaCy with scikit-learn from Jupyter?
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -477,6 +484,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#can-i-train-spacy-with-scikit-learn-from-jupyter" class="md-nav__link">
+    Can I train spaCy with scikit-learn from Jupyter?
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -510,6 +524,56 @@ implemented and it's these pipelines that can also comply with spaCy's <code cla
 API.</p>
 <p>Note that all scikit-learn components offered by this library are compatible with
 the <code class="highlight"><span class="err">PartialPipeline</span></code>. This includes everything from the <code class="highlight"><span class="err">tokeniser.textprep</span></code> submodule. </p>
+<h2 id="can-i-train-spacy-with-scikit-learn-from-jupyter">Can I train spaCy with scikit-learn from Jupyter?<a class="headerlink" href="#can-i-train-spacy-with-scikit-learn-from-jupyter" title="Permanent link">&para;</a></h2>
+<p>It's not our favorite way of doing things, but nobody is stopping you. </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">spacy</span> 
+<span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">registry</span>
+<span class="kn">from</span> <span class="nn">spacy.training</span> <span class="kn">import</span> <span class="n">Example</span>
+<span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
+
+<span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">PartialPipeline</span>
+<span class="kn">from</span> <span class="nn">tokenwiser.model.sklearnmod</span> <span class="kn">import</span> <span class="n">SklearnCat</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">HashingVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
+
+<span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span><span class="s2">&quot;custom-sklearn-cat&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">make_sklearn_cat</span><span class="p">(</span><span class="n">nlp</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">sklearn_model</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">classes</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">SklearnCat</span><span class="p">(</span><span class="n">nlp</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">sklearn_model</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">classes</span><span class="p">)</span>
+
+<span class="nd">@registry</span><span class="o">.</span><span class="n">architectures</span><span class="p">(</span><span class="s2">&quot;sklearn_model_basic_sgd.v1&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">make_sklearn_cat_basic_sgd</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;This creates a *partial* pipeline. We can&#39;t use a standard pipeline from scikit-learn.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">PartialPipeline</span><span class="p">([(</span><span class="s2">&quot;hash&quot;</span><span class="p">,</span> <span class="n">HashingVectorizer</span><span class="p">()),</span> <span class="p">(</span><span class="s2">&quot;lr&quot;</span><span class="p">,</span> <span class="n">SGDClassifier</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">))])</span>
+
+
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;sklearn_model&quot;</span><span class="p">:</span> <span class="s2">&quot;@sklearn_model_basic_sgd.v1&quot;</span><span class="p">,</span> 
+    <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;pos&quot;</span><span class="p">,</span> 
+    <span class="s2">&quot;classes&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">,</span> <span class="s2">&quot;neg&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;custom-sklearn-cat&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+
+<span class="n">texts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;you are a nice person&quot;</span><span class="p">,</span> 
+    <span class="s2">&quot;this is a great movie&quot;</span><span class="p">,</span> 
+    <span class="s2">&quot;i do not like cofee&quot;</span><span class="p">,</span> 
+    <span class="s2">&quot;i hate tea&quot;</span>
+<span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">,</span> <span class="s2">&quot;pos&quot;</span><span class="p">,</span> <span class="s2">&quot;neg&quot;</span><span class="p">,</span> <span class="s2">&quot;neg&quot;</span><span class="p">]</span>
+
+<span class="c1"># This is the training loop just for out categorizer model.</span>
+<span class="k">with</span> <span class="n">nlp</span><span class="o">.</span><span class="n">select_pipes</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="s2">&quot;custom-sklearn-cat&quot;</span><span class="p">):</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">resume_training</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">loop</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">lab</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+            <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">make_doc</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="n">example</span> <span class="o">=</span> <span class="n">Example</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;cats&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;pos&quot;</span><span class="p">:</span> <span class="n">lab</span><span class="p">}})</span>
+            <span class="n">nlp</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">example</span><span class="p">],</span> <span class="n">sgd</span><span class="o">=</span><span class="n">optimizer</span><span class="p">)</span>
+
+<span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;you are a nice person&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">cats</span> <span class="c1"># {&#39;pos&#39;: 0.9979167909733176}</span>
+<span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;coffee i do not like&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">cats</span> <span class="c1"># {&#39;neg&#39;: 0.990049724779963}</span>
+</code></pre></div>
                 
               
               
