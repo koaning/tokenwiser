@@ -5,7 +5,7 @@
 > Bag of, not words, but tricks!
 
 This project contains a couple of useful "tricks" on tokens. It's a collection 
-of tricks for sparse data that might be trained on a stream of data.
+of tricks for sparse data that might be trained on a stream of data too.
 
 # Goal 
 

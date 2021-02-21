@@ -1,5 +1,7 @@
+import pathlib
 from tokenwiser.textprep import (
     Cleaner,
+    Identity,
     HyphenTextPrep,
     SpacyMorphTextPrep,
     SpacyPosTextPrep,
@@ -17,10 +19,11 @@ from tokenwiser.extension import attach_hyphen_extension, attach_sklearn_extensi
 from tokenwiser.component import attach_sklearn_categoriser
 
 import pytest
-from mktestdocs import check_docstring
+from mktestdocs import check_docstring, check_md_file
 
 components = [
     Cleaner,
+    Identity,
     HyphenTextPrep,
     SpacyMorphTextPrep,
     SpacyPosTextPrep,
@@ -41,3 +44,8 @@ components = [
 @pytest.mark.parametrize("obj", components, ids=lambda d: d.__qualname__)
 def test_member(obj):
     check_docstring(obj)
+
+
+@pytest.mark.parametrize("fpath", [str(p) for p in pathlib.Path("docs").glob("**/*.md")])
+def test_fpath(fpath):
+    check_md_file(fpath)
