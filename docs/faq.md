@@ -20,7 +20,6 @@ the `PartialPipeline`. This includes everything from the `tokeniser.textprep` su
 
 It's not our favorite way of doing things, but nobody is stopping you. 
 
-
 ```python
 import spacy 
 from spacy import registry
@@ -32,12 +31,13 @@ from tokenwiser.model.sklearnmod import SklearnCat
 from sklearn.feature_extraction.text import HashingVectorizer
 from sklearn.linear_model import SGDClassifier
 
-@Language.factory("sklearn-cat")
+@Language.factory("custom-sklearn-cat")
 def make_sklearn_cat(nlp, name, sklearn_model, label, classes):
     return SklearnCat(nlp, name, sklearn_model, label, classes)
 
 @registry.architectures("sklearn_model_basic_sgd.v1")
 def make_sklearn_cat_basic_sgd():
+    """This creates a *partial* pipeline. We can't use a standard pipeline from scikit-learn."""
     return PartialPipeline([("hash", HashingVectorizer()), ("lr", SGDClassifier(loss="log"))])
 
 
@@ -47,7 +47,7 @@ config = {
     "label": "pos", 
     "classes": ["pos", "neg"]
 }
-nlp.add_pipe("sklearn-cat", config=config)
+nlp.add_pipe("custom-sklearn-cat", config=config)
 
 texts = [
     "you are a nice person", 
@@ -58,7 +58,7 @@ texts = [
 labels = ["pos", "pos", "neg", "neg"]
 
 # This is the training loop just for out categorizer model.
-with nlp.select_pipes(enable="sklearn-cat"):
+with nlp.select_pipes(enable="custom-sklearn-cat"):
     optimizer = nlp.resume_training()
     for loop in range(10):
         for t, lab in zip(texts, labels):
