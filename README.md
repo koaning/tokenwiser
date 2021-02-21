@@ -32,3 +32,9 @@ The following submodules contain features that might be useful.
  
 - `.component`: Contains spaCy compatible components that might be added as a pipeline step.
 - `.extension`: Contains spaCy compatible extensions that might be added manually. 
+
+### Roadmap 
+
+- [ ] Make the PartialPipeline configurable for spaCy. 
+- [ ] Make vowpal wabbit configurable for spaCy.
+- [ ] Document both and make a demonstration project with some benchmarks. 
