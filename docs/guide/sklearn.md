@@ -54,6 +54,7 @@ A neat heuristic toolkit for this is [yake](https://github.com/LIAAD/yake) (you 
 The goal of this library is to host a few meaningful tricks that might be helpful. Here's some more; 
 
 - `Cleaner` lowercase text remove all non alphanumeric characters.
+- `Identity` just keeps the text as is, useful when constructing elaborate pipelines.
 - `PhoneticTextPrep` translate text into a phonetic encoding. 
 - `SpacyPosTextPrep` add part of speech infomation to the text using spaCy.
 - `SpacyLemmaTextPrep` lemmatize the text using spaCy.
@@ -63,13 +64,21 @@ All of these tools are part of the `textprep` submodule and are documented in de
 
 ## Pipeline Tools 
 
-Pipeline components are certainly nice, but can we maybe come up with a better pipeline for text?
+Pipeline components are certainly nice. But maybe we can go a step further for text. Maybe
+we can make better pipelines for text too!
 
 ### Concatenate Text
 
-In scikit-learn, it is assumed that transformers output arrays that need to be concatenated. This 
-can be a bit awkward if you're using text preprocessors so this library comes with a special union
-component: `TextConcat`. 
+In scikit-learn you would use `FeatureUnion` or `make_union` to concatenate features in 
+a pipeline. Ut is assumed that transformers output arrays that need to be concatenated so the
+result of a concatenation is always a 2D array. This can be a bit awkward if you're using text preprocessors. 
+
+![](../images/make_concat.png)
+
+The reason why we want to keep everything a string is so that the `CountVectorizer` from scikit-learn
+can properly encode it. That is why this library comes with a special union
+component: `TextConcat`. It concatenates the output of text-prep tools into a string instead of 
+an array. Note that we also pack a convenient `make_concat` function too.
 
 ```python
 from sklearn.pipeline import make_pipeline 
@@ -81,8 +90,12 @@ from tokenwiser.textprep import Cleaner, Identity, HyphenTextPrep
 
 pipe = make_pipeline(
     Cleaner(),
-    make_concat(Identity(), HyphenTextPrep)
+    make_concat(Identity(), HyphenTextPrep()),
     CountVectorizer(), 
     LogisticRegression()
 )
 ```
+
+The mental picture for `pipe`-pipeline looks like the diagram below. 
+
+![](../images/pipeline.png)
