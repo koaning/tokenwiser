@@ -35,6 +35,7 @@ The following submodules contain features that might be useful.
 
 ### Roadmap 
 
+- [ ] Add yake to spaCy.
 - [ ] Make the PartialPipeline configurable for spaCy. 
 - [ ] Make vowpal wabbit configurable for spaCy.
 - [ ] Make LDA from sklearn compatible for spaCy.
