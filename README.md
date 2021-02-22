@@ -39,4 +39,4 @@ The following submodules contain features that might be useful.
 - [ ] Make vowpal wabbit configurable for spaCy.
 - [ ] Make LDA from sklearn compatible for spaCy.
 - [ ] Make LDA from vowpal wabbit compatible for spaCy.
-- [ ] Document both and make a demonstration project with some benchmarks. 
+- [ ] Document all of these with proper examples.
