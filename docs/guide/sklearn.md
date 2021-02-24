@@ -56,6 +56,7 @@ let's add a step that will turn our text into subwords by splitting up hyphens.
 from tokenwiser.textprep import HyphenTextPrep
 
 multi = HyphenTextPrep().transform(["geology", "astrology"])
+
 assert multi == ['geo logy', 'as tro logy']
 ```
 
@@ -121,8 +122,8 @@ an array. Note that we also pack a convenient `make_concat` function too.
 
 ```python
 from sklearn.pipeline import make_pipeline 
-from tokenwiser.pipeline import make_concat
 
+from tokenwiser.pipeline import make_concat
 from tokenwiser.textprep import Cleaner, Identity, HyphenTextPrep
 
 pipe = make_pipeline(
@@ -140,10 +141,10 @@ a `CountVectorizer!
 
 ```python
 from sklearn.pipeline import make_pipeline 
-from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
-from tokenwiser.pipeline import make_concat
+from sklearn.feature_extraction.text import CountVectorizer
 
+from tokenwiser.pipeline import make_concat
 from tokenwiser.textprep import Cleaner, Identity, HyphenTextPrep
 
 pipe = make_pipeline(
@@ -169,17 +170,17 @@ In these scenarios you will need to swap out the `CountVectorizer` with a `HashV
 be able to learn from new data comming in. 
 
 ```python
+from sklearn.linear_model import SGDClassifier
 from sklearn.feature_extraction.text import HashingVectorizer
-from sklearn.linear_model import LogisticRegression
-from tokenwiser.pipeline import make_concat, make_partial_pipeline
 
 from tokenwiser.textprep import Cleaner, Identity, HyphenTextPrep
+from tokenwiser.pipeline import make_concat, make_partial_pipeline
 
 pipe = make_partial_pipeline(
     Cleaner(),
     make_concat(Identity(), HyphenTextPrep()),
     HashingVectorizer(), 
-    LogisticRegression()
+    SGDClassifier()
 )
 ```
 
