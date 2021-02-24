@@ -659,6 +659,7 @@ let's add a step that will turn our text into subwords by splitting up hyphens. 
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">HyphenTextPrep</span>
 
 <span class="n">multi</span> <span class="o">=</span> <span class="n">HyphenTextPrep</span><span class="p">()</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span><span class="s2">&quot;geology&quot;</span><span class="p">,</span> <span class="s2">&quot;astrology&quot;</span><span class="p">])</span>
+
 <span class="k">assert</span> <span class="n">multi</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;geo logy&#39;</span><span class="p">,</span> <span class="s1">&#39;as tro logy&#39;</span><span class="p">]</span>
 </code></pre></div>
 <p>The <code class="highlight"><span class="err">HyphenTextPrep</span></code> preprocessor is a <code class="highlight"><span class="err">TextPrep</span></code>-object. For all intents and purposes these are 
@@ -707,8 +708,8 @@ can properly encode it. That is why this library comes with a special union
 component: <code class="highlight"><span class="err">TextConcat</span></code>. It concatenates the output of text-prep tools into a string instead of 
 an array. Note that we also pack a convenient <code class="highlight"><span class="err">make_concat</span></code> function too.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span> 
-<span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">make_concat</span>
 
+<span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">make_concat</span>
 <span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">Cleaner</span><span class="p">,</span> <span class="n">Identity</span><span class="p">,</span> <span class="n">HyphenTextPrep</span>
 
 <span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
@@ -723,10 +724,10 @@ an array. Note that we also pack a convenient <code class="highlight"><span clas
 is making sure that we concatenate strings, not arrays! This is great when we want to follow up with 
 a `CountVectorizer!</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span> 
-<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
-<span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">make_concat</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
 
+<span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">make_concat</span>
 <span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">Cleaner</span><span class="p">,</span> <span class="n">Identity</span><span class="p">,</span> <span class="n">HyphenTextPrep</span>
 
 <span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
@@ -745,17 +746,17 @@ with the <code class="highlight"><span class="err">partial_fit/predict</span></c
 learning: <code class="highlight"><span class="err">PartialPipeline</span></code> and <code class="highlight"><span class="err">make_partial_pipeline</span></code> </p>
 <p>In these scenarios you will need to swap out the <code class="highlight"><span class="err">CountVectorizer</span></code> with a <code class="highlight"><span class="err">HashVectorizer</span></code> in order to
 be able to learn from new data comming in. </p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">HashingVectorizer</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
-<span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">make_concat</span><span class="p">,</span> <span class="n">make_partial_pipeline</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">HashingVectorizer</span>
 
 <span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">Cleaner</span><span class="p">,</span> <span class="n">Identity</span><span class="p">,</span> <span class="n">HyphenTextPrep</span>
+<span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">make_concat</span><span class="p">,</span> <span class="n">make_partial_pipeline</span>
 
 <span class="n">pipe</span> <span class="o">=</span> <span class="n">make_partial_pipeline</span><span class="p">(</span>
     <span class="n">Cleaner</span><span class="p">(),</span>
     <span class="n">make_concat</span><span class="p">(</span><span class="n">Identity</span><span class="p">(),</span> <span class="n">HyphenTextPrep</span><span class="p">()),</span>
     <span class="n">HashingVectorizer</span><span class="p">(),</span> 
-    <span class="n">LogisticRegression</span><span class="p">()</span>
+    <span class="n">SGDClassifier</span><span class="p">()</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>This <code class="highlight"><span class="err">pipe</span></code>-Pipeline is scikit-learn compatible for all intents and purposes
