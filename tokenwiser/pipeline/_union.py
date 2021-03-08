@@ -11,8 +11,10 @@ class PartialFeatureUnion(FeatureUnion):
     Example:
 
     ```python
+    import numpy as np
     from sklearn.linear_model import SGDClassifier
     from sklearn.feature_extraction.text import HashingVectorizer
+
     from tokenwiser.textprep import Cleaner, Identity, HyphenTextPrep
     from tokenwiser.pipeline import PartialPipeline, PartialFeatureUnion
 
@@ -79,8 +81,10 @@ def make_partial_union(*transformer_list):
     Example:
 
     ```python
+    import numpy as np
     from sklearn.linear_model import SGDClassifier
     from sklearn.feature_extraction.text import HashingVectorizer
+
     from tokenwiser.textprep import Cleaner, Identity, HyphenTextPrep
     from tokenwiser.pipeline import make_partial_pipeline, make_partial_union
 
