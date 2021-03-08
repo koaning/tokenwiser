@@ -16,6 +16,14 @@ pipelines that extend the standard behavior.
     rendering:
         show_root_full_path: false
         show_root_heading: true
+    selection:
+        members:
+          - partial_fit
+        
+::: tokenwiser.pipeline.PartialFeatureUnion
+    rendering:
+        show_root_full_path: false
+        show_root_heading: true
 
 ::: tokenwiser.pipeline.make_partial_pipeline
     rendering:
@@ -23,6 +31,11 @@ pipelines that extend the standard behavior.
         show_root_heading: true
 
 ::: tokenwiser.pipeline.make_concat
+    rendering:
+        show_root_full_path: false
+        show_root_heading: true
+
+::: tokenwiser.pipeline.make_partial_union
     rendering:
         show_root_full_path: false
         show_root_heading: true
