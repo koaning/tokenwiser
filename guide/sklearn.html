@@ -387,6 +387,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#concatenate-features" class="md-nav__link">
+    Concatenate Features
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -594,6 +601,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#concatenate-features" class="md-nav__link">
+    Concatenate Features
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -738,7 +752,7 @@ a `CountVectorizer!</p>
 <span class="p">)</span>
 </code></pre></div>
 <p>The mental picture for <code class="highlight"><span class="err">pipe</span></code>-pipeline looks like the diagram below. </p>
-<p><img alt="" src="../images/pipeline.png" /></p>
+<p><img alt="" src="../images/pipeline.png" /> </p>
 <h3 id="partial-fit">Partial Fit<a class="headerlink" href="#partial-fit" title="Permanent link">&para;</a></h3>
 <p>We can go a step further though. The scikit-learn pipeline follows the <code class="highlight"><span class="err">fit/predict</span></code> API. That
 means that we cannot use <code class="highlight"><span class="na">.partial_fit</span><span class="p">()</span></code>. Even if all the components in the pipeline are compatible 
@@ -765,6 +779,76 @@ because it means that you're able to classify text even when it doesn't fit into
 <blockquote>
 <p>Note that all of the <code class="highlight"><span class="err">TextPrep</span></code>-components in this library allow for <code class="highlight"><span class="err">partial_fit</span></code>. </p>
 </blockquote>
+<p>To make a <code class="highlight"><span class="err">partial_fit</span></code> actually work you will need to supply the names of the <code class="highlight"><span class="err">classes</span></code> 
+at learning time. Otherwise you might accidentally get a batch that only contains one class
+and the algorithm would become numerically unstable. </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">HashingVectorizer</span>
+<span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">Cleaner</span><span class="p">,</span> <span class="n">Identity</span><span class="p">,</span> <span class="n">HyphenTextPrep</span>
+<span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">make_partial_pipeline</span><span class="p">,</span> <span class="n">make_partial_union</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_partial_pipeline</span><span class="p">(</span>
+    <span class="n">Cleaner</span><span class="p">(),</span>
+    <span class="n">make_partial_union</span><span class="p">(</span>
+        <span class="n">make_partial_pipeline</span><span class="p">(</span><span class="n">Identity</span><span class="p">(),</span> <span class="n">HashingVectorizer</span><span class="p">()),</span>
+        <span class="n">make_partial_pipeline</span><span class="p">(</span><span class="n">HyphenTextPrep</span><span class="p">(),</span> <span class="n">HashingVectorizer</span><span class="p">())</span>
+    <span class="p">),</span>
+    <span class="n">SGDClassifier</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;i really like this post&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;thanks for that comment&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;i enjoy this friendly forum&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;this is a bad post&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;i dislike this article&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;this is not well written&quot;</span>
+<span class="p">]</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">loop</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="c1"># It might make sense to loop over the same dataset multiple times</span>
+    <span class="c1"># if the dataset is small. For larger datasets this isn&#39;t recommended. </span>
+    <span class="n">pipe</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+</code></pre></div>
+<h3 id="concatenate-features">Concatenate Features<a class="headerlink" href="#concatenate-features" title="Permanent link">&para;</a></h3>
+<p>The standard <code class="highlight"><span class="err">FeatureUnion</span></code> from scikit-learn also does not allow for <code class="highlight"><span class="na">.partial_fit</span></code>. So we've
+added a <code class="highlight"><span class="err">PartialFeatureUnion</span></code> class and a <code class="highlight"><span class="err">make_partial_union</span></code> function to this library as well.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">HashingVectorizer</span>
+<span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">Cleaner</span><span class="p">,</span> <span class="n">Identity</span><span class="p">,</span> <span class="n">HyphenTextPrep</span>
+<span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">make_partial_pipeline</span><span class="p">,</span> <span class="n">make_partial_union</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_partial_pipeline</span><span class="p">(</span>
+    <span class="n">Cleaner</span><span class="p">(),</span>
+    <span class="n">make_partial_union</span><span class="p">(</span>
+        <span class="n">make_partial_pipeline</span><span class="p">(</span><span class="n">Identity</span><span class="p">(),</span> <span class="n">HashingVectorizer</span><span class="p">()),</span>
+        <span class="n">make_partial_pipeline</span><span class="p">(</span><span class="n">HyphenTextPrep</span><span class="p">(),</span> <span class="n">HashingVectorizer</span><span class="p">())</span>
+    <span class="p">),</span>
+    <span class="n">SGDClassifier</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;i really like this post&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;thanks for that comment&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;i enjoy this friendly forum&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;this is a bad post&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;i dislike this article&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;this is not well written&quot;</span>
+<span class="p">]</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">loop</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">pipe</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+</code></pre></div>
                 
               
               
