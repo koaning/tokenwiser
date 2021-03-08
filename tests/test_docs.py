@@ -12,8 +12,10 @@ from tokenwiser.textprep import (
 from tokenwiser.pipeline import (
     TextConcat,
     PartialPipeline,
+    PartialFeatureUnion,
     make_partial_pipeline,
     make_concat,
+    make_partial_union
 )
 from tokenwiser.extension import attach_hyphen_extension, attach_sklearn_extension, sklearn_method
 from tokenwiser.component import attach_sklearn_categoriser
@@ -32,8 +34,10 @@ components = [
     YakeTextPrep,
     TextConcat,
     PartialPipeline,
+    PartialFeatureUnion,
     make_partial_pipeline,
     make_concat,
+    make_partial_union,
     attach_hyphen_extension,
     attach_sklearn_extension,
     sklearn_method,

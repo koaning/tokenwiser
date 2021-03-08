@@ -56,6 +56,7 @@ let's add a step that will turn our text into subwords by splitting up hyphens.
 from tokenwiser.textprep import HyphenTextPrep
 
 multi = HyphenTextPrep().transform(["geology", "astrology"])
+
 assert multi == ['geo logy', 'as tro logy']
 ```
 
@@ -121,8 +122,8 @@ an array. Note that we also pack a convenient `make_concat` function too.
 
 ```python
 from sklearn.pipeline import make_pipeline 
-from tokenwiser.pipeline import make_concat
 
+from tokenwiser.pipeline import make_concat
 from tokenwiser.textprep import Cleaner, Identity, HyphenTextPrep
 
 pipe = make_pipeline(
@@ -140,10 +141,10 @@ a `CountVectorizer!
 
 ```python
 from sklearn.pipeline import make_pipeline 
-from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
-from tokenwiser.pipeline import make_concat
+from sklearn.feature_extraction.text import CountVectorizer
 
+from tokenwiser.pipeline import make_concat
 from tokenwiser.textprep import Cleaner, Identity, HyphenTextPrep
 
 pipe = make_pipeline(
@@ -156,7 +157,7 @@ pipe = make_pipeline(
 
 The mental picture for `pipe`-pipeline looks like the diagram below. 
 
-![](../images/pipeline.png)
+![](../images/pipeline.png) 
 
 ### Partial Fit 
 
@@ -169,17 +170,17 @@ In these scenarios you will need to swap out the `CountVectorizer` with a `HashV
 be able to learn from new data comming in. 
 
 ```python
+from sklearn.linear_model import SGDClassifier
 from sklearn.feature_extraction.text import HashingVectorizer
-from sklearn.linear_model import LogisticRegression
-from tokenwiser.pipeline import make_concat, make_partial_pipeline
 
 from tokenwiser.textprep import Cleaner, Identity, HyphenTextPrep
+from tokenwiser.pipeline import make_concat, make_partial_pipeline
 
 pipe = make_partial_pipeline(
     Cleaner(),
     make_concat(Identity(), HyphenTextPrep()),
     HashingVectorizer(), 
-    LogisticRegression()
+    SGDClassifier()
 )
 ```
 
@@ -188,3 +189,80 @@ but it has the option of learning from batches of data via `partal_fit`. This is
 because it means that you're able to classify text even when it doesn't fit into memory!
 
 > Note that all of the `TextPrep`-components in this library allow for `partial_fit`. 
+
+To make a `partial_fit` actually work you will need to supply the names of the `classes` 
+at learning time. Otherwise you might accidentally get a batch that only contains one class
+and the algorithm would become numerically unstable. 
+
+```python
+import numpy as np
+from sklearn.linear_model import SGDClassifier
+from sklearn.feature_extraction.text import HashingVectorizer
+from tokenwiser.textprep import Cleaner, Identity, HyphenTextPrep
+from tokenwiser.pipeline import make_partial_pipeline, make_partial_union
+
+pipe = make_partial_pipeline(
+    Cleaner(),
+    make_partial_union(
+        make_partial_pipeline(Identity(), HashingVectorizer()),
+        make_partial_pipeline(HyphenTextPrep(), HashingVectorizer())
+    ),
+    SGDClassifier()
+)
+
+X = [
+    "i really like this post",
+    "thanks for that comment",
+    "i enjoy this friendly forum",
+    "this is a bad post",
+    "i dislike this article",
+    "this is not well written"
+]
+
+y = np.array([1, 1, 1, 0, 0, 0])
+
+for loop in range(3):
+    # It might make sense to loop over the same dataset multiple times
+    # if the dataset is small. For larger datasets this isn't recommended. 
+    pipe.partial_fit(X, y, classes=[0, 1])
+
+assert np.all(pipe.predict(X) == np.array([1, 1, 1, 0, 0, 0]))
+```
+
+### Concatenate Features 
+
+The standard `FeatureUnion` from scikit-learn also does not allow for `.partial_fit`. So we've
+added a `PartialFeatureUnion` class and a `make_partial_union` function to this library as well.
+
+```python
+import numpy as np
+from sklearn.linear_model import SGDClassifier
+from sklearn.feature_extraction.text import HashingVectorizer
+from tokenwiser.textprep import Cleaner, Identity, HyphenTextPrep
+from tokenwiser.pipeline import make_partial_pipeline, make_partial_union
+
+pipe = make_partial_pipeline(
+    Cleaner(),
+    make_partial_union(
+        make_partial_pipeline(Identity(), HashingVectorizer()),
+        make_partial_pipeline(HyphenTextPrep(), HashingVectorizer())
+    ),
+    SGDClassifier()
+)
+
+X = [
+    "i really like this post",
+    "thanks for that comment",
+    "i enjoy this friendly forum",
+    "this is a bad post",
+    "i dislike this article",
+    "this is not well written"
+]
+
+y = np.array([1, 1, 1, 0, 0, 0])
+
+for loop in range(3):
+    pipe.partial_fit(X, y, classes=[0, 1])
+
+assert np.all(pipe.predict(X) == np.array([1, 1, 1, 0, 0, 0]))
+```
