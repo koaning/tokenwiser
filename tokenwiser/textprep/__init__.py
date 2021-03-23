@@ -13,5 +13,5 @@ __all__ = [
     "SpacyLemmaTextPrep",
     "SpacyPosTextPrep",
     "YakeTextPrep",
-    "Identity"
+    "Identity",
 ]

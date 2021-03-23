@@ -34,11 +34,11 @@ class PartialPipeline(Pipeline):
                     f"Step {name} is a {step} which does not have `.partial_fit` implemented."
                 )
         for name, step in self.steps:
-            if hasattr(step, 'predict'):
+            if hasattr(step, "predict"):
                 step.partial_fit(X, y, classes=classes, **kwargs)
             else:
                 step.partial_fit(X, y)
-            if hasattr(step, 'transform'):
+            if hasattr(step, "transform"):
                 X = step.transform(X)
         return self
 

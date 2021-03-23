@@ -64,7 +64,7 @@ class PartialFeatureUnion(FeatureUnion):
                     f"Step {name} is a {step} which does not have `.partial_fit` implemented."
                 )
         for name, step in self.transformer_list:
-            if hasattr(step, 'predict'):
+            if hasattr(step, "predict"):
                 step.partial_fit(X, y, classes=classes, **kwargs)
             else:
                 step.partial_fit(X, y)
