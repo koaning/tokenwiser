@@ -4,8 +4,8 @@
 from tokenwiser.wabbit import *
 ```
 
-In the `wabbit` submodule you can find a scikit-learn compatible 
-components based on [vowpal wabbit](https://vowpalwabbit.org/).
+In the `wabbit` submodule you can find a scikit-learn 
+component based on [vowpal wabbit](https://vowpalwabbit.org/).
 
 ::: tokenwiser.wabbit.VowpalWabbitClassifier
     rendering:

@@ -15,7 +15,6 @@ nav:
       - extension: api/extension.md
       - component: api/component.md
       - wabbit: api/wabbit.md
-#      - model: api/model.md
   - FAQ: faq.md
 plugins:
   - mkdocstrings:
