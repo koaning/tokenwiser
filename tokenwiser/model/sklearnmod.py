@@ -28,21 +28,34 @@ class SklearnCat:
     one your task, it's an indication that you're in luck and that you've got a simple task that
     doesn't require state of the art models.
     """
+
     def __init__(self, nlp, name, sklearn_model, label, classes):
         self.nlp = nlp
         self.name = name
         self.label = label
         self.classes = classes
-        self.sklearn_model = spacy.registry.architectures.get(sklearn_model.replace("@", ""))()
+        self.sklearn_model = spacy.registry.architectures.get(
+            sklearn_model.replace("@", "")
+        )()
 
     def __call__(self, doc: Doc):
         scores = self.predict([doc])
         self.set_annotations([doc], scores)
         return doc
 
-    def update(self, examples: Iterable[Example], *, drop: float=0.0, sgd=None, losses=None):
-        texts = [ex.reference.text for ex in examples if self.label in ex.reference.cats.keys()]
-        labels = [ex.reference.cats[self.label] for ex in examples if self.label in ex.reference.cats.keys()]
+    def update(
+        self, examples: Iterable[Example], *, drop: float = 0.0, sgd=None, losses=None
+    ):
+        texts = [
+            ex.reference.text
+            for ex in examples
+            if self.label in ex.reference.cats.keys()
+        ]
+        labels = [
+            ex.reference.cats[self.label]
+            for ex in examples
+            if self.label in ex.reference.cats.keys()
+        ]
         self.sklearn_model.partial_fit(texts, labels, classes=self.classes)
 
     def predict(self, docs: Iterable[Doc]):
@@ -59,10 +72,10 @@ class SklearnCat:
 
     def to_disk(self, path, exclude=None):
         pathlib.Path(path).mkdir(parents=True, exist_ok=True)
-        dump(self.sklearn_model, str(pathlib.Path(path)/'filename.joblib'))
+        dump(self.sklearn_model, str(pathlib.Path(path) / "filename.joblib"))
 
     def from_disk(self, path, exclude=None):
-        self.sklearn_model = load(str(pathlib.Path(path)/'filename.joblib'))
+        self.sklearn_model = load(str(pathlib.Path(path) / "filename.joblib"))
         return self
 
 
@@ -73,9 +86,13 @@ def make_sklearn_cat(nlp, name, sklearn_model, label, classes):
 
 @registry.architectures("sklearn_model_basic_sgd.v1")
 def make_sklearn_cat_basic_sgd():
-    return PartialPipeline([("hash", HashingVectorizer()), ("lr", SGDClassifier(loss="log"))])
+    return PartialPipeline(
+        [("hash", HashingVectorizer()), ("lr", SGDClassifier(loss="log"))]
+    )
 
 
 @registry.architectures("sklearn_model_basic_naive_bayes.v1")
 def make_sklearn_cat_basic_naive_bayes():
-    return PartialPipeline([("hash", HashingVectorizer(binary=True)), ("nb", MultinomialNB())])
+    return PartialPipeline(
+        [("hash", HashingVectorizer(binary=True)), ("nb", MultinomialNB())]
+    )

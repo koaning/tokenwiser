@@ -31,6 +31,7 @@ class Identity(TextPrep, BaseEstimator):
     )
     ```
     """
+
     def __init__(self):
         pass
 

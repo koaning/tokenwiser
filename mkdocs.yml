@@ -14,7 +14,7 @@ nav:
       - pipeline: api/pipeline.md
       - extension: api/extension.md
       - component: api/component.md
-#      - model: api/model.md
+      - wabbit: api/wabbit.md
   - FAQ: faq.md
 plugins:
   - mkdocstrings:
