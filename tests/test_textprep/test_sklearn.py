@@ -11,7 +11,7 @@ from tokenwiser.textprep import (
     YakeTextPrep,
     PhoneticTextPrep,
     Identity,
-    SentencePiecePrep
+    SentencePiecePrep,
 )
 import spacy
 
@@ -29,7 +29,7 @@ prep_list = [
     SpacyMorphTextPrep(nlp),
     SpacyPosTextPrep(nlp),
     Identity(),
-    SentencePiecePrep(model_file="tests/data/en.model")
+    SentencePiecePrep(model_file="tests/data/en.model"),
 ]
 
 

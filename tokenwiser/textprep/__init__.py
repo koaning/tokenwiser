@@ -15,5 +15,5 @@ __all__ = [
     "SpacyPosTextPrep",
     "YakeTextPrep",
     "Identity",
-    "SentencePiecePrep"
+    "SentencePiecePrep",
 ]

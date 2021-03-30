@@ -3,7 +3,9 @@ import spacy
 from spacy.training import Example
 
 
-@pytest.mark.parametrize("model", ["@sklearn_model_basic_sgd.v1", "@sklearn_model_basic_naive_bayes.v1"])
+@pytest.mark.parametrize(
+    "model", ["@sklearn_model_basic_sgd.v1", "@sklearn_model_basic_naive_bayes.v1"]
+)
 def test_model_config_inline(model):
     nlp = spacy.load("en_core_web_sm")
     conf = {"sklearn_model": model, "label": "pos", "classes": ["pos", "neg"]}
