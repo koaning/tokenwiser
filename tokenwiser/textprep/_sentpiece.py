@@ -23,4 +23,4 @@ class SentencePiecePrep(TextPrep, BaseEstimator):
         self.spm = spm.SentencePieceProcessor(model_file=model_file)
 
     def encode_single(self, x):
-        return " ".join([self.spm.encode_as_pieces(d) for d in x.split(" ")])
+        return " ".join(self.spm.encode_as_pieces(x))
