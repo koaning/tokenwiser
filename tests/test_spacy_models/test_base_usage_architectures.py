@@ -1,7 +1,6 @@
 import pytest
 import spacy
 from spacy.training import Example
-from tokenwiser.model.sklearnmod import SklearnCat
 
 
 @pytest.mark.parametrize("model", ["@sklearn_model_basic_sgd.v1", "@sklearn_model_basic_naive_bayes.v1"])
