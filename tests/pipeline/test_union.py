@@ -6,29 +6,58 @@ from tokenwiser.pipeline import PartialPipeline, PartialFeatureUnion
 
 def test_shape_doubles():
     """If we concatenate using a partial union. It should increase in size."""
-    pipe1 = PartialPipeline([
-        ("clean", Cleaner()),
-        ("union", PartialFeatureUnion([
-            ("full_text_pipe", PartialPipeline([
-                ("identity", Identity()),
-                ("hash1", HashingVectorizer()),
-            ]))
-        ]))
-    ])
+    pipe1 = PartialPipeline(
+        [
+            ("clean", Cleaner()),
+            (
+                "union",
+                PartialFeatureUnion(
+                    [
+                        (
+                            "full_text_pipe",
+                            PartialPipeline(
+                                [
+                                    ("identity", Identity()),
+                                    ("hash1", HashingVectorizer()),
+                                ]
+                            ),
+                        )
+                    ]
+                ),
+            ),
+        ]
+    )
 
-    pipe2 = PartialPipeline([
-        ("clean", Cleaner()),
-        ("union", PartialFeatureUnion([
-            ("full_text_pipe", PartialPipeline([
-                ("identity", Identity()),
-                ("hash1", HashingVectorizer()),
-            ])),
-            ("hyphen_pipe", PartialPipeline([
-                ("hyphen", HyphenTextPrep()),
-                ("hash2", HashingVectorizer()),
-            ]))
-        ]))
-    ])
+    pipe2 = PartialPipeline(
+        [
+            ("clean", Cleaner()),
+            (
+                "union",
+                PartialFeatureUnion(
+                    [
+                        (
+                            "full_text_pipe",
+                            PartialPipeline(
+                                [
+                                    ("identity", Identity()),
+                                    ("hash1", HashingVectorizer()),
+                                ]
+                            ),
+                        ),
+                        (
+                            "hyphen_pipe",
+                            PartialPipeline(
+                                [
+                                    ("hyphen", HyphenTextPrep()),
+                                    ("hash2", HashingVectorizer()),
+                                ]
+                            ),
+                        ),
+                    ]
+                ),
+            ),
+        ]
+    )
 
     X = [
         "i really like this post",
@@ -36,7 +65,7 @@ def test_shape_doubles():
         "i enjoy this friendly forum",
         "this is a bad post",
         "i dislike this article",
-        "this is not well written"
+        "this is not well written",
     ]
 
     y = np.array([1, 1, 1, 0, 0, 0])

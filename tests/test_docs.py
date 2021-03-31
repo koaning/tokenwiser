@@ -15,9 +15,13 @@ from tokenwiser.pipeline import (
     PartialFeatureUnion,
     make_partial_pipeline,
     make_concat,
-    make_partial_union
+    make_partial_union,
 )
-from tokenwiser.extension import attach_hyphen_extension, attach_sklearn_extension, sklearn_method
+from tokenwiser.extension import (
+    attach_hyphen_extension,
+    attach_sklearn_extension,
+    sklearn_method,
+)
 from tokenwiser.component import attach_sklearn_categoriser
 
 import pytest
@@ -50,6 +54,8 @@ def test_member(obj):
     check_docstring(obj)
 
 
-@pytest.mark.parametrize("fpath", [str(p) for p in pathlib.Path("docs").glob("**/*.md")])
+@pytest.mark.parametrize(
+    "fpath", [str(p) for p in pathlib.Path("docs").glob("**/*.md")]
+)
 def test_fpath(fpath):
     check_md_file(fpath)

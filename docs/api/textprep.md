@@ -30,6 +30,11 @@ is that this may be combined in interesting ways in CountVectorizers.
         show_root_full_path: false
         show_root_heading: true
 
+::: tokenwiser.textprep.SentencePiecePrep
+    rendering:
+        show_root_full_path: false
+        show_root_heading: true
+
 ::: tokenwiser.textprep.PhoneticTextPrep
     rendering:
         show_root_full_path: false

@@ -8,7 +8,8 @@ base_packages = [
     "PyYAML>=5.3.1",
     "spacy>=3.0",
     "yake-github>=0.4.0",
-    "vowpalwabbit>=8.9.0"
+    "vowpalwabbit>=8.9.0",
+    "sentencepiece>=0.1.95"
 ]
 
 dev_packages = [

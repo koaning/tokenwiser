@@ -9,7 +9,7 @@ X = [
     "i enjoy this friendly forum",
     "this is a bad post",
     "i dislike this article",
-    "this is not well written"
+    "this is not well written",
 ]
 
 y = np.array([1, 1, 1, 0, 0, 0])
@@ -21,7 +21,8 @@ def test_wabbit_fit_shape_sensible():
 
 
 def test_wabbit_pipeline():
-    pipe = make_partial_pipeline(Cleaner(),
-                                 VowpalWabbitClassifier(n_loop=1, n_gram=1, learning_rate=0.1))
+    pipe = make_partial_pipeline(
+        Cleaner(), VowpalWabbitClassifier(n_loop=1, n_gram=1, learning_rate=0.1)
+    )
     for i in range(5):
         pipe.partial_fit(X, y, classes=list(set(y)))

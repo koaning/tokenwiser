@@ -21,9 +21,9 @@ pipelines as a benchmark you'll want to explore another tool: [whatlies](https:/
 
 The following submodules contain features that might be useful. 
 
-- `.textprep`: Contains string pre-processing tools for scikit-learn. Takes a string in and pushes a string out.  
-- `.pipeline`: Contains extra pipeline components for scikit-learn to make it easier to work with strings and partial models.
-- `.wabbit`: Contains a scikit-learn component based on [vowpal wabbit](https://vowpalwabbit.org/)
+- `.textprep`: Contains string pre-processing tools for scikit-learn.  
+- `.pipeline`: Contains extra pipeline components for scikit-learn.
+- `.wabbit`: Contains a scikit-learn component based on [vowpal wabbit](https://vowpalwabbit.org/).
 
 ### SpaCy Tools 
  

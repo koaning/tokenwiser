@@ -32,7 +32,7 @@ class TextConcat(BaseEstimator):
         """
         names = [n for n, t in self.transformer_list]
         if len(names) != len(set(names)):
-            raise ValueError(f"Make sure that the names of each step are unique.")
+            raise ValueError("Make sure that the names of each step are unique.")
         return self
 
     def partial_fit(self, X, y=None):
@@ -41,7 +41,7 @@ class TextConcat(BaseEstimator):
         """
         names = [n for n, t in self.transformer_list]
         if len(names) != len(set(names)):
-            raise ValueError(f"Make sure that the names of each step are unique.")
+            raise ValueError("Make sure that the names of each step are unique.")
         return self
 
     def transform(self, X, y=None):
@@ -50,7 +50,7 @@ class TextConcat(BaseEstimator):
         """
         names = [n for n, t in self.transformer_list]
         if len(names) != len(set(names)):
-            raise ValueError(f"Make sure that the names of each step are unique.")
+            raise ValueError("Make sure that the names of each step are unique.")
         results = {}
         for name, tfm in self.transformer_list:
             results[name] = tfm.transform(X)

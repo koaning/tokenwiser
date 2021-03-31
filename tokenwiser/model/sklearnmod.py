@@ -91,6 +91,13 @@ def make_sklearn_cat_basic_sgd():
     )
 
 
+@registry.architectures("sklearn_model_basic_pa.v1")
+def make_sklearn_cat_basic_pa():
+    return PartialPipeline(
+        [("hash", HashingVectorizer()), ("lr", PassiveAggressiveClassifier())]
+    )
+
+
 @registry.architectures("sklearn_model_basic_naive_bayes.v1")
 def make_sklearn_cat_basic_naive_bayes():
     return PartialPipeline(
