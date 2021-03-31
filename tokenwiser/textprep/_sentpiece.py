@@ -15,6 +15,14 @@ class SentencePiecePrep(TextPrep, BaseEstimator):
     models for different vocabulary sizes. Note that this site supports 275 pre-trained
     subword tokenizers.
 
+    Note that you can train your own sentencepiece tokenizer as well.
+
+    ```python
+    import sentencepiece as spm
+
+    # This saves a file named `mod.model` which can be read in later.
+    spm.SentencePieceTrainer.train('--input=tests/data/nlp.txt --model_prefix=mod --vocab_size=2000')
+    ```
 
     Arguments:
         model_file: pre-trained model file
