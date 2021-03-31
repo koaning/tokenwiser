@@ -1,3 +1,5 @@
+from typing import Union
+from pathlib import Path
 import sentencepiece as spm
 from sklearn.base import BaseEstimator
 
@@ -9,12 +11,13 @@ class SentencePiecePrep(TextPrep, BaseEstimator):
     The SentencePiecePrep object splits text into subtokens based on a pre-trained model.
 
     You can find many pre-trained subtokenizers via the [bpemb](https://nlp.h-its.org/bpemb/) project.
-    For example, on the [English](https://nlp.h-its.org/bpemb/en/) subsite you can download
-    model files for vocabulary sizes: 1000, 3000, 5000, 10000, 25000, 50000, 100000 and 200000.
+    For example, on the [English](https://nlp.h-its.org/bpemb/en/) sub-site you can find many
+    models for different vocabulary sizes. Note that this site supports 275 pre-trained
+    subword tokenizers.
 
 
     Arguments:
-        model_file: pretrained model file
+        model_file: pre-trained model file
 
     Usage:
 
@@ -28,9 +31,9 @@ class SentencePiecePrep(TextPrep, BaseEstimator):
     ```
     """
 
-    def __init__(self, model_file):
+    def __init__(self, model_file: Union[str, Path]):
         self.model_file = model_file
-        self.spm = spm.SentencePieceProcessor(model_file=model_file)
+        self.spm = spm.SentencePieceProcessor(model_file=str(model_file))
 
     def encode_single(self, x):
         return " ".join(self.spm.encode_as_pieces(x))
