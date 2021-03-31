@@ -404,6 +404,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tokenwiser.textprep._sentpiece.SentencePiecePrep" class="md-nav__link">
+    SentencePiecePrep
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tokenwiser.textprep._phonetic.PhoneticTextPrep" class="md-nav__link">
     PhoneticTextPrep
   </a>
@@ -561,6 +568,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tokenwiser.textprep._sentpiece.SentencePiecePrep" class="md-nav__link">
+    SentencePiecePrep
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tokenwiser.textprep._phonetic.PhoneticTextPrep" class="md-nav__link">
     PhoneticTextPrep
   </a>
@@ -708,6 +722,76 @@ is that this may be combined in interesting ways in CountVectorizers.</p>
 <span class="k">assert</span> <span class="n">multi</span> <span class="o">==</span> <span class="p">[</span><span class="s1">'geo logy'</span><span class="p">,</span> <span class="s1">'as tro logy'</span><span class="p">]</span>
 </code></pre>
 </div>
+</div>
+</div>
+<div class="doc doc-object doc-class">
+<h2 class="doc doc-heading" id="tokenwiser.textprep._sentpiece.SentencePiecePrep">
+
+        <code>SentencePiecePrep</code>
+
+
+
+      <a class="headerlink" href="#tokenwiser.textprep._sentpiece.SentencePiecePrep" title="Permanent link">&para;</a></h2>
+<div class="doc doc-contents first">
+<p>The SentencePiecePrep object splits text into subtokens based on a pre-trained model.</p>
+<p>You can find many pre-trained subtokenizers via the <a href="https://nlp.h-its.org/bpemb/">bpemb</a> project.
+For example, on the <a href="https://nlp.h-its.org/bpemb/en/">English</a> sub-site you can find many
+models for different vocabulary sizes. Note that this site supports 275 pre-trained
+subword tokenizers.</p>
+<p>Note that you can train your own sentencepiece tokenizer as well.</p>
+<div class="highlight">
+<pre><span></span><code><span class="kn">import</span> <span class="nn">sentencepiece</span> <span class="k">as</span> <span class="nn">spm</span>
+
+<span class="c1"># This saves a file named `mod.model` which can be read in later.</span>
+<span class="n">spm</span><span class="o">.</span><span class="n">SentencePieceTrainer</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="s1">'--input=tests/data/nlp.txt --model_prefix=mod --vocab_size=2000'</span><span class="p">)</span>
+</code></pre>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model_file</code></td>
+<td><code></code></td>
+<td>
+<p>pre-trained model file</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight">
+<pre><span></span><code><span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">SentencePiecePrep</span>
+<span class="n">sp_tfm</span> <span class="o">=</span> <span class="n">SentencePiecePrep</span><span class="p">(</span><span class="n">model_file</span><span class="o">=</span><span class="s2">"tests/data/en.vs5000.model"</span><span class="p">)</span>
+
+<span class="n">texts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"talking about geology"</span><span class="p">]</span>
+<span class="n">example</span> <span class="o">=</span> <span class="n">sp_tfm</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">texts</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">example</span> <span class="o">==</span> <span class="p">[</span><span class="s1">'▁talk ing ▁about ▁ge ology'</span><span class="p">]</span>
+</code></pre>
+</div>
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
 </div>
 </div>
 <div class="doc doc-object doc-class">
