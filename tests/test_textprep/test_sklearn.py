@@ -29,7 +29,7 @@ prep_list = [
     SpacyMorphTextPrep(nlp),
     SpacyPosTextPrep(nlp),
     Identity(),
-    SentencePiecePrep(model_file="tests/data/en.model"),
+    SentencePiecePrep(model_file="tests/data/en.vs5000.model"),
 ]
 
 
