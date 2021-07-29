@@ -15,8 +15,8 @@
       
         <link rel="canonical" href="https://koaning.github.io/tokenwiser/api/pipeline.html">
       
-      <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.1">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.cb6bc1d0.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.1118c9be.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.39b8e14a.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ba0d045b.min.css">
         
           
           
@@ -41,15 +41,19 @@
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,700%7CUbuntu+Mono&display=fallback">
-        <style>body,input{font-family:"Ubuntu",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Ubuntu Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <style>:root{--md-text-font-family:"Ubuntu";--md-code-font-family:"Ubuntu Mono"}</style>
       
     
     
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
       <link rel="stylesheet" href="../style.css">
     
     
       
+
+
     
     
   </head>
@@ -61,8 +65,9 @@
     
     
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="teal">
-      
   
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -79,26 +84,24 @@
       
     </div>
     
-      
-
-<header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://koaning.github.io/tokenwiser/" title="tokenwiser" class="md-header-nav__button md-logo" aria-label="tokenwiser">
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="tokenwiser" class="md-header__button md-logo" aria-label="tokenwiser" data-md-component="logo">
       
   <img src="../token.png" alt="logo">
 
     </a>
-    <label class="md-header-nav__button md-icon" for="__drawer">
+    <label class="md-header__button md-icon" for="__drawer">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
-    <div class="md-header-nav__title" data-md-component="header-title">
-      <div class="md-header-nav__ellipsis">
-        <div class="md-header-nav__topic">
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
           <span class="md-ellipsis">
             tokenwiser
           </span>
         </div>
-        <div class="md-header-nav__topic">
+        <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
               pipeline
@@ -108,22 +111,28 @@
       </div>
     </div>
     
-      <label class="md-header-nav__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
       </label>
       
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -139,12 +148,12 @@
 </div>
     
     
-      <div class="md-header-nav__source">
+      <div class="md-header__source">
         
-<a href="https://github.com/koaning/tokenwiser/" title="Go to repository" class="md-source">
+<a href="https://github.com/koaning/tokenwiser/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -240,19 +249,17 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
-
-
 
   
 
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://koaning.github.io/tokenwiser/" title="tokenwiser" class="md-nav__button md-logo" aria-label="tokenwiser">
+    <a href="../index.html" title="tokenwiser" class="md-nav__button md-logo" aria-label="tokenwiser" data-md-component="logo">
       
   <img src="../token.png" alt="logo">
 
@@ -262,10 +269,10 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/koaning/tokenwiser/" title="Go to repository" class="md-source">
+<a href="https://github.com/koaning/tokenwiser/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -333,19 +340,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
       
-      <label class="md-nav__link" for="nav-4">
+      <label class="md-nav__link" for="__nav_4">
         API
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="API" data-md-level="1">
-        <label class="md-nav__title" for="nav-4">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           API
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -369,6 +375,7 @@
       
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
+      
         
       
       
@@ -385,6 +392,7 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
+  
     
   
   
@@ -392,7 +400,7 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#tokenwiser.pipeline._pipe.PartialPipeline" class="md-nav__link">
@@ -423,29 +431,28 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#tokenwiser.pipeline._concat.TextConcat.fit" class="md-nav__link">
-    fit()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tokenwiser.pipeline._concat.TextConcat.fit_transform" class="md-nav__link">
-    fit_transform()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#tokenwiser.pipeline._concat.TextConcat.partial_fit" class="md-nav__link">
     partial_fit()
   </a>
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tokenwiser.pipeline._union.PartialFeatureUnion" class="md-nav__link">
+    PartialFeatureUnion
+  </a>
+  
+    <nav class="md-nav" aria-label="PartialFeatureUnion">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
-  <a href="#tokenwiser.pipeline._concat.TextConcat.transform" class="md-nav__link">
-    transform()
+  <a href="#tokenwiser.pipeline._union.PartialFeatureUnion.partial_fit" class="md-nav__link">
+    partial_fit()
   </a>
   
 </li>
@@ -465,6 +472,13 @@
         <li class="md-nav__item">
   <a href="#tokenwiser.pipeline._concat.make_concat" class="md-nav__link">
     make_concat()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tokenwiser.pipeline._union.make_partial_union" class="md-nav__link">
+    make_partial_union()
   </a>
   
 </li>
@@ -501,6 +515,18 @@
   
 
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wabbit.html" class="md-nav__link">
+        wabbit
+      </a>
+    </li>
+  
+
+          
         </ul>
       </nav>
     </li>
@@ -530,11 +556,12 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
     
@@ -544,7 +571,7 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#tokenwiser.pipeline._pipe.PartialPipeline" class="md-nav__link">
@@ -575,29 +602,28 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#tokenwiser.pipeline._concat.TextConcat.fit" class="md-nav__link">
-    fit()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tokenwiser.pipeline._concat.TextConcat.fit_transform" class="md-nav__link">
-    fit_transform()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#tokenwiser.pipeline._concat.TextConcat.partial_fit" class="md-nav__link">
     partial_fit()
   </a>
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tokenwiser.pipeline._union.PartialFeatureUnion" class="md-nav__link">
+    PartialFeatureUnion
+  </a>
+  
+    <nav class="md-nav" aria-label="PartialFeatureUnion">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
-  <a href="#tokenwiser.pipeline._concat.TextConcat.transform" class="md-nav__link">
-    transform()
+  <a href="#tokenwiser.pipeline._union.PartialFeatureUnion.partial_fit" class="md-nav__link">
+    partial_fit()
   </a>
   
 </li>
@@ -621,6 +647,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#tokenwiser.pipeline._union.make_partial_union" class="md-nav__link">
+    make_partial_union()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -629,7 +662,7 @@
               </div>
             
           
-          <div class="md-content">
+          <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
                 
@@ -643,282 +676,403 @@
 </code></pre></div>
 <p>In the <code class="highlight"><span class="err">pipeline</span></code> submodule you can find scikit-learn compatbile
 pipelines that extend the standard behavior. </p>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="tokenwiser.pipeline._pipe.PartialPipeline">
 
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="tokenwiser.pipeline._pipe.PartialPipeline">
         <code>PartialPipeline</code>
 
 
 
-      <a class="headerlink" href="#tokenwiser.pipeline._pipe.PartialPipeline" title="Permanent link">&para;</a></h2>
-<div class="doc doc-contents first">
-<p>Utility function to generate a <code class="highlight"><span class="err">PartialPipeline</span></code></p>
+<a class="headerlink" href="#tokenwiser.pipeline._pipe.PartialPipeline" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+      <p>Utility function to generate a <code class="highlight"><span class="err">PartialPipeline</span></code></p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>steps</code></td>
-<td><code></code></td>
-<td>
-<p>a collection of text-transformers</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight">
-<pre><span></span><code><span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">PartialPipeline</span>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>steps</code></td>
+        <td><code></code></td>
+        <td><p>a collection of text-transformers</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>      <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">PartialPipeline</span>
 <span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">HyphenTextPrep</span><span class="p">,</span> <span class="n">Cleaner</span>
 
-<span class="n">tc</span> <span class="o">=</span> <span class="n">PartialPipeline</span><span class="p">([(</span><span class="s1">'clean'</span><span class="p">,</span> <span class="n">Cleaner</span><span class="p">()),</span> <span class="p">(</span><span class="s1">'hyp'</span><span class="p">,</span> <span class="n">HyphenTextPrep</span><span class="p">())])</span>
-<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"dinosaurhead"</span><span class="p">,</span> <span class="s2">"another$$ sentence$$"</span><span class="p">]</span>
+<span class="n">tc</span> <span class="o">=</span> <span class="n">PartialPipeline</span><span class="p">([(</span><span class="s1">&#39;clean&#39;</span><span class="p">,</span> <span class="n">Cleaner</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;hyp&#39;</span><span class="p">,</span> <span class="n">HyphenTextPrep</span><span class="p">())])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dinosaurhead&quot;</span><span class="p">,</span> <span class="s2">&quot;another$$ sentence$$&quot;</span><span class="p">]</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'di no saur head'</span><span class="p">,</span> <span class="s1">'an other  sen tence'</span><span class="p">]</span>
+<span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;di no saur head&#39;</span><span class="p">,</span> <span class="s1">&#39;an other  sen tence&#39;</span><span class="p">]</span>
 
 <span class="k">assert</span> <span class="n">results</span> <span class="o">==</span> <span class="n">expected</span>
-</code></pre>
-</div>
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="tokenwiser.pipeline._pipe.PartialPipeline.partial_fit">
+</code></pre></div>
 
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="tokenwiser.pipeline._pipe.PartialPipeline.partial_fit">
 <code class="highlight language-python"><span class="n">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#tokenwiser.pipeline._pipe.PartialPipeline.partial_fit" title="Permanent link">&para;</a></h3>
-<div class="doc doc-contents ">
-<p>Fits the components, but allow for batches.</p>
-<details class="quote">
+<a class="headerlink" href="#tokenwiser.pipeline._pipe.PartialPipeline.partial_fit" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Fits the components, but allow for batches.</p>
+
+        <details class="quote">
           <summary>Source code in <code>tokenwiser/pipeline/_pipe.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Fits the components, but allow for batches.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">step</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="s2">"partial_fit"</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="s2">&quot;partial_fit&quot;</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">"Step </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> is a </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2"> which does not have `.partial_fit` implemented."</span>
+                <span class="sa">f</span><span class="s2">&quot;Step </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> is a </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2"> which does not have `.partial_fit` implemented.&quot;</span>
             <span class="p">)</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">step</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="s1">'predict'</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="s2">&quot;predict&quot;</span><span class="p">):</span>
             <span class="n">step</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="n">classes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">step</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="s1">'transform'</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="s2">&quot;transform&quot;</span><span class="p">):</span>
             <span class="n">X</span> <span class="o">=</span> <span class="n">step</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="tokenwiser.pipeline._concat.TextConcat">
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="tokenwiser.pipeline._concat.TextConcat">
         <code>TextConcat</code>
 
 
 
-      <a class="headerlink" href="#tokenwiser.pipeline._concat.TextConcat" title="Permanent link">&para;</a></h2>
-<div class="doc doc-contents first">
-<p>A component like <code class="highlight"><span class="err">FeatureUnion</span></code> but this also concatenates the text.</p>
+<a class="headerlink" href="#tokenwiser.pipeline._concat.TextConcat" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+      <p>A component like <code class="highlight"><span class="err">FeatureUnion</span></code> but this also concatenates the text.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>transformer_list</code></td>
-<td><code></code></td>
-<td>
-<p>list of (name, text-transformer)-tuples</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>transformer_list</code></td>
+        <td><code></code></td>
+        <td><p>list of (name, text-transformer)-tuples</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Examples:</strong></p>
-<br />
-<div class="highlight">
-<pre><span></span><code><span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">HyphenTextPrep</span><span class="p">,</span> <span class="n">Cleaner</span>
+    
+      <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">HyphenTextPrep</span><span class="p">,</span> <span class="n">Cleaner</span>
 <span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">TextConcat</span>
 
-<span class="n">tc</span> <span class="o">=</span> <span class="n">TextConcat</span><span class="p">([(</span><span class="s2">"hyp"</span><span class="p">,</span> <span class="n">HyphenTextPrep</span><span class="p">()),</span> <span class="p">(</span><span class="s2">"clean"</span><span class="p">,</span> <span class="n">Cleaner</span><span class="p">())])</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="s2">"dinosaurhead"</span><span class="p">,</span> <span class="s2">"another$$ sentence$$"</span><span class="p">])</span>
-<span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'di no saur head dinosaurhead'</span><span class="p">,</span> <span class="s1">'an other $$ sen tence$$ another sentence'</span><span class="p">]</span>
+<span class="n">tc</span> <span class="o">=</span> <span class="n">TextConcat</span><span class="p">([(</span><span class="s2">&quot;hyp&quot;</span><span class="p">,</span> <span class="n">HyphenTextPrep</span><span class="p">()),</span> <span class="p">(</span><span class="s2">&quot;clean&quot;</span><span class="p">,</span> <span class="n">Cleaner</span><span class="p">())])</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="s2">&quot;dinosaurhead&quot;</span><span class="p">,</span> <span class="s2">&quot;another$$ sentence$$&quot;</span><span class="p">])</span>
+<span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;di no saur head dinosaurhead&#39;</span><span class="p">,</span> <span class="s1">&#39;an other $$ sen tence$$ another sentence&#39;</span><span class="p">]</span>
 
 <span class="k">assert</span> <span class="n">results</span> <span class="o">==</span> <span class="n">expected</span>
-</code></pre>
-</div>
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="tokenwiser.pipeline._concat.TextConcat.fit">
-
-<code class="highlight language-python"><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+</code></pre></div>
 
 
-      <a class="headerlink" href="#tokenwiser.pipeline._concat.TextConcat.fit" title="Permanent link">&para;</a></h3>
-<div class="doc doc-contents ">
-<p>Fits the components in a single batch.</p>
-<details class="quote">
-          <summary>Source code in <code>tokenwiser/pipeline/_concat.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">"""</span>
-<span class="sd">    Fits the components in a single batch.</span>
-<span class="sd">    """</span>
-    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformer_list</span><span class="p">]</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">names</span><span class="p">)):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Make sure that the names of each step are unique."</span><span class="p">)</span>
-    <span class="k">return</span> <span class="bp">self</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="tokenwiser.pipeline._concat.TextConcat.fit_transform">
-
-<code class="highlight language-python"><span class="n">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#tokenwiser.pipeline._concat.TextConcat.fit_transform" title="Permanent link">&para;</a></h3>
-<div class="doc doc-contents ">
-<p>Fits the components and transforms the text in one step.</p>
-<details class="quote">
-          <summary>Source code in <code>tokenwiser/pipeline/_concat.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">"""</span>
-<span class="sd">    Fits the components and transforms the text in one step.</span>
-<span class="sd">    """</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="tokenwiser.pipeline._concat.TextConcat.partial_fit">
-
 <code class="highlight language-python"><span class="n">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#tokenwiser.pipeline._concat.TextConcat.partial_fit" title="Permanent link">&para;</a></h3>
-<div class="doc doc-contents ">
-<p>Fits the components, but allow for batches.</p>
-<details class="quote">
+<a class="headerlink" href="#tokenwiser.pipeline._concat.TextConcat.partial_fit" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Fits the components, but allow for batches.</p>
+
+        <details class="quote">
           <summary>Source code in <code>tokenwiser/pipeline/_concat.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Fits the components, but allow for batches.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformer_list</span><span class="p">]</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">names</span><span class="p">)):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Make sure that the names of each step are unique."</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Make sure that the names of each step are unique.&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="tokenwiser.pipeline._concat.TextConcat.transform">
+</code></pre></div>
+        </details>
+    </div>
 
-<code class="highlight language-python"><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+  </div>
 
 
-      <a class="headerlink" href="#tokenwiser.pipeline._concat.TextConcat.transform" title="Permanent link">&para;</a></h3>
-<div class="doc doc-contents ">
-<p>Transformers the text.</p>
-<details class="quote">
-          <summary>Source code in <code>tokenwiser/pipeline/_concat.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">"""</span>
-<span class="sd">    Transformers the text.</span>
-<span class="sd">    """</span>
-    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformer_list</span><span class="p">]</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">names</span><span class="p">)):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Make sure that the names of each step are unique."</span><span class="p">)</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">tfm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformer_list</span><span class="p">:</span>
-        <span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">tfm</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">[</span><span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">results</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">names</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">))]</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="doc doc-object doc-function">
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="tokenwiser.pipeline._union.PartialFeatureUnion">
+        <code>PartialFeatureUnion</code>
+
+
+
+<a class="headerlink" href="#tokenwiser.pipeline._union.PartialFeatureUnion" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+      <p>A <code class="highlight"><span class="err">PartialFeatureUnion</span></code> is a <code class="highlight"><span class="err">FeatureUnion</span></code> but able to <code class="highlight"><span class="na">.partial_fit</span></code>.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>transformer_list</code></td>
+        <td><code></code></td>
+        <td><p>a list of transformers to apply and concatenate</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    
+      <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">HashingVectorizer</span>
+
+<span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">Cleaner</span><span class="p">,</span> <span class="n">Identity</span><span class="p">,</span> <span class="n">HyphenTextPrep</span>
+<span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">PartialPipeline</span><span class="p">,</span> <span class="n">PartialFeatureUnion</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">PartialPipeline</span><span class="p">([</span>
+    <span class="p">(</span><span class="s2">&quot;clean&quot;</span><span class="p">,</span> <span class="n">Cleaner</span><span class="p">()),</span>
+    <span class="p">(</span><span class="s2">&quot;union&quot;</span><span class="p">,</span> <span class="n">PartialFeatureUnion</span><span class="p">([</span>
+        <span class="p">(</span><span class="s2">&quot;full_text_pipe&quot;</span><span class="p">,</span> <span class="n">PartialPipeline</span><span class="p">([</span>
+            <span class="p">(</span><span class="s2">&quot;identity&quot;</span><span class="p">,</span> <span class="n">Identity</span><span class="p">()),</span>
+            <span class="p">(</span><span class="s2">&quot;hash1&quot;</span><span class="p">,</span> <span class="n">HashingVectorizer</span><span class="p">()),</span>
+        <span class="p">])),</span>
+        <span class="p">(</span><span class="s2">&quot;hyphen_pipe&quot;</span><span class="p">,</span> <span class="n">PartialPipeline</span><span class="p">([</span>
+            <span class="p">(</span><span class="s2">&quot;hyphen&quot;</span><span class="p">,</span> <span class="n">HyphenTextPrep</span><span class="p">()),</span>
+            <span class="p">(</span><span class="s2">&quot;hash2&quot;</span><span class="p">,</span> <span class="n">HashingVectorizer</span><span class="p">()),</span>
+        <span class="p">]))</span>
+    <span class="p">])),</span>
+    <span class="p">(</span><span class="s2">&quot;clf&quot;</span><span class="p">,</span> <span class="n">SGDClassifier</span><span class="p">())</span>
+<span class="p">])</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;i really like this post&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;thanks for that comment&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;i enjoy this friendly forum&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;this is a bad post&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;i dislike this article&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;this is not well written&quot;</span>
+<span class="p">]</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">loop</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">pipe</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+</code></pre></div>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="tokenwiser.pipeline._union.PartialFeatureUnion.partial_fit">
+<code class="highlight language-python"><span class="n">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#tokenwiser.pipeline._union.PartialFeatureUnion.partial_fit" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Fits the components, but allow for batches.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>tokenwiser/pipeline/_union.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fits the components, but allow for batches.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">step</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformer_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="s2">&quot;partial_fit&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Step </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> is a </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2"> which does not have `.partial_fit` implemented.&quot;</span>
+            <span class="p">)</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">step</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformer_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="s2">&quot;predict&quot;</span><span class="p">):</span>
+            <span class="n">step</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="n">classes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">step</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
 <h2 class="doc doc-heading" id="tokenwiser.pipeline._pipe.make_partial_pipeline">
-
 <code class="highlight language-python"><span class="n">make_partial_pipeline</span><span class="p">(</span><span class="o">*</span><span class="n">steps</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#tokenwiser.pipeline._pipe.make_partial_pipeline" title="Permanent link">&para;</a></h2>
-<div class="doc doc-contents first">
-<p>Utility function to generate a <code class="highlight"><span class="err">PartialPipeline</span></code></p>
+<a class="headerlink" href="#tokenwiser.pipeline._pipe.make_partial_pipeline" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+      <p>Utility function to generate a <code class="highlight"><span class="err">PartialPipeline</span></code></p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>steps</code></td>
-<td><code></code></td>
-<td>
-<p>a collection of text-transformers</p>
-</td>
-<td><code>()</code></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight">
-<pre><span></span><code><span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">make_partial_pipeline</span>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>steps</code></td>
+        <td><code></code></td>
+        <td><p>a collection of text-transformers</p></td>
+        <td><code>()</code></td>
+      </tr>
+  </tbody>
+</table>      <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">make_partial_pipeline</span>
 <span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">HyphenTextPrep</span><span class="p">,</span> <span class="n">Cleaner</span>
 
 <span class="n">tc</span> <span class="o">=</span> <span class="n">make_partial_pipeline</span><span class="p">(</span><span class="n">Cleaner</span><span class="p">(),</span> <span class="n">HyphenTextPrep</span><span class="p">())</span>
-<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"dinosaurhead"</span><span class="p">,</span> <span class="s2">"another$$ sentence$$"</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dinosaurhead&quot;</span><span class="p">,</span> <span class="s2">&quot;another$$ sentence$$&quot;</span><span class="p">]</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'di no saur head'</span><span class="p">,</span> <span class="s1">'an other  sen tence'</span><span class="p">]</span>
+<span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;di no saur head&#39;</span><span class="p">,</span> <span class="s1">&#39;an other  sen tence&#39;</span><span class="p">]</span>
 
 <span class="k">assert</span> <span class="n">results</span> <span class="o">==</span> <span class="n">expected</span>
-</code></pre>
-</div>
-<details class="quote">
+</code></pre></div>
+
+        <details class="quote">
           <summary>Source code in <code>tokenwiser/pipeline/_pipe.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">make_partial_pipeline</span><span class="p">(</span><span class="o">*</span><span class="n">steps</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">make_partial_pipeline</span><span class="p">(</span><span class="o">*</span><span class="n">steps</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Utility function to generate a `PartialPipeline`</span>
 
 <span class="sd">    Arguments:</span>
@@ -929,65 +1083,68 @@ pipelines that extend the standard behavior. </p>
 <span class="sd">    from tokenwiser.textprep import HyphenTextPrep, Cleaner</span>
 
 <span class="sd">    tc = make_partial_pipeline(Cleaner(), HyphenTextPrep())</span>
-<span class="sd">    data = ["dinosaurhead", "another$$ sentence$$"]</span>
+<span class="sd">    data = [&quot;dinosaurhead&quot;, &quot;another$$ sentence$$&quot;]</span>
 <span class="sd">    results = tc.partial_fit(data).transform(data)</span>
-<span class="sd">    expected = ['di no saur head', 'an other  sen tence']</span>
+<span class="sd">    expected = [&#39;di no saur head&#39;, &#39;an other  sen tence&#39;]</span>
 
 <span class="sd">    assert results == expected</span>
 <span class="sd">    ```</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">PartialPipeline</span><span class="p">(</span><span class="n">_name_estimators</span><span class="p">(</span><span class="n">steps</span><span class="p">))</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-function">
-<h2 class="doc doc-heading" id="tokenwiser.pipeline._concat.make_concat">
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 class="doc doc-heading" id="tokenwiser.pipeline._concat.make_concat">
 <code class="highlight language-python"><span class="n">make_concat</span><span class="p">(</span><span class="o">*</span><span class="n">steps</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#tokenwiser.pipeline._concat.make_concat" title="Permanent link">&para;</a></h2>
-<div class="doc doc-contents first">
-<p>Utility function to generate a <code class="highlight"><span class="err">TextConcat</span></code></p>
+<a class="headerlink" href="#tokenwiser.pipeline._concat.make_concat" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+      <p>Utility function to generate a <code class="highlight"><span class="err">TextConcat</span></code></p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>steps</code></td>
-<td><code></code></td>
-<td>
-<p>a collection of text-transformers</p>
-</td>
-<td><code>()</code></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight">
-<pre><span></span><code><span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">HyphenTextPrep</span><span class="p">,</span> <span class="n">Cleaner</span>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>steps</code></td>
+        <td><code></code></td>
+        <td><p>a collection of text-transformers</p></td>
+        <td><code>()</code></td>
+      </tr>
+  </tbody>
+</table>      <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">HyphenTextPrep</span><span class="p">,</span> <span class="n">Cleaner</span>
 <span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">make_concat</span>
 
 <span class="n">tc</span> <span class="o">=</span> <span class="n">make_concat</span><span class="p">(</span><span class="n">HyphenTextPrep</span><span class="p">(),</span> <span class="n">Cleaner</span><span class="p">())</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="s2">"dinosaurhead"</span><span class="p">,</span> <span class="s2">"another$$ sentence$$"</span><span class="p">])</span>
-<span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'di no saur head dinosaurhead'</span><span class="p">,</span> <span class="s1">'an other $$ sen tence$$ another sentence'</span><span class="p">]</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="s2">&quot;dinosaurhead&quot;</span><span class="p">,</span> <span class="s2">&quot;another$$ sentence$$&quot;</span><span class="p">])</span>
+<span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;di no saur head dinosaurhead&#39;</span><span class="p">,</span> <span class="s1">&#39;an other $$ sen tence$$ another sentence&#39;</span><span class="p">]</span>
 
 <span class="k">assert</span> <span class="n">results</span> <span class="o">==</span> <span class="n">expected</span>
-</code></pre>
-</div>
-<details class="quote">
+</code></pre></div>
+
+        <details class="quote">
           <summary>Source code in <code>tokenwiser/pipeline/_concat.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">make_concat</span><span class="p">(</span><span class="o">*</span><span class="n">steps</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">make_concat</span><span class="p">(</span><span class="o">*</span><span class="n">steps</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Utility function to generate a `TextConcat`</span>
 
 <span class="sd">    Arguments:</span>
@@ -998,18 +1155,140 @@ pipelines that extend the standard behavior. </p>
 <span class="sd">    from tokenwiser.pipeline import make_concat</span>
 
 <span class="sd">    tc = make_concat(HyphenTextPrep(), Cleaner())</span>
-<span class="sd">    results = tc.fit_transform(["dinosaurhead", "another$$ sentence$$"])</span>
-<span class="sd">    expected = ['di no saur head dinosaurhead', 'an other $$ sen tence$$ another sentence']</span>
+<span class="sd">    results = tc.fit_transform([&quot;dinosaurhead&quot;, &quot;another$$ sentence$$&quot;])</span>
+<span class="sd">    expected = [&#39;di no saur head dinosaurhead&#39;, &#39;an other $$ sen tence$$ another sentence&#39;]</span>
 
 <span class="sd">    assert results == expected</span>
 <span class="sd">    ```</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">TextConcat</span><span class="p">(</span><span class="n">_name_estimators</span><span class="p">(</span><span class="n">steps</span><span class="p">))</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 class="doc doc-heading" id="tokenwiser.pipeline._union.make_partial_union">
+<code class="highlight language-python"><span class="n">make_partial_union</span><span class="p">(</span><span class="o">*</span><span class="n">transformer_list</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#tokenwiser.pipeline._union.make_partial_union" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+      <p>Utility function to generate a <code class="highlight"><span class="err">PartialFeatureUnion</span></code></p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>transformer_list</code></td>
+        <td><code></code></td>
+        <td><p>a list of transformers to apply and concatenate</p></td>
+        <td><code>()</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    
+      <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">HashingVectorizer</span>
+
+<span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">Cleaner</span><span class="p">,</span> <span class="n">Identity</span><span class="p">,</span> <span class="n">HyphenTextPrep</span>
+<span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">make_partial_pipeline</span><span class="p">,</span> <span class="n">make_partial_union</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_partial_pipeline</span><span class="p">(</span>
+    <span class="n">Cleaner</span><span class="p">(),</span>
+    <span class="n">make_partial_union</span><span class="p">(</span>
+        <span class="n">make_partial_pipeline</span><span class="p">(</span><span class="n">Identity</span><span class="p">(),</span> <span class="n">HashingVectorizer</span><span class="p">()),</span>
+        <span class="n">make_partial_pipeline</span><span class="p">(</span><span class="n">HyphenTextPrep</span><span class="p">(),</span> <span class="n">HashingVectorizer</span><span class="p">())</span>
+    <span class="p">),</span>
+    <span class="n">SGDClassifier</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;i really like this post&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;thanks for that comment&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;i enjoy this friendly forum&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;this is a bad post&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;i dislike this article&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;this is not well written&quot;</span>
+<span class="p">]</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">loop</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">pipe</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>tokenwiser/pipeline/_union.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">make_partial_union</span><span class="p">(</span><span class="o">*</span><span class="n">transformer_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Utility function to generate a `PartialFeatureUnion`</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        transformer_list: a list of transformers to apply and concatenate</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    ```python</span>
+<span class="sd">    import numpy as np</span>
+<span class="sd">    from sklearn.linear_model import SGDClassifier</span>
+<span class="sd">    from sklearn.feature_extraction.text import HashingVectorizer</span>
+
+<span class="sd">    from tokenwiser.textprep import Cleaner, Identity, HyphenTextPrep</span>
+<span class="sd">    from tokenwiser.pipeline import make_partial_pipeline, make_partial_union</span>
+
+<span class="sd">    pipe = make_partial_pipeline(</span>
+<span class="sd">        Cleaner(),</span>
+<span class="sd">        make_partial_union(</span>
+<span class="sd">            make_partial_pipeline(Identity(), HashingVectorizer()),</span>
+<span class="sd">            make_partial_pipeline(HyphenTextPrep(), HashingVectorizer())</span>
+<span class="sd">        ),</span>
+<span class="sd">        SGDClassifier()</span>
+<span class="sd">    )</span>
+
+<span class="sd">    X = [</span>
+<span class="sd">        &quot;i really like this post&quot;,</span>
+<span class="sd">        &quot;thanks for that comment&quot;,</span>
+<span class="sd">        &quot;i enjoy this friendly forum&quot;,</span>
+<span class="sd">        &quot;this is a bad post&quot;,</span>
+<span class="sd">        &quot;i dislike this article&quot;,</span>
+<span class="sd">        &quot;this is not well written&quot;</span>
+<span class="sd">    ]</span>
+
+<span class="sd">    y = np.array([1, 1, 1, 0, 0, 0])</span>
+
+<span class="sd">    for loop in range(3):</span>
+<span class="sd">        pipe.partial_fit(X, y, classes=[0, 1])</span>
+
+<span class="sd">    assert np.all(pipe.predict(X) == np.array([1, 1, 1, 0, 0, 0]))</span>
+<span class="sd">    ```</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">PartialFeatureUnion</span><span class="p">(</span><span class="n">_name_estimators</span><span class="p">(</span><span class="n">transformer_list</span><span class="p">))</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
                 
               
               
@@ -1020,45 +1299,46 @@ pipelines that extend the standard behavior. </p>
             </article>
           </div>
         </div>
+        
       </main>
       
         
 <footer class="md-footer">
   
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
         
-          <a href="textprep.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <a href="textprep.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: textprep" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              textprep
             </div>
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                textprep
-              </div>
-            </div>
-          </a>
+          </div>
+        </a>
+      
+      
         
-        
-          <a href="extension.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                extension
-              </div>
+        <a href="extension.html" class="md-footer__link md-footer__link--next" aria-label="Next: extension" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              extension
             </div>
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1072,6 +1352,7 @@ pipelines that extend the standard behavior. </p>
         <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
           Material for MkDocs
         </a>
+        
       </div>
       
     </div>
@@ -1079,19 +1360,13 @@ pipelines that extend the standard behavior. </p>
 </footer>
       
     </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.53c85856.min.js", "version": null}</script>
     
-      <script src="../assets/javascripts/vendor.18f0862e.min.js"></script>
-      <script src="../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
-      
-      <script>
-        app = initialize({
-          base: "..",
-          features: ['navigation.tabs'],
-          search: Object.assign({
-            worker: "../assets/javascripts/worker/search.9c0e82ba.min.js"
-          }, typeof search !== "undefined" && search)
-        })
-      </script>
+    
+      <script src="../assets/javascripts/bundle.716f8af4.min.js"></script>
       
     
   </body>
