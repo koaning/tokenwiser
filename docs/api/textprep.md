@@ -59,3 +59,8 @@ is that this may be combined in interesting ways in CountVectorizers.
     rendering:
         show_root_full_path: false
         show_root_heading: true
+
+::: tokenwiser.textprep.SnowballTextPrep
+    rendering:
+        show_root_full_path: false
+        show_root_heading: true
