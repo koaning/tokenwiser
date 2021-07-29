@@ -6,10 +6,11 @@ base_packages = [
     "Pyphen>=0.10.0",
     "scikit-learn>=0.24.0",
     "PyYAML>=5.3.1",
-    "spacy>=3.0",
+    "spacy>=3.1.0",
     "yake-github>=0.4.0",
     "vowpalwabbit>=8.9.0",
-    "sentencepiece>=0.1.95"
+    "sentencepiece>=0.1.95",
+    "snowballstemmer>=2.1.0",
 ]
 
 dev_packages = [

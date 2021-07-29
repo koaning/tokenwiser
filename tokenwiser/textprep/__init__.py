@@ -5,6 +5,7 @@ from ._morph import SpacyMorphTextPrep, SpacyLemmaTextPrep, SpacyPosTextPrep
 from ._yake import YakeTextPrep
 from ._sentpiece import SentencePiecePrep
 from ._identity import Identity
+from ._snowball import SnowballTextPrep
 
 __all__ = [
     "HyphenTextPrep",
@@ -16,4 +17,5 @@ __all__ = [
     "YakeTextPrep",
     "Identity",
     "SentencePiecePrep",
+    "SnowballTextPrep",
 ]
