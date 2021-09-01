@@ -20,10 +20,6 @@ class PartialPipeline(Pipeline):
     assert results == expected
     ```
     """
-
-    def __init__(self, steps):
-        super().__init__(steps=steps)
-
     def partial_fit(self, X, y=None, classes=None, **kwargs):
         """
         Fits the components, but allow for batches.
