@@ -22,10 +22,6 @@ class TextConcat(BaseEstimator):
     assert results == expected
     ```
     """
-
-    def __init__(self, transformer_list):
-        self.transformer_list = transformer_list
-
     def fit(self, X, y=None):
         """
         Fits the components in a single batch.
