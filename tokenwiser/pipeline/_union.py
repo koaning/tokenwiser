@@ -51,9 +51,6 @@ class PartialFeatureUnion(FeatureUnion):
     ```
     """
 
-    def __init__(self, transformer_list):
-        super().__init__(transformer_list=transformer_list)
-
     def partial_fit(self, X, y=None, classes=None, **kwargs):
         """
         Fits the components, but allow for batches.
