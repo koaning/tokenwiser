@@ -20,6 +20,7 @@ from tests.conftest import (
             "check_estimators_nan_inf",
             "check_fit2d_predict1d",
             "check_sample_weights_invariance",
+            "check_sample_weights_list"
         ],
     ),
 )
@@ -39,6 +40,7 @@ def test_estimator_checks_binary(test_fn):
             "check_fit2d_predict1d",
             "check_transformer_general",
             "check_pipeline_consistency",
+            "check_sample_weights_list"
         ],
     ),
 )
