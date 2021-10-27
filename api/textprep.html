@@ -416,6 +416,19 @@
     SentencePiecePrep
   </a>
   
+    <nav class="md-nav" aria-label="SentencePiecePrep">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tokenwiser.textprep._sentpiece.SentencePiecePrep.download" class="md-nav__link">
+    download()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -587,6 +600,19 @@
   <a href="#tokenwiser.textprep._sentpiece.SentencePiecePrep" class="md-nav__link">
     SentencePiecePrep
   </a>
+  
+    <nav class="md-nav" aria-label="SentencePiecePrep">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tokenwiser.textprep._sentpiece.SentencePiecePrep.download" class="md-nav__link">
+    download()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -839,6 +865,81 @@ subword tokenizers.</p>
 
 
 
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="tokenwiser.textprep._sentpiece.SentencePiecePrep.download">
+<code class="highlight language-python"><span class="n">download</span><span class="p">(</span><span class="n">lang</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a class="headerlink" href="#tokenwiser.textprep._sentpiece.SentencePiecePrep.download" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Download a pre-trained model from the bpemb project.</p>
+<p>You can see some examples of pre-trained models on the <a href="https://nlp.h-its.org/bpemb/en/">English</a> sub-site.
+There are many languages available, but you should take care that you pick the right 
+vocabulary size. </p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>lang</code></td>
+        <td><code>str</code></td>
+        <td><p>language code</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>vocab_size</code></td>
+        <td><code>int</code></td>
+        <td><p>vocab size, can be 1000, 3000, 5000, 10000, 25000, 50000, 100000, 200000</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>tokenwiser/textprep/_sentpiece.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Download a pre-trained model from the bpemb project.</span>
+
+<span class="sd">    You can see some examples of pre-trained models on the [English](https://nlp.h-its.org/bpemb/en/) sub-site.</span>
+<span class="sd">    There are many languages available, but you should take care that you pick the right </span>
+<span class="sd">    vocabulary size. </span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        lang: language code</span>
+<span class="sd">        vocab_size: vocab size, can be 1000, 3000, 5000, 10000, 25000, 50000, 100000, 200000</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://bpemb.h-its.org/</span><span class="si">{</span><span class="n">lang</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">lang</span><span class="si">}</span><span class="s2">.wiki.bpe.vs</span><span class="si">{</span><span class="n">vocab_size</span><span class="si">}</span><span class="s2">.model&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lang</span><span class="si">}</span><span class="s2">.wiki.bpe.vs</span><span class="si">{</span><span class="n">vocab_size</span><span class="si">}</span><span class="s2">.model&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">HTTPError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Double check if the language (</span><span class="si">{</span><span class="n">lang</span><span class="si">}</span><span class="s2">) and voacb size (</span><span class="si">{</span><span class="n">vocab_size</span><span class="si">}</span><span class="s2">) combo exist.&quot;</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
 
 
 
