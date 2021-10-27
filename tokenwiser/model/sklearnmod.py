@@ -1,11 +1,11 @@
 import random
 import pathlib
-from typing import Iterable
-
+from typing import Iterable, Optional, Callable
 import spacy
+from spacy.errors import Errors
 from spacy import registry
 from spacy.tokens import Doc
-from spacy.training import Example
+from spacy.training import Example, validate_get_examples
 from spacy.language import Language
 from sklearn.feature_extraction.text import HashingVectorizer
 from sklearn.linear_model import SGDClassifier, PassiveAggressiveClassifier
@@ -29,14 +29,12 @@ class SklearnCat:
     doesn't require state of the art models.
     """
 
-    def __init__(self, nlp, name, sklearn_model, label, classes):
+    def __init__(self, nlp, name, sklearn_model, classes):
         self.nlp = nlp
         self.name = name
-        self.label = label
         self.classes = classes
-        self.sklearn_model = spacy.registry.architectures.get(
-            sklearn_model.replace("@", "")
-        )()
+        self.labels = []
+        self.sklearn_model = sklearn_model
 
     def __call__(self, doc: Doc):
         scores = self.predict([doc])
@@ -44,19 +42,18 @@ class SklearnCat:
         return doc
 
     def update(
-        self, examples: Iterable[Example], *, drop: float = 0.0, sgd=None, losses=None
+        self, examples: Iterable[Example], *, drop=None, sgd=None, losses=None
     ):
+        print(drop, sgd, losses)
         texts = [
-            ex.reference.text
-            for ex in examples
-            if self.label in ex.reference.cats.keys()
+            ex.reference.text for ex in examples
         ]
         labels = [
-            ex.reference.cats[self.label]
+            [k for k, v in ex.reference.cats.items() if v == 1.0][0]
             for ex in examples
-            if self.label in ex.reference.cats.keys()
         ]
         self.sklearn_model.partial_fit(texts, labels, classes=self.classes)
+        return {}
 
     def predict(self, docs: Iterable[Doc]):
         return self.sklearn_model.predict_proba([d.text for d in docs]).max(axis=1)
@@ -91,15 +88,15 @@ def make_sklearn_cat_basic_sgd():
     )
 
 
-@registry.architectures("sklearn_model_basic_pa.v1")
-def make_sklearn_cat_basic_pa():
-    return PartialPipeline(
-        [("hash", HashingVectorizer()), ("lr", PassiveAggressiveClassifier())]
-    )
+# @registry.architectures("sklearn_model_basic_pa.v1")
+# def make_sklearn_cat_basic_pa():
+#     return PartialPipeline(
+#         [("hash", HashingVectorizer()), ("lr", PassiveAggressiveClassifier())]
+#     )
 
 
-@registry.architectures("sklearn_model_basic_naive_bayes.v1")
-def make_sklearn_cat_basic_naive_bayes():
-    return PartialPipeline(
-        [("hash", HashingVectorizer(binary=True)), ("nb", MultinomialNB())]
-    )
+# @registry.architectures("sklearn_model_basic_naive_bayes.v1")
+# def make_sklearn_cat_basic_naive_bayes():
+#     return PartialPipeline(
+#         [("hash", HashingVectorizer(binary=True)), ("nb", MultinomialNB())]
+#     )

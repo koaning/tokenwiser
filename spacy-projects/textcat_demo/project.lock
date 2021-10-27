@@ -1,0 +1,63 @@
+convert:
+  cmd: python -m spacy run convert
+  script:
+    - python scripts/convert.py en assets/intent_oos_train.jsonl corpus/train.spacy
+    - python scripts/convert.py en assets/intent_oos_eval.jsonl corpus/dev.spacy
+  deps:
+    - path: assets/intent_oos_train.jsonl
+      md5: 3545a55ab6bfbf61d20e6f40d3e6a684
+    - path: assets/intent_oos_eval.jsonl
+      md5: a306b99732a1ea33ee503aa919d3326c
+    - path: scripts/convert.py
+      md5: 35ee9ecddb27d1dbf74d9bc36fb44d0b
+  outs:
+    - path: corpus/train.spacy
+      md5: baffef95f7026df22f89f255f2a3b920
+    - path: corpus/dev.spacy
+      md5: 47888a398b4dcd0972da3a6da65ec5c9
+  spacy_version: 3.1.1
+  spacy_git_version: ffaead8fe
+train:
+  cmd: python -m spacy run train
+  script:
+    - python -m spacy train configs/config.cfg --output training/ --paths.train corpus/train.spacy
+      --paths.dev corpus/dev.spacy --nlp.lang en --gpu-id -1 --code scripts/tokenwiser_models.py
+  deps:
+    - path: configs/config.cfg
+      md5: 7f2db708dcdc89e062ec17bac17933e3
+    - path: corpus/train.spacy
+      md5: baffef95f7026df22f89f255f2a3b920
+    - path: corpus/dev.spacy
+      md5: 47888a398b4dcd0972da3a6da65ec5c9
+  outs:
+    - path: training/model-best
+      md5: f4eab547d4fae9ba1f091575308bef0e
+  spacy_version: 3.1.1
+  spacy_git_version: ffaead8fe
+evaluate:
+  cmd: python -m spacy run evaluate
+  script:
+    - python -m spacy evaluate training/model-best corpus/dev.spacy --output training/metrics.json
+  deps:
+    - path: corpus/dev.spacy
+      md5: 47888a398b4dcd0972da3a6da65ec5c9
+    - path: training/model-best
+      md5: f4eab547d4fae9ba1f091575308bef0e
+  outs:
+    - path: training/metrics.json
+      md5: e8a99b5e491074f0b490659e5bd38f46
+  spacy_version: 3.1.1
+  spacy_git_version: ffaead8fe
+package:
+  cmd: python -m spacy run package
+  script:
+    - python -m spacy package training/model-best packages --name textcat_demo --version
+      0.0.0 --force
+  deps:
+    - path: training/model-best
+      md5: f4eab547d4fae9ba1f091575308bef0e
+  outs:
+    - path: packages/en_textcat_demo-0.0.0/dist/en_textcat_demo-0.0.0.tar.gz
+      md5: 4e7424fa6d9995c0b7f91e29da504d41
+  spacy_version: 3.1.1
+  spacy_git_version: ffaead8fe
