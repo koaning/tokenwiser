@@ -72,7 +72,7 @@ There are some other tricks that you might want to apply for longer texts. Maybe
 vectorizing it. So maybe it'd be nice to use a transformer that keeps only the most important tokens. 
 
 A neat heuristic toolkit for this is [yake](https://github.com/LIAAD/yake) (you can find a demo 
-[here](http://yake.inesctec.pt/demo/sample/)). This package also features a scikit-learn compatible component for it.
+[here](http://yake.inesctec.pt/demo/sample/sample1)). This package also features a scikit-learn compatible component for it.
 
 ```python
 from tokenwiser.textprep import YakeTextPrep
