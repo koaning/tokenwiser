@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://koaning.github.io/tokenwiser/guide/sklearn.html">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.1118c9be.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.a57b2b03.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ba0d045b.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
         
           
           
@@ -84,7 +84,9 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../index.html" title="tokenwiser" class="md-header__button md-logo" aria-label="tokenwiser" data-md-component="logo">
       
@@ -162,6 +164,7 @@
       </div>
     
   </nav>
+  
 </header>
     
     <div class="md-container" data-md-component="container">
@@ -169,6 +172,7 @@
       
         
           
+            
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
@@ -242,6 +246,7 @@
     </ul>
   </div>
 </nav>
+          
         
       
       <main class="md-main" data-md-component="main">
@@ -322,6 +327,8 @@
       </a>
       
         
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -444,10 +451,14 @@
       
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
-      <label class="md-nav__link" for="__nav_4">
-        API
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="API" data-md-level="1">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
@@ -456,6 +467,7 @@
         <ul class="md-nav__list" data-md-scrollfix>
           
             
+              
   
   
   
@@ -466,8 +478,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -478,8 +492,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -490,8 +506,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -502,8 +520,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -514,6 +534,7 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
@@ -548,6 +569,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -658,7 +681,7 @@
 <li>The standard pipeline does not allow for interactive learning. You can 
 apply <code class="highlight"><span class="na">.fit</span></code> but that's it. Even if the tools inside of the pipeline have 
 a <code class="highlight"><span class="na">.partial_fit</span></code> available, the pipeline doesn't allow it. </li>
-<li>The <code class="highlight"><span class="err">CountVectorizer</span></code> is great, but we might need some more text-tricks 
+<li>The <code class="highlight">CountVectorizer</code> is great, but we might need some more text-tricks 
 at our disposal that are specialized towards text to make this object more effective.  </li>
 </ul>
 <p>Part of what this library does is give more tools that extend scikit-learn for simple
@@ -680,7 +703,7 @@ text classification problems. In this document we will showcase some of the main
 <p>This pipeline will encode words as sparse features before passing them on to the logistic regression model. 
 This pattern is very common and has proven to work well enough for many English text classification tasks.</p>
 <p><img alt="" src="../images/how-it-works.png" /></p>
-<p>The nice thing about using a <code class="highlight"><span class="err">SGDClassifier</span></code> is that we're able to learn from our data even if the dataset
+<p>The nice thing about using a <code class="highlight">SGDClassifier</code> is that we're able to learn from our data even if the dataset
 does not fit in memory. We can call <code class="highlight"><span class="na">.partial_fit</span></code> instead of <code class="highlight"><span class="na">.fit</span></code> and learn in a more "online" setting. </p>
 <p>That said, there are things we can do even to this pipeline to make it better.</p>
 <h3 id="spelling-errors">Spelling Errors<a class="headerlink" href="#spelling-errors" title="Permanent link">&para;</a></h3>
@@ -697,7 +720,7 @@ let's add a step that will turn our text into subwords by splitting up hyphens. 
 
 <span class="k">assert</span> <span class="n">multi</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;geo logy&#39;</span><span class="p">,</span> <span class="s1">&#39;as tro logy&#39;</span><span class="p">]</span>
 </code></pre></div>
-<p>The <code class="highlight"><span class="err">HyphenTextPrep</span></code> preprocessor is a <code class="highlight"><span class="err">TextPrep</span></code>-object. For all intents and purposes these are 
+<p>The <code class="highlight">HyphenTextPrep</code> preprocessor is a <code class="highlight">TextPrep</code>-object. For all intents and purposes these are 
 scikit-learn compatible preprocessing components but they all output strings instead of arrays. What's
 nice about these though is that you can "retokenize" the original text. This allows you to use the 
 subtokens as if they were tokens which might help keep your pipelines lightweight while still keeping
@@ -706,7 +729,7 @@ them robust against certain spelling errors. </p>
 <p>There are some other tricks that you might want to apply for longer texts. Maybe you want to summarise a text before
 vectorizing it. So maybe it'd be nice to use a transformer that keeps only the most important tokens. </p>
 <p>A neat heuristic toolkit for this is <a href="https://github.com/LIAAD/yake">yake</a> (you can find a demo 
-<a href="http://yake.inesctec.pt/demo/sample/">here</a>). This package also features a scikit-learn compatible component for it.</p>
+<a href="http://yake.inesctec.pt/demo/sample/sample1">here</a>). This package also features a scikit-learn compatible component for it.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">tokenwiser.textprep</span> <span class="kn">import</span> <span class="n">YakeTextPrep</span>
 
 <span class="n">text</span> <span class="o">=</span> <span class="p">[</span>
@@ -722,26 +745,26 @@ might keep the algorithm lightweight and this trick will go a lot further than m
 <h3 id="bag-of-tricks">Bag of Tricks!<a class="headerlink" href="#bag-of-tricks" title="Permanent link">&para;</a></h3>
 <p>The goal of this library is to host a few meaningful tricks that might be helpful. Here's some more; </p>
 <ul>
-<li><code class="highlight"><span class="err">Cleaner</span></code> lowercase text remove all non alphanumeric characters.</li>
-<li><code class="highlight"><span class="err">Identity</span></code> just keeps the text as is, useful when constructing elaborate pipelines.</li>
-<li><code class="highlight"><span class="err">PhoneticTextPrep</span></code> translate text into a phonetic encoding. </li>
-<li><code class="highlight"><span class="err">SpacyPosTextPrep</span></code> add part of speech infomation to the text using spaCy.</li>
-<li><code class="highlight"><span class="err">SpacyLemmaTextPrep</span></code> lemmatize the text using spaCy.</li>
+<li><code class="highlight">Cleaner</code> lowercase text remove all non alphanumeric characters.</li>
+<li><code class="highlight">Identity</code> just keeps the text as is, useful when constructing elaborate pipelines.</li>
+<li><code class="highlight">PhoneticTextPrep</code> translate text into a phonetic encoding. </li>
+<li><code class="highlight">SpacyPosTextPrep</code> add part of speech infomation to the text using spaCy.</li>
+<li><code class="highlight">SpacyLemmaTextPrep</code> lemmatize the text using spaCy.</li>
 </ul>
-<p>All of these tools are part of the <code class="highlight"><span class="err">textprep</span></code> submodule and are documented in detail 
+<p>All of these tools are part of the <code class="highlight">textprep</code> submodule and are documented in detail 
 <a href="https://koaning.github.io/tokenwiser/api/textprep.html">here</a>.</p>
 <h2 id="pipeline-tools">Pipeline Tools<a class="headerlink" href="#pipeline-tools" title="Permanent link">&para;</a></h2>
 <p>Pipeline components are certainly nice. But maybe we can go a step further for text. Maybe
 we can make better pipelines for text too!</p>
 <h3 id="concatenate-text">Concatenate Text<a class="headerlink" href="#concatenate-text" title="Permanent link">&para;</a></h3>
-<p>In scikit-learn you would use <code class="highlight"><span class="err">FeatureUnion</span></code> or <code class="highlight"><span class="err">make_union</span></code> to concatenate features in 
+<p>In scikit-learn you would use <code class="highlight">FeatureUnion</code> or <code class="highlight">make_union</code> to concatenate features in 
 a pipeline. Ut is assumed that transformers output arrays that need to be concatenated so the
 result of a concatenation is always a 2D array. This can be a bit awkward if you're using text preprocessors. </p>
 <p><img alt="" src="../images/make_concat.png" /></p>
-<p>The reason why we want to keep everything a string is so that the <code class="highlight"><span class="err">CountVectorizer</span></code> from scikit-learn
+<p>The reason why we want to keep everything a string is so that the <code class="highlight">CountVectorizer</code> from scikit-learn
 can properly encode it. That is why this library comes with a special union
-component: <code class="highlight"><span class="err">TextConcat</span></code>. It concatenates the output of text-prep tools into a string instead of 
-an array. Note that we also pack a convenient <code class="highlight"><span class="err">make_concat</span></code> function too.</p>
+component: <code class="highlight">TextConcat</code>. It concatenates the output of text-prep tools into a string instead of 
+an array. Note that we also pack a convenient <code class="highlight">make_concat</code> function too.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span> 
 
 <span class="kn">from</span> <span class="nn">tokenwiser.pipeline</span> <span class="kn">import</span> <span class="n">make_concat</span>
@@ -755,7 +778,7 @@ an array. Note that we also pack a convenient <code class="highlight"><span clas
 <span class="n">output</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="s2">&quot;hello astrology!!!!&quot;</span><span class="p">])</span>
 <span class="k">assert</span> <span class="n">output</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;hello astrology hel lo astro logy&#39;</span><span class="p">]</span>
 </code></pre></div>
-<p>Again, we see that we're taking a text input and that we're generating a text output. The <code class="highlight"><span class="err">make_concat</span></code>
+<p>Again, we see that we're taking a text input and that we're generating a text output. The <code class="highlight">make_concat</code>
 is making sure that we concatenate strings, not arrays! This is great when we want to follow up with 
 a `CountVectorizer!</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span> 
@@ -772,14 +795,14 @@ a `CountVectorizer!</p>
     <span class="n">LogisticRegression</span><span class="p">()</span>
 <span class="p">)</span>
 </code></pre></div>
-<p>The mental picture for <code class="highlight"><span class="err">pipe</span></code>-pipeline looks like the diagram below. </p>
+<p>The mental picture for <code class="highlight">pipe</code>-pipeline looks like the diagram below. </p>
 <p><img alt="" src="../images/pipeline.png" /> </p>
 <h3 id="partial-fit">Partial Fit<a class="headerlink" href="#partial-fit" title="Permanent link">&para;</a></h3>
-<p>We can go a step further though. The scikit-learn pipeline follows the <code class="highlight"><span class="err">fit/predict</span></code> API. That
+<p>We can go a step further though. The scikit-learn pipeline follows the <code class="highlight">fit/predict</code> API. That
 means that we cannot use <code class="highlight"><span class="na">.partial_fit</span><span class="p">()</span></code>. Even if all the components in the pipeline are compatible 
-with the <code class="highlight"><span class="err">partial_fit/predict</span></code> API. That is why this library also introduced components for mini-batch 
-learning: <code class="highlight"><span class="err">PartialPipeline</span></code> and <code class="highlight"><span class="err">make_partial_pipeline</span></code> </p>
-<p>In these scenarios you will need to swap out the <code class="highlight"><span class="err">CountVectorizer</span></code> with a <code class="highlight"><span class="err">HashVectorizer</span></code> in order to
+with the <code class="highlight">partial_fit/predict</code> API. That is why this library also introduced components for mini-batch 
+learning: <code class="highlight">PartialPipeline</code> and <code class="highlight">make_partial_pipeline</code> </p>
+<p>In these scenarios you will need to swap out the <code class="highlight">CountVectorizer</code> with a <code class="highlight">HashVectorizer</code> in order to
 be able to learn from new data comming in. </p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">HashingVectorizer</span>
@@ -794,13 +817,13 @@ be able to learn from new data comming in. </p>
     <span class="n">SGDClassifier</span><span class="p">()</span>
 <span class="p">)</span>
 </code></pre></div>
-<p>This <code class="highlight"><span class="err">pipe</span></code>-Pipeline is scikit-learn compatible for all intents and purposes
-but it has the option of learning from batches of data via <code class="highlight"><span class="err">partal_fit</span></code>. This is great
+<p>This <code class="highlight">pipe</code>-Pipeline is scikit-learn compatible for all intents and purposes
+but it has the option of learning from batches of data via <code class="highlight">partal_fit</code>. This is great
 because it means that you're able to classify text even when it doesn't fit into memory!</p>
 <blockquote>
-<p>Note that all of the <code class="highlight"><span class="err">TextPrep</span></code>-components in this library allow for <code class="highlight"><span class="err">partial_fit</span></code>. </p>
+<p>Note that all of the <code class="highlight">TextPrep</code>-components in this library allow for <code class="highlight">partial_fit</code>. </p>
 </blockquote>
-<p>To make a <code class="highlight"><span class="err">partial_fit</span></code> actually work you will need to supply the names of the <code class="highlight"><span class="err">classes</span></code> 
+<p>To make a <code class="highlight">partial_fit</code> actually work you will need to supply the names of the <code class="highlight"><span class="n">classes</span></code> 
 at learning time. Otherwise you might accidentally get a batch that only contains one class
 and the algorithm would become numerically unstable. </p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -837,8 +860,8 @@ and the algorithm would become numerically unstable. </p>
 <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
 </code></pre></div>
 <h3 id="concatenate-features">Concatenate Features<a class="headerlink" href="#concatenate-features" title="Permanent link">&para;</a></h3>
-<p>The standard <code class="highlight"><span class="err">FeatureUnion</span></code> from scikit-learn also does not allow for <code class="highlight"><span class="na">.partial_fit</span></code>. So we've
-added a <code class="highlight"><span class="err">PartialFeatureUnion</span></code> class and a <code class="highlight"><span class="err">make_partial_union</span></code> function to this library as well.</p>
+<p>The standard <code class="highlight">FeatureUnion</code> from scikit-learn also does not allow for <code class="highlight"><span class="na">.partial_fit</span></code>. So we've
+added a <code class="highlight">PartialFeatureUnion</code> class and a <code class="highlight">make_partial_union</code> function to this library as well.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">HashingVectorizer</span>
@@ -929,10 +952,12 @@ added a <code class="highlight"><span class="err">PartialFeatureUnion</span></co
             Copyright &copy; 2020 Maintained by <a href="https://twitter.com/fishnets88">Vincent</a>.
           </div>
         
-        Made with
-        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-          Material for MkDocs
-        </a>
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
         
       </div>
       
@@ -944,10 +969,10 @@ added a <code class="highlight"><span class="err">PartialFeatureUnion</span></co
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.53c85856.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.716f8af4.min.js"></script>
+      <script src="../assets/javascripts/bundle.b1047164.min.js"></script>
       
     
   </body>
