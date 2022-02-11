@@ -11,6 +11,7 @@ base_packages = [
     "vowpalwabbit>=8.9.0",
     "sentencepiece>=0.1.95",
     "snowballstemmer>=2.1.0",
+    "h5py>=2.10.0"
 ]
 
 dev_packages = [
