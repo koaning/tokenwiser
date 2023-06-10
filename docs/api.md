@@ -6,10 +6,6 @@ This library also packs some models.
         handler: python
         show_source: true
 
-## Utils 
-
-This library also supplies some common utilities that might be useful.
-
-### ::: tokenwiser.util.to_sentences
+### ::: tokenwiser.util
         handler: python
         show_source: true

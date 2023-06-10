@@ -73,6 +73,6 @@ markdown_extensions:
   - pymdownx.superfences
   - toc:
       permalink: true
-repo_url: https://github.com/koaning/lazylines
+repo_url: https://github.com/koaning/tokenwiser
 extra_css:
   - stylesheets/extra.css
