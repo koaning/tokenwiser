@@ -2,7 +2,7 @@ from typing import List
 import itertools as it 
 
 class SentenceModel:
-    def __init__(encoder, classifier, categories: List[str]):
+    def __init__(self, encoder, classifier, categories: List[str]):
         self._encoder = encoder
         self._classifier = classifier
         self._categories = categories
@@ -13,7 +13,7 @@ class SentenceModel:
             new_stream, stream = it.tee(stream)
             
             # Only get the relevant datapoints
-            curr_stream = (_['text'], _[cat] for _ in new_stream if cat in _.keys())
+            curr_stream = ((_['text'], _[cat]) for _ in new_stream if cat in _.keys())
             texts, labels = zip(*curr_stream)
             X = self._encoder.transform(list(texts))
             y = list(labels)

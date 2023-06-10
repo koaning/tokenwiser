@@ -1,20 +1,14 @@
-black:
-	black tokenwiser tests setup.py --check
-
-flake:
-	flake8 tokenwiser tests setup.py
+ruff:
+	ruff tokenwiser/ --fix
 
 test:
 	pytest
 
-check: black flake test
+check: ruff test
 
 install:
-	python -m pip install -e .
-
-install-dev:
 	python -m pip install -e ".[dev]"
-	pre-commit install
+	python -m pip install -e .
 
 install-test:
 	python -m pip install -e ".[test]"
