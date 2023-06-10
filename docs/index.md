@@ -1,31 +1,13 @@
-<img src="logo-tokw.png" width=250 align="right">
-
-<h1 style="font-weight: bold; color: black;">tokenwiser</h1>
+# tokenwiser
 
 > Bag of, not words, but tricks!
 
-## Goal
+This project contains a couple of useful "tricks" for NLP projects. 
 
-We noticed that a lot of benchmarks relied on heavy-weight tools while they did not 
-check if something more lightweight would also work. Maybe if we just apply some simple 
-tricks on our tokens we won't need massive language models. The goal of this package is 
-to contribute tricks to keep your NLP pipelines simple. These tricks are made available
-for spaCy, scikit-learn and vowpal wabbit. 
+# Goal 
 
-> If you're looking for a tool that can add pretrained language models to scikit-learn 
-pipelines as a benchmark you'll want to explore another tool: [whatlies](https://rasahq.github.io/whatlies/tutorial/scikit-learn/).
-
-## Features
-
-### Scikit-Learn Tools 
-
-The following submodules contain features that might be useful. 
-
-- `.textprep`: Contains string pre-processing tools for scikit-learn.  
-- `.pipeline`: Contains extra pipeline components for scikit-learn.
-- `.wabbit`: Contains a scikit-learn component based on [vowpal wabbit](https://vowpalwabbit.org/).
-
-### SpaCy Tools 
- 
-- `.component`: Contains spaCy compatible components that might be added as a pipeline step.
-- `.extension`: Contains spaCy compatible extensions that might be added manually. 
+This project is meant as an open playground to rethink text classification by
+exploring the idea of a `SentenceModel`. This is a model that makes a prediction
+per sentence, in the attempt that this might helps saying something more general
+about the entire document. Sentences might be easier to annotate and classify, so
+maybe there's some sense in modelling this way.
