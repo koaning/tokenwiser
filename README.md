@@ -4,15 +4,13 @@
 
 > Bag of, not words, but tricks!
 
-This project contains a couple of useful "tricks" on tokens. It's a collection 
+This project contains a couple of "tricks" on tokens. It's a collection 
 of tricks for sparse data that might be trained on a stream of data too.
 
-# Goal 
+While exploring these tricks was super fun, I do feel like there are plenty
+of better alternatives than the ideas I explore here. In the end, TfIDF + LogReg
+can be "fine" for a bunch of tasks that don't require embeddings. 
 
-We noticed that a lot of benchmarks relied on heavy-weight tools while they did not 
-check if something more lightweight would also work. Maybe if we just apply some simple 
-tricks on our tokens we won't need massive language models. 
+And for embeddings ... there's [embetter](https://github.com/koaning/embetter). 
 
-### Roadmap 
-
-Clean up repo. 
+So I archived this repo. Bit of a shame, because I _really_ liked the name of this package. 
