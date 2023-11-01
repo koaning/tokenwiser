@@ -39,7 +39,7 @@ class PartialPipeline(Pipeline):
         return self
 
 
-def make_partial_pipeline(*steps):
+def make_partial_pipeline(*steps, **kwargs):
     """
     Utility function to generate a `PartialPipeline`
 
@@ -58,4 +58,4 @@ def make_partial_pipeline(*steps):
     assert results == expected
     ```
     """
-    return PartialPipeline(_name_estimators(steps))
+    return PartialPipeline(_name_estimators(steps), **kwargs)
