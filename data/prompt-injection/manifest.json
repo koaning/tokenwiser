@@ -1,0 +1,19 @@
+{
+  "dataset": "neuralchemy/Prompt-injection-dataset",
+  "config": "core",
+  "revision": "7d70432dfcf47a821612cbf9d34e9d9e3ad20e75",
+  "files": {
+    "train-00000-of-00001.parquet": {
+      "sha256": "c0724f8e00eebb65c001be9ba94291d1608e5da0374012e53dfd4077c5f92558",
+      "rows": 4391
+    },
+    "validation-00000-of-00001.parquet": {
+      "sha256": "bbd417bfd0df1553dd769e814a0b62ca58ad5b1d08d153c90f66937a4af74deb",
+      "rows": 941
+    },
+    "test-00000-of-00001.parquet": {
+      "sha256": "fb5432035fdd8453d61f6593bfe78ee2970403c5ea59959b642a6708e2bef670",
+      "rows": 942
+    }
+  }
+}

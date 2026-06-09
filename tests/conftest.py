@@ -1,79 +1,45 @@
-from sklearn.utils import estimator_checks
+import json
 
-transformer_checks = (
-    estimator_checks.check_transformer_data_not_an_array,
-    estimator_checks.check_transformer_general,
-    estimator_checks.check_transformers_unfitted,
-)
+import pytest
 
-general_checks = (
-    estimator_checks.check_fit2d_predict1d,
-    estimator_checks.check_methods_subset_invariance,
-    estimator_checks.check_fit2d_1sample,
-    estimator_checks.check_fit2d_1feature,
-    estimator_checks.check_fit1d,
-    estimator_checks.check_get_params_invariance,
-    estimator_checks.check_set_params,
-    estimator_checks.check_dict_unchanged,
-    estimator_checks.check_dont_overwrite_parameters,
-)
-
-nonmeta_checks = (
-    estimator_checks.check_estimators_dtypes,
-    estimator_checks.check_fit_score_takes_y,
-    estimator_checks.check_dtype_object,
-    estimator_checks.check_sample_weights_pandas_series,
-    estimator_checks.check_sample_weights_list,
-    estimator_checks.check_sample_weights_invariance,
-    estimator_checks.check_estimators_fit_returns_self,
-    estimator_checks.check_complex_data,
-    estimator_checks.check_estimators_empty_data_messages,
-    estimator_checks.check_pipeline_consistency,
-    estimator_checks.check_estimators_nan_inf,
-    estimator_checks.check_estimators_overwrite_params,
-    estimator_checks.check_estimator_sparse_data,
-    estimator_checks.check_estimators_pickle,
-)
-
-classifier_checks = (
-    estimator_checks.check_classifier_data_not_an_array,
-    estimator_checks.check_classifiers_one_label,
-    estimator_checks.check_classifiers_classes,
-    estimator_checks.check_estimators_partial_fit_n_features,
-    estimator_checks.check_classifiers_train,
-    estimator_checks.check_supervised_y_2d,
-    estimator_checks.check_supervised_y_no_nan,
-    estimator_checks.check_estimators_unfitted,
-    estimator_checks.check_non_transformer_estimators_n_iter,
-    estimator_checks.check_decision_proba_consistency,
-)
-
-regressor_checks = (
-    estimator_checks.check_regressors_train,
-    estimator_checks.check_regressor_data_not_an_array,
-    estimator_checks.check_estimators_partial_fit_n_features,
-    estimator_checks.check_regressors_no_decision_function,
-    estimator_checks.check_supervised_y_2d,
-    estimator_checks.check_supervised_y_no_nan,
-    estimator_checks.check_regressors_int,
-    estimator_checks.check_estimators_unfitted,
-)
-
-outlier_checks = (
-    estimator_checks.check_outliers_fit_predict,
-    estimator_checks.check_outliers_train,
-    estimator_checks.check_classifier_data_not_an_array,
-    estimator_checks.check_estimators_unfitted,
-)
+# A small, linearly separable multilabel dataset:
+#   - "pos" vs "neg" sentiment words
+#   - an orthogonal "emotion" label
+_ROWS = [
+    {"text": "good great excellent wonderful", "labels": ["pos"]},
+    {"text": "bad terrible awful horrible", "labels": ["neg"]},
+    {"text": "great wonderful amazing fantastic", "labels": ["pos"]},
+    {"text": "awful horrible disgusting bad", "labels": ["neg"]},
+    {"text": "love happy joy great", "labels": ["pos", "emotion"]},
+    {"text": "hate angry sad terrible", "labels": ["neg", "emotion"]},
+    {"text": "excellent superb great love", "labels": ["pos", "emotion"]},
+    {"text": "worst awful hate angry", "labels": ["neg", "emotion"]},
+    {"text": "neutral plain ordinary boring", "labels": []},
+    {"text": "good nice pleasant lovely", "labels": ["pos"]},
+    {"text": "bad nasty unpleasant grim", "labels": ["neg"]},
+    {"text": "fantastic brilliant great joy", "labels": ["pos", "emotion"]},
+]
 
 
-def select_tests(include, exclude=[]):
-    """Return an iterable of include with all tests whose name is not in exclude"""
-    for test in include:
-        if test.__name__ not in exclude:
-            yield test
+@pytest.fixture
+def dataset(tmp_path):
+    path = tmp_path / "train.jsonl"
+    with open(path, "w", encoding="utf-8") as fh:
+        for row in _ROWS:
+            fh.write(json.dumps(row) + "\n")
+    return str(path)
 
 
-def id_func(param):
-    """Returns the repr of an object for usage in pytest parametrize"""
-    return repr(param)
+@pytest.fixture
+def fast_kwargs():
+    """Small, fully-fixed config so tests are fast and deterministic."""
+    return dict(
+        trials=4,
+        cv=3,
+        seed=7,
+        n_features=2048,
+        n_hashes=2,
+        epochs=20,
+        learning_rate=0.5,
+        l2=1e-6,
+    )
