@@ -1,0 +1,27 @@
+[build-system]
+requires = ["maturin>=1.7,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "tokenwiser"
+version = "1.0.0"
+description = "A Rust-backed sparse multilabel text classifier with randomized hyperparameter search."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE" }
+authors = [{ name = "Vincent D. Warmerdam" }]
+keywords = ["nlp", "text-classification", "multilabel", "logistic-regression", "rust"]
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "maturin>=1.7"]
+
+[tool.maturin]
+python-source = "."
+module-name = "tokenwiser._core"
+features = ["pyo3/extension-module"]
