@@ -142,51 +142,118 @@ fn make_folds(n: usize, cv: usize, seed: u64) -> Vec<usize> {
     fold_of
 }
 
+/// The slice of a config that determines its hashed feature representation.
+/// Trials sharing a signature can reuse one built feature matrix, and may
+/// warm-start each other (same space) along their differing optimizer knobs.
+#[derive(PartialEq)]
+struct FeatureSig {
+    tokenizer: String,
+    lowercase: bool,
+    ngram: (u32, u32),
+    n_features: usize,
+    n_hashes: usize,
+    feature_value: String,
+}
+
+fn feature_sig(cfg: &TrialConfig) -> FeatureSig {
+    FeatureSig {
+        tokenizer: cfg.tokenizer.clone(),
+        lowercase: cfg.lowercase,
+        ngram: (cfg.ngram_min, cfg.ngram_max),
+        n_features: cfg.n_features,
+        n_hashes: cfg.n_hashes,
+        feature_value: cfg.feature_value.clone(),
+    }
+}
+
 /// Run the full search and return the final model plus the report.
-pub fn run(space: &SearchSpace, mut data: Dataset) -> Result<(Model, Report), String> {
+pub fn run(space: &SearchSpace, data: Dataset) -> Result<(Model, Report), String> {
     let start = Instant::now();
     let n = data.n_rows();
     let n_labels = data.n_labels();
     let cv = space.cv.max(1);
     let folds = make_folds(n, cv, space.seed);
 
-    let mut trials_detail: Vec<TrialReport> = Vec::with_capacity(space.trials);
-    let mut best: Option<(usize, f64, TrialConfig)> = None;
+    // Precompute fold membership lists once (shared across all trials).
+    let fold_idx: Vec<(Vec<usize>, Vec<usize>)> = (0..cv)
+        .map(|f| {
+            let train: Vec<usize> = (0..n).filter(|&i| folds[i] != f).collect();
+            let val: Vec<usize> = (0..n).filter(|&i| folds[i] == f).collect();
+            (train, val)
+        })
+        .collect();
 
-    for t in 0..space.trials {
-        let mut rng = Rng::derive(space.seed, t as u64 + 1);
-        let cfg = space.sample(&mut rng);
+    // The grid is deterministic from the seed, so enumerate every trial's
+    // config up front and partition by feature signature. Optimizer-only
+    // differences (learning_rate/l1/l2/epochs) collapse into one group, so we
+    // build each feature matrix once instead of per trial.
+    let configs: Vec<TrialConfig> = (0..space.trials)
+        .map(|t| space.sample(&mut Rng::derive(space.seed, t as u64 + 1)))
+        .collect();
 
-        // Base tokens cached per (tokenizer, lowercase); build hashed rows once
-        // for the whole dataset and reuse them across folds.
-        let base = data.base(&cfg.tokenizer, cfg.lowercase).to_vec();
-        let rows = build_rows(&base, &cfg);
+    let mut groups: Vec<(FeatureSig, Vec<usize>)> = Vec::new();
+    for (t, cfg) in configs.iter().enumerate() {
+        let sig = feature_sig(cfg);
+        match groups.iter_mut().find(|(s, _)| *s == sig) {
+            Some((_, members)) => members.push(t),
+            None => groups.push((sig, vec![t])),
+        }
+    }
 
-        let mut fold_scores = Vec::with_capacity(cv);
+    // Per-trial fold scores, filled as groups are processed.
+    let mut fold_scores_by_trial: Vec<Vec<f64>> = vec![Vec::new(); space.trials];
+
+    for (_sig, members) in &groups {
+        // Build this signature's compact feature rows once; dropped (evicted)
+        // at the end of the group so peak memory stays at one group's worth.
+        let rows = build_rows(&data.texts, &configs[members[0]]);
+
+        // Warm-start order: along the L2 regularization path (the homotopy /
+        // glmnet trick), deterministic by (l2, trial index).
+        let mut order: Vec<usize> = members.clone();
+        order.sort_by(|&a, &b| {
+            configs[a]
+                .l2
+                .partial_cmp(&configs[b].l2)
+                .unwrap_or(std::cmp::Ordering::Equal)
+                .then(a.cmp(&b))
+        });
+
         for f in 0..cv {
-            let train_idx: Vec<usize> = (0..n).filter(|&i| folds[i] != f).collect();
-            let val_idx: Vec<usize> = (0..n).filter(|&i| folds[i] == f).collect();
+            let (train_idx, val_idx) = &fold_idx[f];
             if train_idx.is_empty() || val_idx.is_empty() {
                 continue;
             }
-            // Fold fit seed is reproducible from the trial/fold position.
-            let fit_seed = space
-                .seed
-                .wrapping_add((t as u64 + 1).wrapping_mul(1009))
-                .wrapping_add((f as u64 + 1).wrapping_mul(9176));
-            let fit = LogReg::train(
-                &rows,
-                &data.labels,
-                &train_idx,
-                n_labels,
-                cfg.n_features,
-                &cfg,
-                space.batch_size,
-                fit_seed,
-            );
-            fold_scores.push(macro_f1(&fit, &rows, &data.labels, &val_idx, n_labels));
+            let mut warm: Option<LogReg> = None;
+            for &t in &order {
+                let cfg = &configs[t];
+                let fit_seed = space
+                    .seed
+                    .wrapping_add((t as u64 + 1).wrapping_mul(1009))
+                    .wrapping_add((f as u64 + 1).wrapping_mul(9176));
+                let fit = LogReg::train(
+                    &rows,
+                    &data.labels,
+                    train_idx,
+                    n_labels,
+                    cfg.n_features,
+                    cfg,
+                    space.batch_size,
+                    fit_seed,
+                    warm.as_ref(),
+                );
+                let score = macro_f1(&fit, &rows, &data.labels, val_idx, n_labels);
+                fold_scores_by_trial[t].push(score);
+                warm = Some(fit); // chain into the next trial on this fold
+            }
         }
+    }
 
+    // Assemble per-trial reports in trial order and pick the winner.
+    let mut trials_detail: Vec<TrialReport> = Vec::with_capacity(space.trials);
+    let mut best: Option<(usize, f64)> = None;
+    for t in 0..space.trials {
+        let fold_scores = &fold_scores_by_trial[t];
         let mean = if fold_scores.is_empty() {
             0.0
         } else {
@@ -194,23 +261,23 @@ pub fn run(space: &SearchSpace, mut data: Dataset) -> Result<(Model, Report), St
         };
         trials_detail.push(TrialReport {
             trial: t,
-            config: ConfigJson::from(&cfg),
+            config: ConfigJson::from(&configs[t]),
             fold_scores: fold_scores.clone(),
             mean_macro_f1: mean,
         });
-
         // Strictly-greater keeps the earliest trial on ties (reproducible).
-        if best.as_ref().map_or(true, |(_, s, _)| mean > *s) {
-            best = Some((t, mean, cfg));
+        if best.as_ref().map_or(true, |(_, s)| mean > *s) {
+            best = Some((t, mean));
         }
     }
 
-    let (best_trial, best_score, best_cfg) =
+    let (best_trial, best_score) =
         best.ok_or_else(|| "no trials were run (trials must be >= 1)".to_string())?;
+    let best_cfg = configs[best_trial].clone();
 
-    // Retrain the winning configuration on all rows.
-    let base = data.base(&best_cfg.tokenizer, best_cfg.lowercase).to_vec();
-    let rows = build_rows(&base, &best_cfg);
+    // Retrain the winning configuration on all rows, cold (no warm-start
+    // contamination in the shipped model).
+    let rows = build_rows(&data.texts, &best_cfg);
     let all_idx: Vec<usize> = (0..n).collect();
     let final_seed = space.seed.wrapping_add(0xF1A1);
     let fit = LogReg::train(
@@ -222,6 +289,7 @@ pub fn run(space: &SearchSpace, mut data: Dataset) -> Result<(Model, Report), St
         &best_cfg,
         space.batch_size,
         final_seed,
+        None,
     );
     let model = Model::from_fit(data.vocab.clone(), &best_cfg, fit);
 

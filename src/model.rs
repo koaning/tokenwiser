@@ -2,17 +2,36 @@
 //!
 //! One independent binary logistic regressor is trained per label, all sharing
 //! the same hashed feature space. Weights are stored densely as `f32` in a
-//! single `n_labels * n_features` buffer (row-major by label).
+//! single `n_labels * n_features` buffer (row-major by label) — dense is the
+//! right choice for weights (mostly non-zero, O(1) indexed dot products); the
+//! sparsity lives on the input side.
 //!
 //! Training is mini-batch SGD with class weights always "balanced" (per the v1
 //! API) and L1/L2 regularization applied to the weights touched by each batch
-//! — the standard sparse-update approximation, which keeps each step
-//! proportional to the batch's non-zeros rather than the full table.
+//! — the standard sparse-update approximation.
+//!
+//! Two convergence-related behaviors:
+//!
+//! * **Early stopping on tolerance.** `cfg.epochs` is a *maximum* budget; we
+//!   stop once the (balanced) training log-loss fails to improve by `TOL` for
+//!   `N_ITER_NO_CHANGE` consecutive epochs (the same idea scikit-learn's
+//!   `SGDClassifier` uses). Under L2 the objective is strictly convex with a
+//!   unique optimum, so this makes a fit a faithful "converged" solution rather
+//!   than an artifact of its epoch count.
+//! * **Warm starts.** A fit may be initialized from a previous solution in the
+//!   *same feature space* (see `search.rs`, which warm-starts trials along the
+//!   `l2` regularization path). Because the optimum is unique, this only speeds
+//!   convergence; it never changes where we land.
 
 use crate::config::TrialConfig;
 use crate::features::{hash_row, SparseRow};
 use crate::rng::Rng;
-use crate::tokenize::ngrams;
+use crate::tokenize::{base_tokens, ngrams};
+
+/// Minimum log-loss improvement per epoch to count as "still converging".
+const TOL: f32 = 1e-4;
+/// Consecutive non-improving epochs before we stop early.
+const N_ITER_NO_CHANGE: usize = 2;
 
 pub struct LogReg {
     pub n_labels: usize,
@@ -27,12 +46,17 @@ fn sigmoid(z: f32) -> f32 {
     1.0 / (1.0 + (-z).exp())
 }
 
-/// Build sparse feature rows for the given base tokens under `cfg`.
-pub fn build_rows(base: &[Vec<String>], cfg: &TrialConfig) -> Vec<SparseRow> {
+/// Build sparse feature rows directly from raw texts under `cfg`.
+///
+/// Tokenization is transient per row (never cached), so this holds only the
+/// compact integer feature rows, not the corpus as strings.
+pub fn build_rows(texts: &[String], cfg: &TrialConfig) -> Vec<SparseRow> {
     let binary = cfg.feature_value == "binary";
-    base.iter()
-        .map(|tokens| {
-            let grams = ngrams(tokens, cfg.ngram_min, cfg.ngram_max);
+    texts
+        .iter()
+        .map(|text| {
+            let tokens = base_tokens(text, &cfg.tokenizer, cfg.lowercase);
+            let grams = ngrams(&tokens, cfg.ngram_min, cfg.ngram_max);
             hash_row(&grams, cfg.n_features, cfg.n_hashes, binary)
         })
         .collect()
@@ -42,7 +66,8 @@ impl LogReg {
     /// Train on a subset of rows (referenced by `idxs`).
     ///
     /// `rows` and `labels` are indexed by the original row id; `idxs` selects
-    /// the training rows for this fit.
+    /// the training rows for this fit. When `warm` is `Some`, weights/bias are
+    /// initialized from it (it must share `n_labels`/`n_features`).
     pub fn train(
         rows: &[SparseRow],
         labels: &[Vec<u32>],
@@ -52,10 +77,15 @@ impl LogReg {
         cfg: &TrialConfig,
         batch_size: usize,
         seed: u64,
+        warm: Option<&LogReg>,
     ) -> LogReg {
         let n = idxs.len();
-        let mut weights = vec![0.0f32; n_labels * n_features];
-        let mut bias = vec![0.0f32; n_labels];
+        let (mut weights, mut bias) = match warm {
+            Some(w) if w.n_labels == n_labels && w.n_features == n_features => {
+                (w.weights.clone(), w.bias.clone())
+            }
+            _ => (vec![0.0f32; n_labels * n_features], vec![0.0f32; n_labels]),
+        };
 
         // Balanced class weights per label, computed on the training subset:
         //   w_pos = N / (2 * n_pos), w_neg = N / (2 * n_neg).
@@ -93,8 +123,11 @@ impl LogReg {
         let mut order: Vec<usize> = idxs.to_vec();
 
         let mut rng = Rng::new(seed);
+        let mut best_loss = f32::INFINITY;
+        let mut no_improve = 0usize;
         for _epoch in 0..cfg.epochs {
             rng.shuffle(&mut order);
+            let mut epoch_loss = 0.0f32;
             let mut start = 0;
             while start < n {
                 let end = (start + bs).min(n);
@@ -126,6 +159,10 @@ impl LogReg {
                         let p = sigmoid(z[l]);
                         let sw = if y > 0.5 { w_pos[l] } else { w_neg[l] };
                         let coef = sw * (p - y);
+                        // Balanced log-loss for the convergence check (uses the
+                        // probability from the current forward pass).
+                        let pc = p.clamp(1e-7, 1.0 - 1e-7);
+                        epoch_loss -= sw * (y * pc.ln() + (1.0 - y) * (1.0 - pc).ln());
                         grad_bias[l] += coef;
                         let base = l * n_features;
                         for (k, &idx) in row.indices.iter().enumerate() {
@@ -156,6 +193,20 @@ impl LogReg {
                 }
 
                 start = end;
+            }
+
+            // Early stop: halt once the loss stops improving by at least TOL.
+            epoch_loss /= (n * n_labels.max(1)) as f32;
+            if best_loss - epoch_loss < TOL {
+                no_improve += 1;
+                if no_improve >= N_ITER_NO_CHANGE {
+                    break;
+                }
+            } else {
+                no_improve = 0;
+            }
+            if epoch_loss < best_loss {
+                best_loss = epoch_loss;
             }
         }
 

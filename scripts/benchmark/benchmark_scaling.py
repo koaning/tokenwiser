@@ -6,7 +6,7 @@ trained once — in an isolated child process — with a *fixed* config (one CV
 pass, no real search), so the numbers reflect training cost rather than search
 budget. Results are written to ``benchmarks/scaling.json``.
 
-    python scripts/benchmark_scaling.py --sizes 5000 25000 100000
+    python scripts/benchmark/benchmark_scaling.py --sizes 5000 25000 100000
 """
 
 from __future__ import annotations
@@ -23,7 +23,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import _benchlib as bench  # noqa: E402
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SIZES = [5_000, 10_000, 25_000, 50_000, 100_000, 200_000]
 
 

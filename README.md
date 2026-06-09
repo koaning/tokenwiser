@@ -95,18 +95,19 @@ visualizes them:
 uv run --with pyarrow python scripts/download_prompt_injection.py
 
 # 2. Run the benchmarks (write benchmarks/{quality,scaling}.json)
-uv run --with 'scikit-learn>=1.4' python scripts/benchmark_quality.py
-uv run --with 'scikit-learn>=1.4' python scripts/benchmark_scaling.py
+uv run --with 'scikit-learn>=1.4' python scripts/benchmark/benchmark_quality.py
+uv run --with 'scikit-learn>=1.4' python scripts/benchmark/benchmark_scaling.py
 
 # 3. Visualize (reads the JSON; no training, no sklearn needed)
 uv run --with 'marimo>=0.21.1' --with 'pandas>=2.0' --with 'matplotlib>=3.7' \
-  marimo edit notebooks/classification_benchmark.py
+  marimo edit scripts/benchmark/classification_benchmark.py
 ```
 
 Both benchmarks time each model **from data-on-disk to a trained model** and run
-single-threaded, so the comparison is apples-to-apples. `benchmark_quality.py`
-compares quality/speed/size on the real split; `benchmark_scaling.py` replicates
-the data to growing sizes and tracks training time and peak memory.
+single-threaded, so the comparison is apples-to-apples. The two scripts live in
+`scripts/benchmark/`: `benchmark_quality.py` compares quality/speed/size on the
+real split; `benchmark_scaling.py` replicates the data to growing sizes and
+tracks training time and peak memory.
 
 ## Development
 

@@ -1,12 +1,13 @@
-//! JSONL ingestion and the base-token cache.
+//! JSONL ingestion.
 //!
-//! Rows are streamed from disk and reduced to `(text, label-indices)`. Labels
-//! are mapped to a stable, sorted vocabulary so artifacts are reproducible.
+//! Rows are read from disk and reduced to `(text, label-indices)`. Labels are
+//! mapped to a stable, sorted vocabulary so artifacts are reproducible.
 //!
-//! Because the tokenizer/lowercase choices are part of the search space, we
-//! cannot pre-hash. We *can* cache base tokenization keyed by
-//! `(tokenizer, lowercase)`, since n-gram and hashing choices are applied
-//! cheaply on top of the base tokens during each trial.
+//! We deliberately keep *only* the raw texts and labels — no tokenized cache.
+//! Tokenizer/lowercase/n-gram/hashing choices are all searchable, so features
+//! are re-derived per feature-signature group in `search.rs` directly from the
+//! texts (see that module's grouping). Holding the corpus as token strings was
+//! the dominant memory cost and bought almost nothing over re-tokenizing.
 
 use std::collections::HashMap;
 use std::fs::File;
@@ -14,15 +15,12 @@ use std::io::{BufRead, BufReader};
 
 use serde_json::Value;
 
-use crate::tokenize::base_tokens;
-
 pub struct Dataset {
     pub texts: Vec<String>,
     /// Label indices per row (may be empty; sorted, unique).
     pub labels: Vec<Vec<u32>>,
     /// Stable, sorted label vocabulary.
     pub vocab: Vec<String>,
-    cache: HashMap<(String, bool), Vec<Vec<String>>>,
 }
 
 impl Dataset {
@@ -141,21 +139,6 @@ impl Dataset {
             texts,
             labels,
             vocab,
-            cache: HashMap::new(),
         })
-    }
-
-    /// Base tokens for every row under `(tokenizer, lowercase)`, cached.
-    pub fn base(&mut self, tokenizer: &str, lowercase: bool) -> &[Vec<String>] {
-        let key = (tokenizer.to_string(), lowercase);
-        if !self.cache.contains_key(&key) {
-            let toks: Vec<Vec<String>> = self
-                .texts
-                .iter()
-                .map(|t| base_tokens(t, tokenizer, lowercase))
-                .collect();
-            self.cache.insert(key.clone(), toks);
-        }
-        &self.cache[&key]
     }
 }

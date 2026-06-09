@@ -7,7 +7,7 @@ writes machine-readable results to ``benchmarks/quality.json``.
 Both runs are timed from data-on-disk to a trained model and run single-threaded
 (see ``_benchlib`` for the fairness rationale).
 
-    python scripts/benchmark_quality.py --trials 12 --cv 3
+    python scripts/benchmark/benchmark_quality.py --trials 12 --cv 3
 """
 
 from __future__ import annotations
@@ -23,7 +23,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import _benchlib as bench  # noqa: E402
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 
 
 def main() -> None:

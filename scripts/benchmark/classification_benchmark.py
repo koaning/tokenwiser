@@ -39,8 +39,8 @@ def _(mo):
     tokenwiser or scikit-learn. Run the scripts first:
 
     ```bash
-    python scripts/benchmark_quality.py
-    python scripts/benchmark_scaling.py
+    python scripts/benchmark/benchmark_quality.py
+    python scripts/benchmark/benchmark_scaling.py
     ```
 
     They write `benchmarks/quality.json` and `benchmarks/scaling.json`,
@@ -51,7 +51,7 @@ def _(mo):
 
 @app.cell
 def _(Path, json):
-    repo_root = Path(__file__).resolve().parents[1]
+    repo_root = Path(__file__).resolve().parents[2]
     bench_dir = repo_root / "benchmarks"
 
     def _load(name):
@@ -68,7 +68,7 @@ def _(mo, quality):
     mo.stop(
         quality is None,
         mo.md("⚠️ `benchmarks/quality.json` not found — run "
-              "`python scripts/benchmark_quality.py` first."),
+              "`python scripts/benchmark/benchmark_quality.py` first."),
     )
     d = quality["dataset"]
     mo.md(
@@ -130,7 +130,7 @@ def _(mo, scaling):
     mo.stop(
         scaling is None,
         mo.md("⚠️ `benchmarks/scaling.json` not found — run "
-              "`python scripts/benchmark_scaling.py` first."),
+              "`python scripts/benchmark/benchmark_scaling.py` first."),
     )
     mo.md(
         f"""
