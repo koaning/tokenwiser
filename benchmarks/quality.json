@@ -1,0 +1,78 @@
+{
+  "benchmark": "quality",
+  "generated_at": "2026-06-11T10:58:38",
+  "platform": "macOS-26.3-arm64-arm-64bit",
+  "python": "3.12.9",
+  "dataset": {
+    "name": "neuralchemy/Prompt-injection-dataset",
+    "config": "core",
+    "revision": "7d70432dfcf47a821612cbf9d34e9d9e3ad20e75"
+  },
+  "settings": {
+    "trials": 12,
+    "cv": 3,
+    "seed": 42
+  },
+  "runs": [
+    {
+      "model": "tokenwiser",
+      "n_train_rows": 4391,
+      "load_seconds": null,
+      "fit_seconds": null,
+      "total_seconds": 0.14714370807632804,
+      "best_cv_score": 0.9439690276647483,
+      "best_config": {
+        "tokenizer": "whitespace",
+        "lowercase": true,
+        "ngram_range": [
+          1,
+          1
+        ],
+        "n_features": 31870,
+        "n_hashes": 3,
+        "feature_value": "count",
+        "epochs": 9,
+        "learning_rate": 0.17204861823297904,
+        "l1": 0.0,
+        "l2": 9.36445638546442e-07
+      },
+      "metrics": {
+        "accuracy": 0.9394904458598726,
+        "precision": 0.9678638941398866,
+        "recall": 0.927536231884058,
+        "f1": 0.9472710453283997,
+        "roc_auc": 0.9733277591973245
+      },
+      "predict_seconds": 0.0007433330174535513,
+      "n_test_rows": 942,
+      "model_bytes": 63964,
+      "peak_rss_mb": 128.875
+    },
+    {
+      "model": "sklearn",
+      "n_train_rows": 4391,
+      "load_seconds": 0.00610920786857605,
+      "fit_seconds": 1.884265874978155,
+      "total_seconds": 1.890375082846731,
+      "best_cv_score": 0.9692770164615719,
+      "best_config": {
+        "tfidf__ngram_range": "(1, 2)",
+        "tfidf__max_features": "25000",
+        "tfidf__lowercase": "True",
+        "tfidf__binary": "True",
+        "logreg__C": "3.0"
+      },
+      "metrics": {
+        "accuracy": 0.9532908704883227,
+        "precision": 0.9519572953736655,
+        "recall": 0.9692028985507246,
+        "f1": 0.9605026929982047,
+        "roc_auc": 0.9950250836120401
+      },
+      "predict_seconds": 0.009711709106341004,
+      "n_test_rows": 942,
+      "model_bytes": 1221675,
+      "peak_rss_mb": 139.59375
+    }
+  ]
+}

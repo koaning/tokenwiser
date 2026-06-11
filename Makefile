@@ -1,26 +1,13 @@
-black:
-	black tokenwiser tests setup.py --check
+develop:
+	maturin develop
 
-flake:
-	flake8 tokenwiser tests setup.py
+release:
+	maturin develop --release
 
 test:
-	pytest
+	pytest -q
 
-check: black flake test
+check: develop test
 
-install:
-	python -m pip install -e .
-
-install-dev:
-	python -m pip install -e ".[dev]"
-	pre-commit install
-
-install-test:
-	python -m pip install -e ".[test]"
-	python -m pip install -e ".[all]"
-
-pypi:
-	python setup.py sdist
-	python setup.py bdist_wheel --universal
-	twine upload dist/*
+wheel:
+	maturin build --release

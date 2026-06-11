@@ -1,0 +1,315 @@
+{
+  "benchmark": "scaling",
+  "generated_at": "2026-06-11T10:58:10",
+  "platform": "macOS-26.3-arm64-arm-64bit",
+  "python": "3.12.9",
+  "dataset": {
+    "name": "neuralchemy/Prompt-injection-dataset",
+    "config": "core",
+    "revision": "7d70432dfcf47a821612cbf9d34e9d9e3ad20e75",
+    "base_rows": 4391
+  },
+  "settings": {
+    "trials": 1,
+    "cv": 2,
+    "seed": 42
+  },
+  "sizes": [
+    5000,
+    10000,
+    25000,
+    50000,
+    100000,
+    200000
+  ],
+  "runs": [
+    {
+      "model": "tokenwiser",
+      "n_train_rows": 5000,
+      "load_seconds": null,
+      "fit_seconds": null,
+      "total_seconds": 0.021642541978508234,
+      "best_cv_score": 0.8714924532287974,
+      "best_config": {
+        "tokenizer": "unicode",
+        "lowercase": true,
+        "ngram_range": [
+          1,
+          1
+        ],
+        "n_features": 20000,
+        "n_hashes": 2,
+        "feature_value": "binary",
+        "epochs": 3,
+        "learning_rate": 0.1,
+        "l1": 0.0,
+        "l2": 1e-06
+      },
+      "metrics": null,
+      "predict_seconds": null,
+      "n_test_rows": null,
+      "model_bytes": null,
+      "peak_rss_mb": 30.109375
+    },
+    {
+      "model": "sklearn",
+      "n_train_rows": 5000,
+      "load_seconds": 0.006661165971308947,
+      "fit_seconds": 0.11686824983917177,
+      "total_seconds": 0.12352941581048071,
+      "best_cv_score": 0.9580746137039168,
+      "best_config": {
+        "tfidf__ngram_range": "(1, 1)",
+        "tfidf__max_features": "20000",
+        "tfidf__lowercase": "True",
+        "tfidf__binary": "True",
+        "logreg__C": "1.0"
+      },
+      "metrics": null,
+      "predict_seconds": null,
+      "n_test_rows": null,
+      "model_bytes": null,
+      "peak_rss_mb": 123.0
+    },
+    {
+      "model": "tokenwiser",
+      "n_train_rows": 10000,
+      "load_seconds": null,
+      "fit_seconds": null,
+      "total_seconds": 0.039187708869576454,
+      "best_cv_score": 0.8939678843387897,
+      "best_config": {
+        "tokenizer": "unicode",
+        "lowercase": true,
+        "ngram_range": [
+          1,
+          1
+        ],
+        "n_features": 20000,
+        "n_hashes": 2,
+        "feature_value": "binary",
+        "epochs": 3,
+        "learning_rate": 0.1,
+        "l1": 0.0,
+        "l2": 1e-06
+      },
+      "metrics": null,
+      "predict_seconds": null,
+      "n_test_rows": null,
+      "model_bytes": null,
+      "peak_rss_mb": 34.578125
+    },
+    {
+      "model": "sklearn",
+      "n_train_rows": 10000,
+      "load_seconds": 0.014016709057614207,
+      "fit_seconds": 0.20759612484835088,
+      "total_seconds": 0.2216128339059651,
+      "best_cv_score": 0.9772269005526693,
+      "best_config": {
+        "tfidf__ngram_range": "(1, 1)",
+        "tfidf__max_features": "20000",
+        "tfidf__lowercase": "True",
+        "tfidf__binary": "True",
+        "logreg__C": "1.0"
+      },
+      "metrics": null,
+      "predict_seconds": null,
+      "n_test_rows": null,
+      "model_bytes": null,
+      "peak_rss_mb": 129.453125
+    },
+    {
+      "model": "tokenwiser",
+      "n_train_rows": 25000,
+      "load_seconds": null,
+      "fit_seconds": null,
+      "total_seconds": 0.09568079095333815,
+      "best_cv_score": 0.9298503836381073,
+      "best_config": {
+        "tokenizer": "unicode",
+        "lowercase": true,
+        "ngram_range": [
+          1,
+          1
+        ],
+        "n_features": 20000,
+        "n_hashes": 2,
+        "feature_value": "binary",
+        "epochs": 3,
+        "learning_rate": 0.1,
+        "l1": 0.0,
+        "l2": 1e-06
+      },
+      "metrics": null,
+      "predict_seconds": null,
+      "n_test_rows": null,
+      "model_bytes": null,
+      "peak_rss_mb": 45.671875
+    },
+    {
+      "model": "sklearn",
+      "n_train_rows": 25000,
+      "load_seconds": 0.033795875031501055,
+      "fit_seconds": 0.4893828749191016,
+      "total_seconds": 0.5231787499506027,
+      "best_cv_score": 0.9889723307836145,
+      "best_config": {
+        "tfidf__ngram_range": "(1, 1)",
+        "tfidf__max_features": "20000",
+        "tfidf__lowercase": "True",
+        "tfidf__binary": "True",
+        "logreg__C": "1.0"
+      },
+      "metrics": null,
+      "predict_seconds": null,
+      "n_test_rows": null,
+      "model_bytes": null,
+      "peak_rss_mb": 147.484375
+    },
+    {
+      "model": "tokenwiser",
+      "n_train_rows": 50000,
+      "load_seconds": null,
+      "fit_seconds": null,
+      "total_seconds": 0.19248529081232846,
+      "best_cv_score": 0.9501110359419959,
+      "best_config": {
+        "tokenizer": "unicode",
+        "lowercase": true,
+        "ngram_range": [
+          1,
+          1
+        ],
+        "n_features": 20000,
+        "n_hashes": 2,
+        "feature_value": "binary",
+        "epochs": 3,
+        "learning_rate": 0.1,
+        "l1": 0.0,
+        "l2": 1e-06
+      },
+      "metrics": null,
+      "predict_seconds": null,
+      "n_test_rows": null,
+      "model_bytes": null,
+      "peak_rss_mb": 66.03125
+    },
+    {
+      "model": "sklearn",
+      "n_train_rows": 50000,
+      "load_seconds": 0.064989292062819,
+      "fit_seconds": 0.9347066250629723,
+      "total_seconds": 0.9996959171257913,
+      "best_cv_score": 0.9963613344057841,
+      "best_config": {
+        "tfidf__ngram_range": "(1, 1)",
+        "tfidf__max_features": "20000",
+        "tfidf__lowercase": "True",
+        "tfidf__binary": "True",
+        "logreg__C": "1.0"
+      },
+      "metrics": null,
+      "predict_seconds": null,
+      "n_test_rows": null,
+      "model_bytes": null,
+      "peak_rss_mb": 175.6875
+    },
+    {
+      "model": "tokenwiser",
+      "n_train_rows": 100000,
+      "load_seconds": null,
+      "fit_seconds": null,
+      "total_seconds": 0.4214787499513477,
+      "best_cv_score": 0.9598996286703314,
+      "best_config": {
+        "tokenizer": "unicode",
+        "lowercase": true,
+        "ngram_range": [
+          1,
+          1
+        ],
+        "n_features": 20000,
+        "n_hashes": 2,
+        "feature_value": "binary",
+        "epochs": 3,
+        "learning_rate": 0.1,
+        "l1": 0.0,
+        "l2": 1e-06
+      },
+      "metrics": null,
+      "predict_seconds": null,
+      "n_test_rows": null,
+      "model_bytes": null,
+      "peak_rss_mb": 106.375
+    },
+    {
+      "model": "sklearn",
+      "n_train_rows": 100000,
+      "load_seconds": 0.1281722909770906,
+      "fit_seconds": 1.860179082956165,
+      "total_seconds": 1.9883513739332557,
+      "best_cv_score": 0.9994870428768283,
+      "best_config": {
+        "tfidf__ngram_range": "(1, 1)",
+        "tfidf__max_features": "20000",
+        "tfidf__lowercase": "True",
+        "tfidf__binary": "True",
+        "logreg__C": "1.0"
+      },
+      "metrics": null,
+      "predict_seconds": null,
+      "n_test_rows": null,
+      "model_bytes": null,
+      "peak_rss_mb": 239.53125
+    },
+    {
+      "model": "tokenwiser",
+      "n_train_rows": 200000,
+      "load_seconds": null,
+      "fit_seconds": null,
+      "total_seconds": 0.9350336249917746,
+      "best_cv_score": 0.9690744067437465,
+      "best_config": {
+        "tokenizer": "unicode",
+        "lowercase": true,
+        "ngram_range": [
+          1,
+          1
+        ],
+        "n_features": 20000,
+        "n_hashes": 2,
+        "feature_value": "binary",
+        "epochs": 3,
+        "learning_rate": 0.1,
+        "l1": 0.0,
+        "l2": 1e-06
+      },
+      "metrics": null,
+      "predict_seconds": null,
+      "n_test_rows": null,
+      "model_bytes": null,
+      "peak_rss_mb": 183.578125
+    },
+    {
+      "model": "sklearn",
+      "n_train_rows": 200000,
+      "load_seconds": 0.260363542009145,
+      "fit_seconds": 3.859820834128186,
+      "total_seconds": 4.120184376137331,
+      "best_cv_score": 0.9996859479505031,
+      "best_config": {
+        "tfidf__ngram_range": "(1, 1)",
+        "tfidf__max_features": "20000",
+        "tfidf__lowercase": "True",
+        "tfidf__binary": "True",
+        "logreg__C": "1.0"
+      },
+      "metrics": null,
+      "predict_seconds": null,
+      "n_test_rows": null,
+      "model_bytes": null,
+      "peak_rss_mb": 364.734375
+    }
+  ]
+}

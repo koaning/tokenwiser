@@ -110,6 +110,9 @@ ENV/
 env.bak/
 venv.bak/
 
+# marimo notebook caches and exports
+__marimo__/
+
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -132,3 +135,4 @@ dmypy.json
 *.model
 *.csv
 .DS_Store
+data/toxic/toxic.jsonl
