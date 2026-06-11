@@ -204,12 +204,20 @@ def train(
     l1=0.0,
     l2=(1e-8, 1e-3),
     batch_size=256,
+    tune_thresholds=True,
 ):
     """Train a multilabel classifier from a JSONL file.
 
     Returns a ``(Model, TrainingReport)`` tuple. See the module docstring for
     the scalar/list/tuple search-space semantics.
+
+    When ``tune_thresholds`` is true (default), each label's decision threshold
+    is tuned on cross-validation out-of-fold predictions to maximize its F1;
+    otherwise a fixed 0.5 threshold is used. Tuned thresholds are stored in the
+    model artifact.
     """
+    if not isinstance(tune_thresholds, bool):
+        raise ValueError(f"tune_thresholds: expected a bool, got {tune_thresholds!r}")
     spec = {
         "text_field": str(text_field),
         "labels_field": str(labels_field),
@@ -217,6 +225,7 @@ def train(
         "cv": _plain_int(cv, "cv", 2),
         "seed": _plain_int(seed, "seed", 0),
         "batch_size": _plain_int(batch_size, "batch_size", 1),
+        "tune_thresholds": tune_thresholds,
         "tokenizer": _str_spec(tokenizer, "tokenizer", _TOKENIZERS),
         "lowercase": _bool_spec(lowercase, "lowercase"),
         "ngram_range": _ngram_spec(ngram_range, "ngram_range"),
@@ -254,6 +263,11 @@ class Model:
     def labels(self):
         """The label vocabulary, in column order."""
         return self._core.labels()
+
+    @property
+    def thresholds(self):
+        """A ``{label: decision_threshold}`` dict (0.5 each if not tuned)."""
+        return dict(zip(self._core.labels(), self._core.threshold_values()))
 
     def predict(self, texts):
         """Return the predicted labels for each text (0.5 threshold)."""

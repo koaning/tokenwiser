@@ -103,11 +103,28 @@ uv run --with 'marimo>=0.21.1' --with 'pandas>=2.0' --with 'matplotlib>=3.7' \
   marimo edit scripts/benchmark/classification_benchmark.py
 ```
 
-Both benchmarks time each model **from data-on-disk to a trained model** and run
-single-threaded, so the comparison is apples-to-apples. The two scripts live in
-`scripts/benchmark/`: `benchmark_quality.py` compares quality/speed/size on the
-real split; `benchmark_scaling.py` replicates the data to growing sizes and
-tracks training time and peak memory.
+Both benchmarks time each model **from data-on-disk to a trained model**. The
+two scripts live in `scripts/benchmark/`: `benchmark_quality.py` compares
+quality/speed/size on the real split; `benchmark_scaling.py` replicates the data
+to growing sizes and tracks training time and peak memory.
+
+### Multilabel benchmark (runnable notebook)
+
+For larger, imbalanced multilabel data there is a self-contained marimo notebook
+that **runs** the comparison itself (tokenwiser parallel/single-thread vs
+scikit-learn TF-IDF and CountVectorizer, each in an isolated subprocess for a
+clean peak-RSS reading) and visualizes speed, memory, model size, and per-label
+F1. It expects JSONL with `{"text": ..., "labels": [...]}`. Run it in the
+**project environment** (it shells out to the same interpreter to run each
+variant, so tokenwiser must be built and scikit-learn/psutil installed):
+
+```bash
+.venv/bin/marimo edit scripts/benchmark/multilabel_benchmark.py
+```
+
+tokenwiser parallelizes its randomized search across all cores automatically
+(rayon); results stay bit-for-bit reproducible regardless of core count
+(`RAYON_NUM_THREADS=1` pins it to one).
 
 ## Development
 

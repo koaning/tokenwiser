@@ -30,6 +30,10 @@ pub struct Header {
     pub n_features: usize,
     pub n_hashes: usize,
     pub feature_value: String,
+    /// Per-label decision thresholds (aligned to `labels`). Empty/missing in
+    /// older artifacts, in which case a fixed 0.5 is used.
+    #[serde(default)]
+    pub thresholds: Vec<f32>,
 }
 
 pub struct Model {
@@ -39,10 +43,15 @@ pub struct Model {
 }
 
 impl Model {
-    pub fn from_fit(vocab: Vec<String>, cfg: &TrialConfig, fit: LogReg) -> Model {
+    pub fn from_fit(
+        vocab: Vec<String>,
+        cfg: &TrialConfig,
+        fit: LogReg,
+        thresholds: Vec<f32>,
+    ) -> Model {
         Model {
             header: Header {
-                version: 1,
+                version: 2,
                 labels: vocab,
                 tokenizer: cfg.tokenizer.clone(),
                 lowercase: cfg.lowercase,
@@ -51,10 +60,17 @@ impl Model {
                 n_features: cfg.n_features,
                 n_hashes: cfg.n_hashes,
                 feature_value: cfg.feature_value.clone(),
+                thresholds,
             },
             weights: fit.weights,
             bias: fit.bias,
         }
+    }
+
+    /// Decision threshold for label `l` (0.5 if none was stored).
+    #[inline]
+    fn threshold(&self, l: usize) -> f32 {
+        self.header.thresholds.get(l).copied().unwrap_or(0.5)
     }
 
     fn n_labels(&self) -> usize {
@@ -81,13 +97,14 @@ impl Model {
         z.iter().map(|&v| 1.0 / (1.0 + (-v).exp())).collect()
     }
 
-    /// Predicted labels for one text at the fixed 0.5 threshold.
+    /// Predicted labels for one text, using each label's stored threshold
+    /// (0.5 when thresholds were not tuned).
     pub fn predict(&self, text: &str) -> Vec<String> {
         let probs = self.proba(text);
         probs
             .iter()
             .enumerate()
-            .filter(|(_, &p)| p >= 0.5)
+            .filter(|(l, &p)| p >= self.threshold(*l))
             .map(|(l, _)| self.header.labels[l].clone())
             .collect()
     }

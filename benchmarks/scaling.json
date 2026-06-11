@@ -1,6 +1,6 @@
 {
   "benchmark": "scaling",
-  "generated_at": "2026-06-09T14:18:38",
+  "generated_at": "2026-06-09T14:57:04",
   "platform": "macOS-26.3-arm64-arm-64bit-Mach-O",
   "python": "3.13.5",
   "dataset": {
@@ -28,7 +28,7 @@
       "n_train_rows": 5000,
       "load_seconds": null,
       "fit_seconds": null,
-      "total_seconds": 0.053572208038531244,
+      "total_seconds": 0.055062292027287185,
       "best_cv_score": 0.8730682561860075,
       "best_config": {
         "tokenizer": "unicode",
@@ -49,14 +49,14 @@
       "predict_seconds": null,
       "n_test_rows": null,
       "model_bytes": null,
-      "peak_rss_mb": 26.296875
+      "peak_rss_mb": 26.625
     },
     {
       "model": "sklearn",
       "n_train_rows": 5000,
-      "load_seconds": 0.008271791972219944,
-      "fit_seconds": 0.12579741701483727,
-      "total_seconds": 0.1340692089870572,
+      "load_seconds": 0.008886165916919708,
+      "fit_seconds": 0.1208374589914456,
+      "total_seconds": 0.1297236249083653,
       "best_cv_score": 0.9580746137039168,
       "best_config": {
         "tfidf__ngram_range": "(1, 1)",
@@ -69,14 +69,14 @@
       "predict_seconds": null,
       "n_test_rows": null,
       "model_bytes": null,
-      "peak_rss_mb": 157.0
+      "peak_rss_mb": 157.234375
     },
     {
       "model": "tokenwiser",
       "n_train_rows": 10000,
       "load_seconds": null,
       "fit_seconds": null,
-      "total_seconds": 0.1087556250859052,
+      "total_seconds": 0.11838641692884266,
       "best_cv_score": 0.8916973500697349,
       "best_config": {
         "tokenizer": "unicode",
@@ -97,14 +97,14 @@
       "predict_seconds": null,
       "n_test_rows": null,
       "model_bytes": null,
-      "peak_rss_mb": 30.625
+      "peak_rss_mb": 30.609375
     },
     {
       "model": "sklearn",
       "n_train_rows": 10000,
-      "load_seconds": 0.01820879091974348,
-      "fit_seconds": 0.22261520801112056,
-      "total_seconds": 0.24082399893086404,
+      "load_seconds": 0.018497125012800097,
+      "fit_seconds": 0.3136477080406621,
+      "total_seconds": 0.3321448330534622,
       "best_cv_score": 0.9772269005526693,
       "best_config": {
         "tfidf__ngram_range": "(1, 1)",
@@ -117,14 +117,14 @@
       "predict_seconds": null,
       "n_test_rows": null,
       "model_bytes": null,
-      "peak_rss_mb": 164.40625
+      "peak_rss_mb": 163.234375
     },
     {
       "model": "tokenwiser",
       "n_train_rows": 25000,
       "load_seconds": null,
       "fit_seconds": null,
-      "total_seconds": 0.2865582909435034,
+      "total_seconds": 0.2750360829522833,
       "best_cv_score": 0.9271684496698235,
       "best_config": {
         "tokenizer": "unicode",
@@ -145,14 +145,14 @@
       "predict_seconds": null,
       "n_test_rows": null,
       "model_bytes": null,
-      "peak_rss_mb": 40.609375
+      "peak_rss_mb": 40.484375
     },
     {
       "model": "sklearn",
       "n_train_rows": 25000,
-      "load_seconds": 0.04514629207551479,
-      "fit_seconds": 0.5780243340414017,
-      "total_seconds": 0.6231706261169165,
+      "load_seconds": 0.044879999943077564,
+      "fit_seconds": 0.5083886249922216,
+      "total_seconds": 0.5532686249352992,
       "best_cv_score": 0.9889723307836145,
       "best_config": {
         "tfidf__ngram_range": "(1, 1)",
@@ -165,14 +165,14 @@
       "predict_seconds": null,
       "n_test_rows": null,
       "model_bytes": null,
-      "peak_rss_mb": 180.40625
+      "peak_rss_mb": 181.265625
     },
     {
       "model": "tokenwiser",
       "n_train_rows": 50000,
       "load_seconds": null,
       "fit_seconds": null,
-      "total_seconds": 0.6142935829702765,
+      "total_seconds": 0.546491542016156,
       "best_cv_score": 0.949693939227553,
       "best_config": {
         "tokenizer": "unicode",
@@ -193,14 +193,14 @@
       "predict_seconds": null,
       "n_test_rows": null,
       "model_bytes": null,
-      "peak_rss_mb": 56.640625
+      "peak_rss_mb": 55.921875
     },
     {
       "model": "sklearn",
       "n_train_rows": 50000,
-      "load_seconds": 0.08691566600464284,
-      "fit_seconds": 0.9985930830007419,
-      "total_seconds": 1.0855087490053847,
+      "load_seconds": 0.0863347080303356,
+      "fit_seconds": 1.0047456669854,
+      "total_seconds": 1.0910803750157356,
       "best_cv_score": 0.9963613344057841,
       "best_config": {
         "tfidf__ngram_range": "(1, 1)",
@@ -213,14 +213,14 @@
       "predict_seconds": null,
       "n_test_rows": null,
       "model_bytes": null,
-      "peak_rss_mb": 211.53125
+      "peak_rss_mb": 210.90625
     },
     {
       "model": "tokenwiser",
       "n_train_rows": 100000,
       "load_seconds": null,
       "fit_seconds": null,
-      "total_seconds": 1.1483617910416797,
+      "total_seconds": 1.1821910830913112,
       "best_cv_score": 0.9601622756389823,
       "best_config": {
         "tokenizer": "unicode",
@@ -241,14 +241,14 @@
       "predict_seconds": null,
       "n_test_rows": null,
       "model_bytes": null,
-      "peak_rss_mb": 88.140625
+      "peak_rss_mb": 87.90625
     },
     {
       "model": "sklearn",
       "n_train_rows": 100000,
-      "load_seconds": 0.19841483305208385,
-      "fit_seconds": 2.0898365000030026,
-      "total_seconds": 2.2882513330550864,
+      "load_seconds": 0.17179262498393655,
+      "fit_seconds": 1.9755964159267023,
+      "total_seconds": 2.147389040910639,
       "best_cv_score": 0.9994870428768283,
       "best_config": {
         "tfidf__ngram_range": "(1, 1)",
@@ -261,14 +261,14 @@
       "predict_seconds": null,
       "n_test_rows": null,
       "model_bytes": null,
-      "peak_rss_mb": 269.53125
+      "peak_rss_mb": 270.34375
     },
     {
       "model": "tokenwiser",
       "n_train_rows": 200000,
       "load_seconds": null,
       "fit_seconds": null,
-      "total_seconds": 2.3198087089695036,
+      "total_seconds": 2.359931334038265,
       "best_cv_score": 0.9708423733373164,
       "best_config": {
         "tokenizer": "unicode",
@@ -289,14 +289,14 @@
       "predict_seconds": null,
       "n_test_rows": null,
       "model_bytes": null,
-      "peak_rss_mb": 157.53125
+      "peak_rss_mb": 157.40625
     },
     {
       "model": "sklearn",
       "n_train_rows": 200000,
-      "load_seconds": 0.34216912498231977,
-      "fit_seconds": 4.488820333965123,
-      "total_seconds": 4.8309894589474425,
+      "load_seconds": 0.34081320906989276,
+      "fit_seconds": 4.113400792004541,
+      "total_seconds": 4.454214001074433,
       "best_cv_score": 0.9996859479505031,
       "best_config": {
         "tfidf__ngram_range": "(1, 1)",
@@ -309,7 +309,7 @@
       "predict_seconds": null,
       "n_test_rows": null,
       "model_bytes": null,
-      "peak_rss_mb": 393.5625
+      "peak_rss_mb": 390.34375
     }
   ]
 }

@@ -41,6 +41,14 @@ impl Model {
         self.inner.header.labels.clone()
     }
 
+    /// Per-label decision thresholds (aligned to `labels()`); 0.5 each when
+    /// thresholds were not tuned.
+    fn threshold_values(&self) -> Vec<f32> {
+        let n = self.inner.header.labels.len();
+        let t = &self.inner.header.thresholds;
+        (0..n).map(|l| t.get(l).copied().unwrap_or(0.5)).collect()
+    }
+
     fn save(&self, path: &str) -> PyResult<()> {
         std::fs::write(path, self.inner.to_bytes())
             .map_err(|e| PyIOError::new_err(format!("cannot write {path}: {e}")))

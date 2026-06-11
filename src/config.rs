@@ -120,6 +120,7 @@ pub struct SearchSpace {
     pub cv: usize,
     pub seed: u64,
     pub batch_size: usize,
+    pub tune_thresholds: bool,
 
     pub tokenizer: StrSpec,
     pub lowercase: BoolSpec,

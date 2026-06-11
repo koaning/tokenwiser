@@ -10,18 +10,10 @@
 //! API) and L1/L2 regularization applied to the weights touched by each batch
 //! — the standard sparse-update approximation.
 //!
-//! Two convergence-related behaviors:
-//!
-//! * **Early stopping on tolerance.** `cfg.epochs` is a *maximum* budget; we
-//!   stop once the (balanced) training log-loss fails to improve by `TOL` for
-//!   `N_ITER_NO_CHANGE` consecutive epochs (the same idea scikit-learn's
-//!   `SGDClassifier` uses). Under L2 the objective is strictly convex with a
-//!   unique optimum, so this makes a fit a faithful "converged" solution rather
-//!   than an artifact of its epoch count.
-//! * **Warm starts.** A fit may be initialized from a previous solution in the
-//!   *same feature space* (see `search.rs`, which warm-starts trials along the
-//!   `l2` regularization path). Because the optimum is unique, this only speeds
-//!   convergence; it never changes where we land.
+//! **Early stopping on tolerance.** `cfg.epochs` is a *maximum* budget; we stop
+//! once the (balanced) training log-loss fails to improve by `TOL` for
+//! `N_ITER_NO_CHANGE` consecutive epochs (the same idea scikit-learn's
+//! `SGDClassifier` uses).
 
 use crate::config::TrialConfig;
 use crate::features::{hash_row, SparseRow};
@@ -66,8 +58,7 @@ impl LogReg {
     /// Train on a subset of rows (referenced by `idxs`).
     ///
     /// `rows` and `labels` are indexed by the original row id; `idxs` selects
-    /// the training rows for this fit. When `warm` is `Some`, weights/bias are
-    /// initialized from it (it must share `n_labels`/`n_features`).
+    /// the training rows for this fit.
     pub fn train(
         rows: &[SparseRow],
         labels: &[Vec<u32>],
@@ -77,15 +68,10 @@ impl LogReg {
         cfg: &TrialConfig,
         batch_size: usize,
         seed: u64,
-        warm: Option<&LogReg>,
     ) -> LogReg {
         let n = idxs.len();
-        let (mut weights, mut bias) = match warm {
-            Some(w) if w.n_labels == n_labels && w.n_features == n_features => {
-                (w.weights.clone(), w.bias.clone())
-            }
-            _ => (vec![0.0f32; n_labels * n_features], vec![0.0f32; n_labels]),
-        };
+        let mut weights = vec![0.0f32; n_labels * n_features];
+        let mut bias = vec![0.0f32; n_labels];
 
         // Balanced class weights per label, computed on the training subset:
         //   w_pos = N / (2 * n_pos), w_neg = N / (2 * n_neg).

@@ -25,6 +25,17 @@ fn fnv1a(bytes: &[u8], seed: u64) -> u64 {
 }
 
 /// A sparse feature row: sorted unique indices with their values.
+///
+/// NOTE on storage width (deliberately not optimized yet):
+/// - `values` are `f32` for simplicity, but are never truly fractional — in
+///   `binary` mode every value is `1.0` (the array could be dropped entirely),
+///   and in `count` mode they are small non-negative integers (`u16`, or `u8`
+///   with a saturating add, would suffice). `index` is `u32` because
+///   `n_features` can exceed `u16`'s 64k ceiling (the default tops at 100k).
+/// - Payback: at ~200k rows the feature payload is ~74 MB of a ~157 MB peak;
+///   dropping binary values + a CSR layout would trim it to ~115 MB (~27%).
+///   Below ~25k rows it is <8 MB — noise. So this only matters at 100k+ rows
+///   and is left as a future optimization.
 pub struct SparseRow {
     pub indices: Vec<u32>,
     pub values: Vec<f32>,

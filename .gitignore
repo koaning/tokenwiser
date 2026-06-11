@@ -135,3 +135,4 @@ dmypy.json
 *.model
 *.csv
 .DS_Store
+data/toxic/toxic.jsonl
