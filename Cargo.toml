@@ -8,12 +8,29 @@ name = "_core"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-pyo3 = { version = "0.22", features = ["extension-module"] }
+pyo3 = { version = "0.22", features = ["extension-module", "abi3-py38"], optional = true }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 rayon = "1"
+
+[features]
+default = ["python"]
+# The PyO3 bindings. Disable (`cargo bench --no-default-features`) to build
+# the pure-Rust core without linking CPython, e.g. for criterion benches.
+python = ["dep:pyo3"]
+
+[dev-dependencies]
+criterion = "0.5"
+
+[[bench]]
+name = "hotpaths"
+harness = false
 
 [profile.release]
 opt-level = 3
 lto = true
 codegen-units = 1
+# Debug symbols dominate an LTO cdylib; stripping is the single biggest
+# wheel-size lever. (Do NOT add panic="abort": pyo3 turns panics into Python
+# exceptions, and abort would kill the host interpreter instead.)
+strip = true

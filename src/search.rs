@@ -17,9 +17,27 @@ use serde::Serialize;
 use crate::config::{SearchSpace, TrialConfig};
 use crate::dataset::Dataset;
 use crate::features::SparseRow;
-use crate::model::{build_rows, LogReg};
+use crate::model::{build_rows, LogReg, TokenCache};
 use crate::rng::Rng;
 use crate::{artifact::Model, config};
+
+/// The slice of a config that determines tokenization output. Trials sharing
+/// a signature share one [`TokenCache`]; everything downstream (`n_features`,
+/// `n_hashes`, `feature_value`) is integer remixing per trial.
+#[derive(PartialEq)]
+struct TokenSig {
+    tokenizer: String,
+    lowercase: bool,
+    ngram: (u32, u32),
+}
+
+fn token_sig(cfg: &TrialConfig) -> TokenSig {
+    TokenSig {
+        tokenizer: cfg.tokenizer.clone(),
+        lowercase: cfg.lowercase,
+        ngram: (cfg.ngram_min, cfg.ngram_max),
+    }
+}
 
 #[derive(Serialize, Clone)]
 pub struct ConfigJson {
@@ -168,55 +186,115 @@ pub fn run(space: &SearchSpace, data: Dataset) -> Result<(Model, Report), String
         })
         .collect();
 
+    // Configs are deterministic from the seed; enumerate them up front and
+    // group trials by tokenization signature, preserving first-appearance
+    // order. Each group tokenizes the corpus ONCE into a compact u64
+    // gram-hash cache; its trials then derive their feature rows by integer
+    // remixing. Groups run sequentially so at most one cache is alive.
+    let configs: Vec<TrialConfig> = (0..space.trials)
+        .map(|t| space.sample(&mut Rng::derive(space.seed, t as u64 + 1)))
+        .collect();
+    let mut groups: Vec<(TokenSig, Vec<usize>)> = Vec::new();
+    for (t, cfg) in configs.iter().enumerate() {
+        let sig = token_sig(cfg);
+        match groups.iter_mut().find(|(s, _)| *s == sig) {
+            Some((_, ts)) => ts.push(t),
+            None => groups.push((sig, vec![t])),
+        }
+    }
+
     // Trials are independent, and every fit is seeded deterministically from
     // (trial, fold), so evaluating them in parallel is bit-identical to a
-    // serial run — only completion order differs, and scores are collected by
-    // index. rayon uses all cores by default (set RAYON_NUM_THREADS to pin it).
-    let trials_detail: Vec<TrialReport> = (0..space.trials)
-        .into_par_iter()
-        .map(|t| {
-            // Configs are deterministic from the seed.
-            let cfg = space.sample(&mut Rng::derive(space.seed, t as u64 + 1));
+    // serial run — only completion order differs, and reports are collected
+    // by trial index. rayon uses all cores by default (set RAYON_NUM_THREADS
+    // to pin it).
+    let mut trials_slots: Vec<Option<TrialReport>> = (0..space.trials).map(|_| None).collect();
+    for (sig, trial_ids) in &groups {
+        // A single-trial group gets nothing back for the cache's memory
+        // (one u64 per gram corpus-wide); featurize it directly instead.
+        // This keeps fixed-config runs (e.g. trials=1 production fits) at
+        // the no-cache memory profile.
+        let cache = if trial_ids.len() > 1 {
+            Some(TokenCache::build(
+                &data.texts,
+                &sig.tokenizer,
+                sig.lowercase,
+                sig.ngram.0,
+                sig.ngram.1,
+            ))
+        } else {
+            None
+        };
+        let reports: Vec<TrialReport> = trial_ids
+            .par_iter()
+            .map(|&t| {
+                let cfg = &configs[t];
 
-            // Build compact feature rows from texts (no token-string cache);
-            // reused across folds, dropped at the end of the trial.
-            let rows = build_rows(&data.texts, &cfg);
+                // Derive this trial's compact feature rows from the shared
+                // cache; reused across folds, dropped at the end of the trial.
+                let rows = match &cache {
+                    Some(c) => c.rows(
+                        cfg.n_features,
+                        cfg.n_hashes,
+                        cfg.feature_value == "binary",
+                    ),
+                    None => build_rows(&data.texts, cfg),
+                };
 
-            let mut fold_scores = Vec::with_capacity(cv);
-            for f in 0..cv {
-                let (train_idx, val_idx) = &fold_idx[f];
-                if train_idx.is_empty() || val_idx.is_empty() {
-                    continue;
+                // Folds are independent too; nested rayon parallelism is cheap
+                // (work-stealing only splits when cores are idle) and fills the
+                // machine when `trials < cores` — notably trials=1 runs.
+                // Collected by fold index, so the score order matches the
+                // serial loop.
+                let fold_scores: Vec<f64> = (0..cv)
+                    .into_par_iter()
+                    .map(|f| {
+                        let (train_idx, val_idx) = &fold_idx[f];
+                        if train_idx.is_empty() || val_idx.is_empty() {
+                            return None;
+                        }
+                        let fit_seed = space
+                            .seed
+                            .wrapping_add((t as u64 + 1).wrapping_mul(1009))
+                            .wrapping_add((f as u64 + 1).wrapping_mul(9176));
+                        let fit = LogReg::train(
+                            &rows,
+                            &data.labels,
+                            train_idx,
+                            n_labels,
+                            cfg.n_features,
+                            cfg,
+                            space.batch_size,
+                            fit_seed,
+                        );
+                        Some(macro_f1(&fit, &rows, &data.labels, val_idx, n_labels))
+                    })
+                    .collect::<Vec<Option<f64>>>()
+                    .into_iter()
+                    .flatten()
+                    .collect();
+
+                let mean = if fold_scores.is_empty() {
+                    0.0
+                } else {
+                    fold_scores.iter().sum::<f64>() / fold_scores.len() as f64
+                };
+                TrialReport {
+                    trial: t,
+                    config: ConfigJson::from(cfg),
+                    fold_scores,
+                    mean_macro_f1: mean,
                 }
-                let fit_seed = space
-                    .seed
-                    .wrapping_add((t as u64 + 1).wrapping_mul(1009))
-                    .wrapping_add((f as u64 + 1).wrapping_mul(9176));
-                let fit = LogReg::train(
-                    &rows,
-                    &data.labels,
-                    train_idx,
-                    n_labels,
-                    cfg.n_features,
-                    &cfg,
-                    space.batch_size,
-                    fit_seed,
-                );
-                fold_scores.push(macro_f1(&fit, &rows, &data.labels, val_idx, n_labels));
-            }
-
-            let mean = if fold_scores.is_empty() {
-                0.0
-            } else {
-                fold_scores.iter().sum::<f64>() / fold_scores.len() as f64
-            };
-            TrialReport {
-                trial: t,
-                config: ConfigJson::from(&cfg),
-                fold_scores,
-                mean_macro_f1: mean,
-            }
-        })
+            })
+            .collect();
+        for r in reports {
+            let t = r.trial;
+            trials_slots[t] = Some(r);
+        }
+    }
+    let trials_detail: Vec<TrialReport> = trials_slots
+        .into_iter()
+        .map(|r| r.expect("every trial produced a report"))
         .collect();
 
     // Winner selection is serial; strictly-greater keeps the earliest trial on
@@ -229,38 +307,46 @@ pub fn run(space: &SearchSpace, data: Dataset) -> Result<(Model, Report), String
     }
     let (best_trial, best_score) =
         best.ok_or_else(|| "no trials were run (trials must be >= 1)".to_string())?;
-    // Re-derive the winning config deterministically from its trial index.
-    let best_cfg = space.sample(&mut Rng::derive(space.seed, best_trial as u64 + 1));
+    let best_cfg = configs[best_trial].clone();
 
     let rows = build_rows(&data.texts, &best_cfg);
     let all_idx: Vec<usize> = (0..n).collect();
 
-    // Per-label threshold tuning on the winning config's out-of-fold
-    // predictions: re-run its CV (same per-fold seeds as the search, so the
-    // fold models are identical) and collect each row's probability from the
-    // fold where it was held out. Those unbiased holdout probabilities are then
-    // used to pick the threshold that maximizes each label's F1.
-    let (thresholds, oof_macro_f1) = if space.tune_thresholds {
-        let oof = oof_probabilities(space, &data, &best_cfg, &rows, &fold_idx, best_trial, n_labels);
-        let thr = tune_thresholds(&oof, &data.labels, n_labels);
-        let f1 = macro_f1_at(&oof, &data.labels, &thr, n_labels);
-        (thr, f1)
-    } else {
-        let thr = vec![0.5f32; n_labels];
-        (thr, best_score)
-    };
-
-    // Retrain the winning configuration on all rows for the shipped model.
+    // Two independent tail jobs run concurrently (rayon::join):
+    //
+    // * Per-label threshold tuning on the winning config's out-of-fold
+    //   predictions: re-run its CV (same per-fold seeds as the search, so the
+    //   fold models are identical) and collect each row's probability from the
+    //   fold where it was held out. Those unbiased holdout probabilities pick
+    //   the threshold that maximizes each label's F1.
+    // * The final retrain of the winning configuration on all rows.
+    //
+    // Neither depends on the other's output, so this is deterministic.
     let final_seed = space.seed.wrapping_add(0xF1A1);
-    let fit = LogReg::train(
-        &rows,
-        &data.labels,
-        &all_idx,
-        n_labels,
-        best_cfg.n_features,
-        &best_cfg,
-        space.batch_size,
-        final_seed,
+    let ((thresholds, oof_macro_f1), fit) = rayon::join(
+        || {
+            if space.tune_thresholds {
+                let oof =
+                    oof_probabilities(space, &data, &best_cfg, &rows, &fold_idx, best_trial, n_labels);
+                let thr = tune_thresholds(&oof, &data.labels, n_labels);
+                let f1 = macro_f1_at(&oof, &data.labels, &thr, n_labels);
+                (thr, f1)
+            } else {
+                (vec![0.5f32; n_labels], best_score)
+            }
+        },
+        || {
+            LogReg::train(
+                &rows,
+                &data.labels,
+                &all_idx,
+                n_labels,
+                best_cfg.n_features,
+                &best_cfg,
+                space.batch_size,
+                final_seed,
+            )
+        },
     );
     let model = Model::from_fit(data.vocab.clone(), &best_cfg, fit, thresholds.clone());
 
@@ -298,28 +384,41 @@ fn oof_probabilities(
     trial: usize,
     n_labels: usize,
 ) -> Vec<Vec<f32>> {
+    // Folds run in parallel; each writes a disjoint set of rows, so the merge
+    // below is order-independent and the result deterministic.
+    let fold_preds: Vec<Vec<(usize, Vec<f32>)>> = fold_idx
+        .par_iter()
+        .enumerate()
+        .map(|(f, (train_idx, val_idx))| {
+            if train_idx.is_empty() || val_idx.is_empty() {
+                return Vec::new();
+            }
+            // Same seed formula as the search, so this fold model is identical.
+            let fit_seed = space
+                .seed
+                .wrapping_add((trial as u64 + 1).wrapping_mul(1009))
+                .wrapping_add((f as u64 + 1).wrapping_mul(9176));
+            let fit = LogReg::train(
+                rows,
+                &data.labels,
+                train_idx,
+                n_labels,
+                cfg.n_features,
+                cfg,
+                space.batch_size,
+                fit_seed,
+            );
+            val_idx
+                .iter()
+                .map(|&i| (i, fit.proba_row(&rows[i])))
+                .collect()
+        })
+        .collect();
+
     let mut oof = vec![vec![0.5f32; n_labels]; rows.len()];
-    for (f, (train_idx, val_idx)) in fold_idx.iter().enumerate() {
-        if train_idx.is_empty() || val_idx.is_empty() {
-            continue;
-        }
-        // Same seed formula as the search, so this fold model is identical.
-        let fit_seed = space
-            .seed
-            .wrapping_add((trial as u64 + 1).wrapping_mul(1009))
-            .wrapping_add((f as u64 + 1).wrapping_mul(9176));
-        let fit = LogReg::train(
-            rows,
-            &data.labels,
-            train_idx,
-            n_labels,
-            cfg.n_features,
-            cfg,
-            space.batch_size,
-            fit_seed,
-        );
-        for &i in val_idx {
-            oof[i] = fit.proba_row(&rows[i]);
+    for preds in fold_preds {
+        for (i, p) in preds {
+            oof[i] = p;
         }
     }
     oof

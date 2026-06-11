@@ -3,11 +3,12 @@
 //! Rows are read from disk and reduced to `(text, label-indices)`. Labels are
 //! mapped to a stable, sorted vocabulary so artifacts are reproducible.
 //!
-//! We deliberately keep *only* the raw texts and labels — no tokenized cache.
-//! Tokenizer/lowercase/n-gram/hashing choices are all searchable, so features
-//! are re-derived per feature-signature group in `search.rs` directly from the
-//! texts (see that module's grouping). Holding the corpus as token strings was
-//! the dominant memory cost and bought almost nothing over re-tokenizing.
+//! We deliberately keep *only* the raw texts and labels — no token strings.
+//! Tokenizer/lowercase/n-gram choices are searchable, so `search.rs` groups
+//! trials by tokenization signature and builds one compact `TokenCache` (a
+//! single fused u64 hash per n-gram) per group; hashing knobs are applied by
+//! integer remixing per trial. Holding the corpus as token *strings* was the
+//! dominant memory cost and bought almost nothing over re-tokenizing.
 
 use std::collections::HashMap;
 use std::fs::File;

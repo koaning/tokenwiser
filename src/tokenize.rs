@@ -26,6 +26,60 @@ pub fn base_tokens(text: &str, tokenizer: &str, lowercase: bool) -> Vec<String> 
     }
 }
 
+/// Reusable tokenized-document buffer: all (optionally lowercased) token
+/// bytes packed into one string, with token boundaries as offsets.
+///
+/// This is the allocation-free counterpart of [`base_tokens`]: refilling a
+/// `TokenBuf` reuses its two buffers, so bulk featurization and single-text
+/// prediction do no per-token allocation (ASCII tokens; rare non-ASCII
+/// tokens fall back to one transient `String` to keep `str::to_lowercase`
+/// semantics, e.g. Greek final sigma).
+#[derive(Default)]
+pub struct TokenBuf {
+    bytes: String,
+    offsets: Vec<usize>,
+}
+
+impl TokenBuf {
+    /// Re-tokenize `text` into this buffer (clears previous contents).
+    pub fn fill(&mut self, text: &str, tokenizer: &str, lowercase: bool) {
+        self.bytes.clear();
+        self.offsets.clear();
+        self.offsets.push(0);
+        let mut push = |tok: &str| {
+            if !lowercase {
+                self.bytes.push_str(tok);
+            } else if tok.is_ascii() {
+                // ASCII fast path: char-wise lowercasing == str::to_lowercase.
+                for b in tok.bytes() {
+                    self.bytes.push(b.to_ascii_lowercase() as char);
+                }
+            } else {
+                // Keep exact str::to_lowercase semantics for non-ASCII.
+                self.bytes.push_str(&tok.to_lowercase());
+            }
+            self.offsets.push(self.bytes.len());
+        };
+        match tokenizer {
+            "whitespace" => text.split_whitespace().for_each(&mut push),
+            _ => text
+                .split(|c: char| !c.is_alphanumeric())
+                .filter(|s| !s.is_empty())
+                .for_each(&mut push),
+        }
+    }
+
+    pub fn n_tokens(&self) -> usize {
+        self.offsets.len() - 1
+    }
+
+    /// Byte slice of token `i`.
+    #[inline]
+    pub fn token_bytes(&self, i: usize) -> &[u8] {
+        &self.bytes.as_bytes()[self.offsets[i]..self.offsets[i + 1]]
+    }
+}
+
 /// Generate word n-grams (for every n in `min..=max`) from base tokens.
 ///
 /// Unigrams are emitted verbatim; higher-order grams join tokens with a
